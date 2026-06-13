@@ -1,98 +1,111 @@
 # Aevum
 
-A personal-finance app built around the **consumption tax** idea: overspending
-relative to your own budgets imposes a self-billed tax, so you see the cost of
-every discretionary rupee at the end of the week.
+> **Future begins today.**
 
-> "Aevum" is the product brand (`BRAND_NAME`); the legacy fallback name is
-> "Personal Budget App", which is still this monorepo's directory name.
+**Aevum is a personal-finance app that turns everyday spending into future
+savings — automatically.** Every time you spend, Aevum levies a small
+_self-imposed consumption tax_ and transfers the proceeds into a dedicated
+savings account of the user, building a provision for that same kind of expense
+down the road. Set budgets for the things that matter, and overspending one adds
+a penalty on top — a sharper nudge to stay deliberate. Along the way it
+auto-categorizes your transactions, imports your bank and UPI statements, tracks
+per-category budgets, and forecasts recurring bills, while the weekly tax ledger
+runs itself. It's budgeting with built-in accountability — and a savings habit
+that quietly funds your future self.
 
-This is a monorepo with two **git submodules**, each its own repository:
+![Aevum landing page](USER_GUIDE/images/landing.png)
+<!-- TODO: screenshot — landing / hero page -->
 
-| Submodule | Stack | Default port |
-| --- | --- | --- |
-| `backend/` | Python 3.13 · FastAPI · SQLAlchemy 2.0 (async) · **PostgreSQL** (asyncpg) · Alembic · Redis | 4000 |
-| `frontend/` | React 18 · Vite | 5173 |
+---
 
-## Quick start
+## How it works
 
-### Backend
+Most budgeting apps just tell you what you spent. Aevum turns each expense into a
+small act of saving. Spend on something, and a fraction of it is set aside as a
+self-imposed tax — money you're quietly provisioning for future expenses of the
+same kind.
 
-Postgres + Redis run via docker-compose; the app + tooling run in a venv.
+- **Discretionary** spending (dining out, shopping) is taxed a little more.
+- **Essential** spending (groceries, utilities) is taxed a little less.
+- **Fixed commitments** (rent, loan EMIs) and **exempted** items aren't taxed.
 
-```bash
-cd backend
-docker compose up -d                                     # Postgres + Redis
+The tax is collected into your **savings account** every week. On top of that, you
+set budgets per category — and if you overspend one, Aevum adds a _penalty_ to
+that week's bill, so going over the line costs a bit more than staying within it.
 
-python -m venv .venv
-source .venv/bin/activate                                # or .venv\Scripts\activate on Windows
-.venv/bin/pip install -r requirements.txt -r requirements-dev.txt
-
-cp .env.example .env                                     # then fill in the REQUIRED vars
-.venv/bin/python -m app.db.init_db                       # migrate + seed (also auto-runs on startup)
-.venv/bin/python run.py                                  # dev server on http://localhost:4000
+```mermaid
+flowchart LR
+    A[You spend] --> B[Aevum categorizes it]
+    B --> C[A small self-tax is<br/>set aside as savings]
+    C --> D{Over your<br/>budget?}
+    D -- No --> E[Weekly bill]
+    D -- Yes --> F[+ penalty on top]
+    F --> E
+    E --> G[Paid into your<br/>savings account]
+    G --> A
 ```
 
-API docs: <http://localhost:4000/docs> (Swagger) and <http://localhost:4000/redoc>.
-See [backend/README.md](backend/README.md) for the required env vars and the
-full configuration reference.
+_Every expense is categorized → a small self-tax is set aside as a future
+provision → overspending a budget adds a penalty → it all rolls into one weekly
+bill, paid from your everyday account into your savings account._
 
-### Frontend
+The tax is **self-imposed**: you set the budgets and the rates. The money isn't
+just tracked — it's actually moved into your savings account, so the discipline
+turns into a real balance. That savings account is the foundation Aevum will
+build on as it grows.
 
-```bash
-cd frontend
-npm install
-npm run dev                                              # Vite dev server on http://localhost:5173
-```
+![Aevum dashboard](USER_GUIDE/images/dashboard.png)
+<!-- TODO: screenshot — dashboard populated with data -->
 
-Override the API base with `VITE_API_URL` if the backend isn't on the default
-port.
+## What you can do
 
-## What's where
+- **Track every transaction** — add them by hand or import a bank / UPI
+  statement (PhonePe, Google Pay, Paytm, and more) and let Aevum read it for you.
+- **Auto-categorize spending** with smart, hierarchical categories — set a rule
+  once for a merchant and Aevum tags it for you from then on.
+- **Turn spending into savings** — your self-imposed taxes are moved out of your
+  everyday account and into a dedicated savings account, so everyday purchases
+  quietly build a real provision for the future.
+- **Set budgets that matter** — per category, per period. Spend within them and
+  you pay only the base tax; go over and a penalty is added on top.
+- **Get one weekly bill** — Aevum totals your consumption tax (plus any
+  penalties) for the week into a single, concrete number you settle.
+- **See recurring bills coming** — Aevum learns your repeating expenses from
+  history and forecasts them, so nothing surprises you.
+- **Keep your account secure** — two-factor authentication, device-aware
+  sign-in, and account recovery are built in.
+- **Stay in the loop** — a notifications feed surfaces new bills, budget
+  breaches, failed imports, and anything else worth your attention.
 
-```text
-.
-├── backend/                # FastAPI app — see backend/README.md
-│   ├── CONTRIBUTING.md     # architecture rules & coding conventions
-│   └── docs/               # architecture / core / database / testing / per-module pages + archive/
-└── frontend/               # React SPA — see frontend/README.md
-```
+## Learn more
 
-## Key concepts
+New here? Start with the [**User Guide**](USER_GUIDE/README.md). Useful entry
+points:
 
-- **Tags** are hierarchical and typed (`income` / `committed` / `essential` /
-  `discretionary` / `exempted` / system-only `total` / `uncategorized` /
-  `consumption_tax`).
-- **Beneficiaries** specialise into `Merchant` or `Person`. The
-  `CategorizationRule` table maps `beneficiary_id → tag_ids`; the engine
-  applies the rules and propagates each leaf tag up its parent chain.
-- **Transactions** can be manually entered or imported from a bank statement
-  (PhonePe / Paytm UPI PDF, parsed via an async job pipeline + parser registry).
-  Each `Transaction` carries a `TransactionCategorized` row per applied tag.
-- **Budget limits** are per-(user, tag, period). Breaching one adds a *penalty*
-  on top of the base consumption tax.
-- **Weekly bill generation** runs on an incremental real-time ledger: every
-  transaction mutation recalculates the week's tax, and a Monday worker
-  finalizes the **ISO week** (Mon–Sun, in the user's timezone) through a
-  5-state bill machine.
+- [Getting started](USER_GUIDE/getting-started.md) — create an account and add
+  your first transaction
+- [The consumption tax & your weekly bill](USER_GUIDE/consumption-tax.md) — the
+  idea at the heart of Aevum
+- [Your savings account](USER_GUIDE/savings-account.md) — where the tax goes, and
+  what's coming next
+- [Budgets](USER_GUIDE/budgets.md) · [Categories & rules](USER_GUIDE/categories-and-rules.md)
+  · [Recurring bills](USER_GUIDE/recurring.md)
+- [Importing statements](USER_GUIDE/importing-statements.md) ·
+  [Account & security](USER_GUIDE/account-and-security.md) ·
+  [Your data & privacy](USER_GUIDE/your-data-and-privacy.md)
 
-See [backend/docs/architecture.md](backend/docs/architecture.md) for the
-full design and [backend/docs/database.md](backend/docs/database.md) for the
-data model.
+---
 
-## Development
+### Building Aevum?
 
-- **Tests**: `cd backend && .venv/bin/pytest` (runs against an ephemeral
-  Postgres testcontainer; also `--cov=app` and `tests/benchmarks/benchmark.py`
-  for the perf suite).
-- **Lint**: `ruff` (the VS Code project is configured to run it on save;
-  `E501` line-length is intentionally ignored).
-- **Reset the dev DB**: `cd backend && scripts/reset-baseline.sh` (drop +
-  recreate + migrate + seed). The dev database holds only dev/test data.
+Aevum is a monorepo of two git submodules — a **FastAPI** backend and a
+**React** frontend. If you want to run it locally, contribute, or understand how
+it's put together:
 
-## Deploy
+- [**CONTRIBUTING.md**](CONTRIBUTING.md) — tech stack, setup, running both apps,
+  testing, and configuration
+- [**ARCHITECTURE.md**](ARCHITECTURE.md) — how the pieces fit together, then a
+  route down into each submodule's own docs
 
-Target is **Render** (free tier to start) — both submodules deploy there. The
-backend ships a Dockerfile + a `render.yaml` Blueprint and runs lean via
-env-driven feature flags; see [backend/docs/deployment.md](backend/docs/deployment.md)
-for the full runbook.
+> "Aevum" is the product brand; "Personal Budget App" is the legacy name still
+> used as this monorepo's directory name.
