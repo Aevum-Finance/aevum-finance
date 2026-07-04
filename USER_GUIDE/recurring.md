@@ -17,7 +17,6 @@ forecast so your actuals stay clean and your predictions stay honest.
 ## What you'll see
 
 ![Recurring forecasts](images/recurring-forecast.png)
-<!-- TODO: screenshot — forecasted recurring expenses (sample data) -->
 
 - Upcoming recurring expenses Aevum expects, with their predicted dates and
   amounts.

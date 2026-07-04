@@ -4,7 +4,6 @@ A transaction is any money that moves — an expense you paid or income you
 received. Everything else in Aevum builds on these.
 
 ![Add transaction form](images/add-transaction.png)
-<!-- TODO: screenshot — the Add Transaction form -->
 
 ## Adding a transaction
 
@@ -44,7 +43,7 @@ can also view spending grouped by beneficiary to see where your money actually
 goes.
 
 ![Transactions list](images/transactions-list.png)
-<!-- TODO: screenshot — populated transactions list (sample data) -->
+![Transactions Calendar](images/transactions-calendar.png)
 
 ## FAQ
 

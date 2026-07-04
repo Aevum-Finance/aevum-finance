@@ -1,12 +1,11 @@
 # Beneficiaries
 
 A **beneficiary** is the other side of a transaction — the shop you paid or the
-person you sent money to. Beneficiaries are how Aevum understands *who* your
+person you sent money to. Beneficiaries are how Aevum understands _who_ your
 money goes to, which is what powers automatic categorization and your
 spending-by-payee insights.
 
 ![Beneficiaries list](images/beneficiaries-list.png)
-<!-- TODO: screenshot — beneficiaries page with merchant + person rows -->
 
 ## Two kinds: merchants and people
 
@@ -51,7 +50,7 @@ No — you can add one on the spot while entering a transaction, and imports cre
 them for you.
 
 **What's the difference between a beneficiary and a category?**
-A beneficiary is *who* the money involved; a category is *what kind* of spending
+A beneficiary is _who_ the money involved; a category is _what kind_ of spending
 it was. A rule connects the two ("this payee → these categories").
 
 **I have the same shop listed twice.**

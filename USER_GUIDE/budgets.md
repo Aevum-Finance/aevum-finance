@@ -1,7 +1,7 @@
 # Budgets
 
 A budget is a limit you set for a category over a period — say, ₹8,000 on Dining
-each month. Budgets are how you tell Aevum what "too much" means for *you*.
+each month. Budgets are how you tell Aevum what "too much" means for _you_.
 
 Budgets live on the **Expense Tracker** — a single month-scoped page (its nav
 label is "Expense Tracker") that brings three things together: what you've spent
@@ -9,7 +9,6 @@ in each category, the limit you've set for it, and how you're tracking against
 that limit. You set, adjust, and watch your budgets all in one place.
 
 ![Expense Tracker](images/expense-tracker.png)
-<!-- TODO: screenshot — the Expense Tracker with category cards + an over-budget marker -->
 
 ## Setting a budget
 
@@ -27,7 +26,7 @@ the base tax — but only for the spending that actually crosses the line:
   period → base tax **plus** a penalty.
 
 A refund or credit that brings you back under the limit eases off the penalty
-again. In other words, the penalty tracks where you *actually* stand against the
+again. In other words, the penalty tracks where you _actually_ stand against the
 budget, moment to moment.
 
 You can set the penalty rates yourself on the Taxation Rules page (defaults are

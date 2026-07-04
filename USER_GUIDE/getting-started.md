@@ -3,7 +3,7 @@
 This page walks you from a fresh account to your first recorded transaction.
 
 > **Just exploring? Try it with sample data first.** If you're running your own
-> Aevum instance, you can generate realistic *synthetic* statements (no real
+> Aevum instance, you can generate realistic _synthetic_ statements (no real
 > financial data), import them, and get a feel for the app risk-free — then
 > [reset your data](your-data-and-privacy.md#reset-all-your-data) and start fresh
 > from real statements when you're ready. See [Your data &
@@ -28,14 +28,13 @@ After signing in you land on your **dashboard** — a summary of recent activity
 your current week's tax, and budgets. The top navigation takes you to
 Transactions, Budgets, your bills, and Settings.
 
-![The dashboard](images/dashboard.png)
-<!-- TODO: screenshot — dashboard after first sign-in -->
+![The dashboard](images/dashboard-initial.png)
 
 ## 4. Add your first transaction
 
 Go to **Transactions → Add**. At minimum you'll choose:
 
-- **Who** it was with (a *beneficiary* — a merchant like "Coffee Shop", or a
+- **Who** it was with (a _beneficiary_ — a merchant like "Coffee Shop", or a
   person),
 - **How much**,
 - **Whether it's money out (an expense) or in (income)**, and

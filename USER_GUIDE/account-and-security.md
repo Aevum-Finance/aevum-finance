@@ -19,7 +19,7 @@ Some protections are always on — no setup required:
   account are designed so they can't simply be bypassed through recovery.
 
 The features below — 2FA, device verification, session control — are the ones
-*you* switch on, on top of those defaults.
+_you_ switch on, on top of those defaults.
 
 ## Two-factor authentication (2FA)
 
@@ -29,7 +29,6 @@ your account security settings, scan the QR code with your app, and confirm a
 code to finish enrolling.
 
 ![Two-factor setup](images/2fa-setup.png)
-<!-- TODO: screenshot — the 2FA enrollment screen (QR + confirm) -->
 
 When 2FA is on, signing in asks for your code after your password. It also
 protects sensitive actions like changing your email.
@@ -54,7 +53,7 @@ new-device email to revoke a device you don't recognize.
 
 ## Changing your email or password
 
-- **Password** — changing it signs out your *other* sessions (you stay signed in
+- **Password** — changing it signs out your _other_ sessions (you stay signed in
   where you are) and emails you a heads-up.
 - **Email** — because your email is your sign-in identity, changing it requires
   confirming a code sent to the new address (and your 2FA code if enabled). Your

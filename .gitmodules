@@ -1,13 +1,13 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/RSolank/backend
+	url = https://github.com/RohitSSolanki/backend
 	branch = main
 
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/RSolank/frontend
+	url = https://github.com/RohitSSolanki/frontend
 	branch = main
 [submodule "dummy-statement"]
 	path = dummy-statement
-	url = https://github.com/RSolank/dummy-statement
+	url = https://github.com/RohitSSolanki/dummy-statement
 	branch = main

@@ -7,7 +7,7 @@ they work and how to put them on autopilot.
 ## Categories are a tree
 
 Tags are **hierarchical**: broad categories contain narrower ones (for example,
-*Food* might contain *Groceries* and *Dining*). When you tag a transaction with
+_Food_ might contain _Groceries_ and _Dining_). When you tag a transaction with
 a child, its parents apply too — so a Dining expense also counts toward Food
 automatically.
 
@@ -25,8 +25,8 @@ from deletion because the app relies on them.)
 
 ## Rules put categorization on autopilot
 
-A **rule** links a beneficiary to one or more categories: *"anything from Coffee
-Shop → Dining."* Set a rule once and Aevum tags every future transaction with
+A **rule** links a beneficiary to one or more categories: _"anything from Coffee
+Shop → Dining."_ Set a rule once and Aevum tags every future transaction with
 that beneficiary for you.
 
 You create and manage rules on the **Categorization Rules** page (in Settings).
@@ -34,7 +34,6 @@ There's at most one rule per beneficiary, and like categories, the ones Aevum
 seeded wear a "System" chip.
 
 ![Categorization rules](images/categorization-rules.png)
-<!-- TODO: screenshot — the Categorization Rules page -->
 
 ### Creating a rule while adding a transaction
 

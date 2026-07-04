@@ -5,7 +5,7 @@ A developer's map of how Aevum fits together. This page covers the
 Each submodule then owns the deep detail of its own internals; follow the links
 at the bottom.
 
-> User looking for how to *use* Aevum? You want the [User Guide](USER_GUIDE/README.md),
+> User looking for how to _use_ Aevum? You want the [User Guide](USER_GUIDE/README.md),
 > not this page.
 
 ## The repository
@@ -13,11 +13,11 @@ at the bottom.
 Aevum is a **monorepo of git submodules** — each submodule is its own
 repository with its own history, CI, and docs:
 
-| Path | What it is | Stack |
-| --- | --- | --- |
-| [`backend/`](backend/) | The API and all domain logic | Python · FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL · Redis · Alembic |
-| [`frontend/`](frontend/) | The single-page web app | React 18 · TypeScript · Vite · Zustand · TanStack Query |
-| `dummy-statement/` | A dev-only tool that generates synthetic bank/UPI statements for testing the import pipeline | (standalone, own venv) |
+| Path                     | What it is                                                                                   | Stack                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`backend/`](backend/)   | The API and all domain logic                                                                 | Python · FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL · Redis · Alembic |
+| [`frontend/`](frontend/) | The single-page web app                                                                      | React 18 · TypeScript · Vite · Zustand · TanStack Query                  |
+| `dummy-statement/`       | A dev-only tool that generates synthetic bank/UPI statements for testing the import pipeline | (standalone, own venv)                                                   |
 
 The outer repo only tracks **which commit** of each submodule is current; all
 real code lives inside the submodules. See [CONTRIBUTING.md](CONTRIBUTING.md)
@@ -41,10 +41,10 @@ flowchart TD
     BE -->|account / bill / security email| Mail
 ```
 
-*The browser loads the static frontend; the frontend calls the backend over
+_The browser loads the static frontend; the frontend calls the backend over
 REST; the backend owns Postgres (system of record), uses Redis for coordination
 (distributed locks, caches, rate limits), and sends email through Brevo's HTTPS
-API (the deploy host blocks outbound SMTP).*
+API (the deploy host blocks outbound SMTP)._
 
 ## How the two apps talk
 
@@ -70,8 +70,11 @@ other's internals — cross-module references go through string-based ORM
 relationships and public service contracts, so there are no circular imports.
 
 The domain itself — transactions → categorization → taxation → bills → savings
-account — is described in the [README](README.md#how-it-works) (for the idea)
-and in the backend docs (for the mechanics).
+account → treasury — is described in the [README](README.md#how-it-works) (for
+the idea) and in the backend docs (for the mechanics). The **treasury** module is
+the accounting view over the set-aside cash (an append-only revenue journal,
+reconcile-on-read); it's a one-way reader of taxation + transactions and backs
+the frontend's **"Savings"** page.
 
 ```mermaid
 flowchart LR
@@ -79,6 +82,7 @@ flowchart LR
     C --> X[Taxation engine<br/>derives txn_type + tax]
     X --> B[Weekly bill<br/>5-state ledger]
     B --> S[Savings account<br/>tax is set aside]
+    S -. reconcile-on-read .-> TR[Treasury books<br/>Savings page]
     BU[Budgets] -. breach adds penalty .-> X
     R[Recurring engine] -. forecasts .-> T
 ```
@@ -103,7 +107,7 @@ and the per-module pages under [`frontend/docs/modules/`](frontend/docs/modules/
 
 ## Two flows worth seeing end-to-end
 
-**Sign-in with two-factor** — the backend can answer a login with a *challenge*
+**Sign-in with two-factor** — the backend can answer a login with a _challenge_
 instead of a session:
 
 ```mermaid

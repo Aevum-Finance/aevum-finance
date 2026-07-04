@@ -14,7 +14,7 @@ It's also protected: your password is bcrypt-hashed (never stored in readable
 form), 2FA secrets are encrypted at rest, and sign-in is rate-limited and
 lockout-protected — see [How Aevum protects your
 account](account-and-security.md#how-aevum-protects-your-account). The rest of
-this page is about the controls *you* have over your data.
+this page is about the controls _you_ have over your data.
 
 ## Just exploring? Use sample data
 
@@ -33,7 +33,6 @@ You can export your data at any time as **CSV** (for spreadsheets) or **JSON**
 beneficiaries, and so on — so you can take exactly what you need.
 
 ![Exporting data](images/privacy-export.png)
-<!-- TODO: screenshot — export menu / format picker -->
 
 ## Mask amounts on screen
 
@@ -43,7 +42,6 @@ at a glance. Masked amounts reveal when you hover or focus on them, so you can
 still check a figure when you need to without unmasking everything.
 
 ![Amount masking toggle](images/privacy-mask.png)
-<!-- TODO: screenshot — masked amounts / the toggle -->
 
 ## Delete individual things
 
