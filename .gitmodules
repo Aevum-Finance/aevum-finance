@@ -1,11 +1,11 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/RohitSSolanki/backend
+	url = https://github.com/Aevum-Finance/aevum-api
 	branch = main
 
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/RohitSSolanki/frontend
+	url = https://github.com/Aevum-Finance/aevum-web
 	branch = main
 [submodule "dummy-statement"]
 	path = dummy-statement

@@ -7,8 +7,8 @@ test suite, and the developer/user documentation. The accompanying React client 
 by the same author to consume and exercise the API.
 
 **Rohit Solanki** — Creator & Architect · Backend Engineer
-- GitHub: https://github.com/RohitSSolanki/  *(repos transfer to a dedicated Aevum account
-  later; this link updates at transfer)*
+- GitHub: https://github.com/RohitSSolanki/
+- Aevum org: https://github.com/Aevum-Finance
 - Site: https://rohitsolanki.in
 
 ---
