@@ -10,6 +10,7 @@
     "sync-readme": "node sync-readme.mjs",
     "manual": "node build-manual.mjs",
     "capture": "node capture-screenshots.mjs",
+    "bump": "bash bump-submodules.sh",
     "build": "npm run sync-branding && npm run sync-readme && npm run stats"
   },
   "dependencies": {

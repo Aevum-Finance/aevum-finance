@@ -18,13 +18,14 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LANE_DIR } from './lanes.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
 
 const PATHS = {
-  backend: path.join(ROOT, 'backend', 'docs', 'stats.backend.json'),
-  frontend: path.join(ROOT, 'frontend', 'docs', 'stats.frontend.json'),
+  backend: path.join(LANE_DIR.backend, 'docs', 'stats.backend.json'),
+  frontend: path.join(LANE_DIR.frontend, 'docs', 'stats.frontend.json'),
   json: path.join(ROOT, 'aevum-stats.json'),
   md: path.join(ROOT, 'METRICS.md'),
 };
@@ -33,14 +34,18 @@ const NOTE = 'Canonical Aevum metrics — generated, do not hand-edit.';
 
 // --- helpers -------------------------------------------------------------
 
-function shortSha(submoduleDir) {
-  // The submodule's current HEAD == the commit the outer pointer bump will pin.
+const SHA_LEN = 8;
+function shortSha(lane) {
+  // The lane clone's current HEAD == the commit the outer pointer bump will pin.
+  // Slice a FIXED-length prefix rather than `git --short`: git's auto length
+  // abbreviates to the shortest unambiguous prefix, which varies with each
+  // clone's object set — so a fresh clone can abbreviate the SAME commit to a
+  // different length and falsely trip the --check drift gate. 8 chars matches
+  // the canonical short handles used elsewhere (e.g. 95f83843).
   try {
-    // --short (auto length): git grows it past 7 only to stay unambiguous, so
-    // it matches the canonical short handles used elsewhere (e.g. 95f83843).
-    return execFileSync('git', ['-C', path.join(ROOT, submoduleDir), 'rev-parse', '--short', 'HEAD'], {
+    return execFileSync('git', ['-C', LANE_DIR[lane], 'rev-parse', 'HEAD'], {
       encoding: 'utf8',
-    }).trim();
+    }).trim().slice(0, SHA_LEN);
   } catch {
     return null;
   }

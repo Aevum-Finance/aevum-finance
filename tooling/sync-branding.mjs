@@ -21,9 +21,10 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LANE_DIR } from './lanes.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const SOURCE = path.resolve(HERE, '../backend/app/constants/branding.json');
+const SOURCE = path.join(LANE_DIR.backend, 'app', 'constants', 'branding.json');
 const VENDORED = path.join(HERE, 'branding.json');
 
 async function main() {
