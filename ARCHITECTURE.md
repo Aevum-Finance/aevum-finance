@@ -153,5 +153,6 @@ Docker web service alongside managed Postgres + Redis). The runbook lives in
 ## Where to go next
 
 - **Run it locally / contribute** → [CONTRIBUTING.md](CONTRIBUTING.md)
+- **By the numbers** (modules, tests, SLOC, latency, Lighthouse) → [METRICS.md](METRICS.md)
 - **Backend internals** → [`backend/docs/`](backend/docs/)
 - **Frontend internals** → [`frontend/docs/`](frontend/docs/)

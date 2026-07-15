@@ -3,7 +3,7 @@
 // block is delimited by <!-- BRAND:start --> / <!-- BRAND:end --> markers; the
 // rest of the README is hand-authored and left untouched.
 //
-// Usage:  npm run sync-readme   (from docs-tooling/)
+// Usage:  npm run sync-readme   (from tooling/)
 
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -22,7 +22,7 @@ function brandBlock(brand) {
   const body = rest ? `**${lead}** ${rest}` : `**${lead}**`;
   return [
     START,
-    '<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in docs-tooling. -->',
+    '<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->',
     `# ${brand.name}`,
     '',
     `> **${brand.tagline}.**`,

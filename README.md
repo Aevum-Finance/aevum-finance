@@ -1,12 +1,10 @@
 <!-- BRAND:start -->
-<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in docs-tooling. -->
-
+<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->
 # Aevum
 
 > **Future begins today.**
 
-**Aevum is a personal-finance app that turns everyday spending into future savings — automatically.** Every time you incur an expense, Aevum levies a small self-imposed "consumption tax" and transfers the proceeds into a dedicated savings account of your choice, building a provision for that same kind of expense down the road; discretionary expenses are taxed a little more than essential ones, while fixed commitments and exempted items are left alone. Set budgets for the things that matter, and overspending adds a penalty on top — a sharper nudge to stay disciplined. It also auto-categorizes your transactions, generates monthly reports showing you where your money is spent, and forecasts recurring bills, while the weekly tax ledger runs itself. It's a budgeting tool with built-in self-accountability mechanisms — a savings habit that quietly funds your future self.
-
+**Aevum is a personal-finance app that turns everyday spending into future savings — automatically.** Every time you incur an expense, Aevum levies a small self-imposed "consumption tax" and transfers the proceeds into a dedicated savings account of your choice, building a provision for that same kind of expense down the road. Set budgets for the things that matter, and overspending adds a penalty on top — a sharper nudge to stay disciplined. It also auto-categorizes your transactions, generates smart expense analytics, and forecasts recurring bills, while the weekly tax ledger increments your savings pool. It's a budgeting tool with built-in self-accountability — a savings habit that quietly funds your future self.
 <!-- BRAND:end -->
 
 ![Aevum landing page](USER_GUIDE/images/landing.png)

@@ -1,0 +1,2 @@
+# Node deps — installed via `npm ci`, never committed (package-lock.json is).
+node_modules/

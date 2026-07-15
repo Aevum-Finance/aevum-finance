@@ -1,0 +1,389 @@
+{
+  "note": "Canonical Aevum metrics — generated, do not hand-edit.",
+  "as_of": "2026-07-15",
+  "source_refs": {
+    "backend": "1d4dbcd",
+    "frontend": "f91f6c18"
+  },
+  "backend": {
+    "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
+    "lane": "backend",
+    "counts": {
+      "feature_modules": 21,
+      "db_models": 54,
+      "api_endpoints": 141,
+      "endpoints_by_method": {
+        "GET": 54,
+        "POST": 54,
+        "PUT": 6,
+        "PATCH": 13,
+        "DELETE": 14
+      },
+      "routers": 28,
+      "tests": 1098,
+      "test_functions": 1006,
+      "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
+      "scheduled_workers": 8,
+      "email_types": 10
+    },
+    "complexity": {
+      "note": "Static analysis (radon) over app/ — re-derived each run.",
+      "avg_cyclomatic": "A (2.64)",
+      "maintainability_grade_a_pct": 99.2,
+      "maintainability": "grade A on 261/263 modules (99.2%)"
+    },
+    "sloc": {
+      "note": "Accurate code lines (pygount, excludes blanks/comments).",
+      "backend_app": 23745,
+      "backend_tests": 16749,
+      "total": 40494
+    },
+    "benchmark": {
+      "note": "Tier-2 measured performance — captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
+      "suite": {
+        "note": "Whole test-suite runtime/memory via tests/benchmarks/benchmark.py.",
+        "captured_ref": "feat/accounts @ 0eea692",
+        "modules_evaluated": 69,
+        "passed": 69,
+        "failed": 0,
+        "total_duration_s": 327.99,
+        "peak_memory_mb": 103.48
+      },
+      "engine_hot_paths_ms": {
+        "note": "Service-layer hot paths via tests/benchmarks/benchmark_*.py; canonical narrative = docs/performance.md.",
+        "captured_ref": "feat/accounts @ 0eea692",
+        "tax_recalc_single_mutation": 51,
+        "tax_recalc_week_full_rebuild": 60,
+        "tax_recalc_batch_200txn": 56,
+        "list_transactions_page25": 3.8,
+        "list_grouped_by_merchant_page25": 0.8,
+        "categorize_500_rows": 22,
+        "derive_txn_type": 0.001
+      },
+      "api_latency": {
+        "status": "measured",
+        "captured_at": "2026-07-06",
+        "note": "End-to-end HTTP latency (routing + auth/DPoP + serialization + DB).",
+        "environment": {
+          "base_url": "http://127.0.0.1:4000",
+          "concurrency": 4,
+          "iterations": 120,
+          "warmup": 10,
+          "seed_txns": 60,
+          "host_note": "local/staging — NOT the cold free-tier box"
+        },
+        "endpoints": {
+          "POST /transactions/ (create)": {
+            "p50_ms": 205.88,
+            "p95_ms": 520.88,
+            "p99_ms": 534.51,
+            "throughput_rps": 4,
+            "n": 120
+          },
+          "GET /users/me": {
+            "p50_ms": 20.1,
+            "p95_ms": 209.68,
+            "p99_ms": 323.23,
+            "throughput_rps": 110.2,
+            "n": 120
+          },
+          "GET /transactions/": {
+            "p50_ms": 35.18,
+            "p95_ms": 49.13,
+            "p99_ms": 64.29,
+            "throughput_rps": 107,
+            "n": 120
+          },
+          "GET /users/me/stats": {
+            "p50_ms": 43.94,
+            "p95_ms": 53.74,
+            "p99_ms": 55.67,
+            "throughput_rps": 88.3,
+            "n": 120
+          },
+          "GET /expense-tracker/": {
+            "p50_ms": 26.45,
+            "p95_ms": 31.94,
+            "p99_ms": 32.64,
+            "throughput_rps": 146.2,
+            "n": 120
+          },
+          "GET /budget-limits/status": {
+            "p50_ms": 50.95,
+            "p95_ms": 55.78,
+            "p99_ms": 59.32,
+            "throughput_rps": 77,
+            "n": 120
+          },
+          "GET /consumption-tax/bills": {
+            "p50_ms": 19.82,
+            "p95_ms": 22.82,
+            "p99_ms": 28.54,
+            "throughput_rps": 195.1,
+            "n": 120
+          }
+        }
+      },
+      "engine_hot_paths": {
+        "note": "Service-layer hot paths via tests/benchmarks/benchmark_modules.py.",
+        "captured_at": "2026-07-06",
+        "captured_ref": "2c82bc6",
+        "metrics": [
+          {
+            "module": "budgets",
+            "metric": "bulk_refresh_for_user",
+            "iters": 5,
+            "avg_ms": 2564.844
+          },
+          {
+            "module": "taxation",
+            "metric": "recalc_for_user_week (full rebuild)",
+            "iters": 20,
+            "avg_ms": 23.501
+          },
+          {
+            "module": "taxation",
+            "metric": "recalc_for_txns (200-txn batch)",
+            "iters": 20,
+            "avg_ms": 23.197
+          },
+          {
+            "module": "budgets",
+            "metric": "refresh_expense_tracker (single month)",
+            "iters": 200,
+            "avg_ms": 22.186
+          },
+          {
+            "module": "taxation",
+            "metric": "recalc_for_txn (single mutation)",
+            "iters": 20,
+            "avg_ms": 18.161
+          },
+          {
+            "module": "categorization",
+            "metric": "categorize_statement_rows  rows=500",
+            "iters": 50,
+            "avg_ms": 10.624
+          },
+          {
+            "module": "activity",
+            "metric": "feed (full)",
+            "iters": 200,
+            "avg_ms": 8.657
+          },
+          {
+            "module": "activity",
+            "metric": "feed (domain=taxation)",
+            "iters": 200,
+            "avg_ms": 5.613
+          },
+          {
+            "module": "beneficiaries",
+            "metric": "identify_beneficiary  miss",
+            "iters": 100,
+            "avg_ms": 5.499
+          },
+          {
+            "module": "beneficiaries",
+            "metric": "check_alias_uniqueness  miss",
+            "iters": 100,
+            "avg_ms": 5.199
+          },
+          {
+            "module": "beneficiaries",
+            "metric": "identify_beneficiary  hit  (alias)",
+            "iters": 100,
+            "avg_ms": 5.176
+          },
+          {
+            "module": "transactions",
+            "metric": "list_transactions  page=25",
+            "iters": 200,
+            "avg_ms": 4.036
+          },
+          {
+            "module": "categorization",
+            "metric": "load_rule_map (full)",
+            "iters": 200,
+            "avg_ms": 3.305
+          },
+          {
+            "module": "categorization",
+            "metric": "load_tag_maps",
+            "iters": 200,
+            "avg_ms": 1.821
+          },
+          {
+            "module": "transactions",
+            "metric": "list_grouped_by_merchant page=25",
+            "iters": 200,
+            "avg_ms": 1.139
+          },
+          {
+            "module": "beneficiaries",
+            "metric": "check_alias_uniqueness  hit",
+            "iters": 100,
+            "avg_ms": 1.052
+          },
+          {
+            "module": "transactions",
+            "metric": "parse_phonepe_pdf_text (synthetic)",
+            "iters": 1000,
+            "avg_ms": 0.044
+          },
+          {
+            "module": "taxation",
+            "metric": "choose_penalty_tag_and_rate (10 breaches)",
+            "iters": 10000,
+            "avg_ms": 0.002
+          },
+          {
+            "module": "taxation",
+            "metric": "derive_txn_type_from_tag_types (mixed)",
+            "iters": 10000,
+            "avg_ms": 0
+          }
+        ]
+      }
+    }
+  },
+  "frontend": {
+    "note": "Canonical Aevum frontend metrics — generated, do not hand-edit.",
+    "lane": "frontend",
+    "counts": {
+      "feature_modules": 16,
+      "test_files": 169,
+      "tests": 824,
+      "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"
+    },
+    "complexity": {
+      "note": "Static analysis (eslint metrics, bench/eslint.metrics.config.mjs) over src/ — per-function maxima.",
+      "functions": 3174,
+      "cyclomatic_max": 15,
+      "cognitive_max": 15,
+      "fn_lines_max": 200
+    },
+    "sloc": {
+      "note": "Accurate code lines (bench/loc.mjs, excludes blanks/comments).",
+      "frontend_src": 48816,
+      "frontend_tests": 16033,
+      "total": 64849
+    },
+    "benchmark": {
+      "note": "Tier-2 measured performance — bundle sizes via bench:update, Lighthouse via bench:lab, captured at release/CI and preserved between static regens. 'Indicative, not contractual'.",
+      "captured_at": "2026-07-07T11:44:56.217Z",
+      "bundle": {
+        "note": "gzip @ level 9 (framework-internal reading; `npm run size` is the enforced gate).",
+        "entry_gzip_bytes": 97226,
+        "css_gzip_bytes": 16455,
+        "chunk_count": 170,
+        "test_suite_ms": 47557
+      },
+      "lighthouse": {
+        "note": "Median-of-N Lighthouse (default mobile + slow-4G); scores 0-100, web-vitals in ms.",
+        "version": "12.6.1",
+        "runs": 5,
+        "pages": {
+          "/": {
+            "performance": 86,
+            "accessibility": 92,
+            "bestPractices": 96,
+            "seo": 91,
+            "lcpMs": 4020,
+            "tbtMs": 50,
+            "cls": 0,
+            "fcpMs": 1790,
+            "speedIndexMs": 1790
+          },
+          "/login": {
+            "performance": 99,
+            "accessibility": 95,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2140,
+            "tbtMs": 20,
+            "cls": 0.004,
+            "fcpMs": 1090,
+            "speedIndexMs": 1090
+          },
+          "/register": {
+            "performance": 99,
+            "accessibility": 95,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2140,
+            "tbtMs": 50,
+            "cls": 0,
+            "fcpMs": 1100,
+            "speedIndexMs": 1100
+          },
+          "/dashboard": {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 3050,
+            "tbtMs": 70,
+            "cls": 0,
+            "fcpMs": 1100,
+            "speedIndexMs": 1100
+          },
+          "/transactions": {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2890,
+            "tbtMs": 70,
+            "cls": 0,
+            "fcpMs": 1100,
+            "speedIndexMs": 1100
+          },
+          "/consumption-tax": {
+            "performance": 96,
+            "accessibility": 91,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2730,
+            "tbtMs": 60,
+            "cls": 0,
+            "fcpMs": 1100,
+            "speedIndexMs": 1100
+          },
+          "/budgets": {
+            "performance": 96,
+            "accessibility": 91,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2740,
+            "tbtMs": 80,
+            "cls": 0,
+            "fcpMs": 1120,
+            "speedIndexMs": 1120
+          },
+          "/account/security": {
+            "performance": 97,
+            "accessibility": 91,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcpMs": 2600,
+            "tbtMs": 60,
+            "cls": 0,
+            "fcpMs": 1100,
+            "speedIndexMs": 1100
+          }
+        }
+      }
+    }
+  },
+  "contract": {
+    "note": "Stable paths a downstream consumer pulls at build time.",
+    "metrics": "aevum-stats.json (this file); per-lane detail in backend/docs/stats.backend.json + frontend/docs/stats.frontend.json",
+    "performance": [
+      "backend/docs/performance.md",
+      "frontend/docs/performance.md"
+    ],
+    "screenshots": "USER_GUIDE/images/",
+    "authors": "AUTHORS.md"
+  }
+}

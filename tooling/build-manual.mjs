@@ -4,7 +4,7 @@
 // Mermaid diagrams, and embedded screenshots. No intermediate .md is kept — the
 // concatenation happens in memory.
 //
-// Usage:  npm install && npm run manual   (from docs-tooling/)
+// Usage:  npm install && npm run manual   (from tooling/)
 // Output: USER_GUIDE/user_manual.pdf
 //
 // Requires the screenshots referenced by the docs to exist under

@@ -1,0 +1,19 @@
+{
+  "name": "aevum-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The outer monorepo's single code home: merges the per-lane stats into aevum-stats.json + METRICS.md, vendors + syncs the README brand block from branding.json, and builds user_manual.pdf from the USER_GUIDE docs.",
+  "scripts": {
+    "stats": "node merge-stats.mjs",
+    "sync-branding": "node sync-branding.mjs",
+    "sync-readme": "node sync-readme.mjs",
+    "manual": "node build-manual.mjs",
+    "capture": "node capture-screenshots.mjs",
+    "build": "npm run sync-branding && npm run sync-readme && npm run stats"
+  },
+  "dependencies": {
+    "marked": "^12.0.0",
+    "puppeteer": "^23.0.0"
+  }
+}
