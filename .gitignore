@@ -1,0 +1,30 @@
+# Tracked on purpose: this repo is PUBLIC and gets cloned flat, so a local-only
+# .gitignore (the previous convention) didn't survive the clone and left local
+# files exposed. Keep this committed.
+
+# Local Claude Code / editor guidance — never committed.
+CLAUDE.md
+**/CLAUDE.md
+.claude/
+.cursor/
+.vscode/
+
+# Working scratchpads live OUTSIDE this repo (Aevum/.scratch); ignore if ever nested.
+.scratch/
+
+# Secrets / environment.
+.env
+.env.*
+!.env.example
+
+# Node deps — lockfiles ARE committed, the tree is not.
+node_modules/
+
+# Python tooling venvs / caches, if any.
+.venv/
+__pycache__/
+*.py[codz]
+
+# OS / editor cruft.
+.DS_Store
+*.tmp
