@@ -28,3 +28,7 @@ __pycache__/
 # OS / editor cruft.
 .DS_Store
 *.tmp
+
+# Local-only drafts — never part of the public repo.
+# deferred Playwright draft
+e2e/
