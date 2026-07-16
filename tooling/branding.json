@@ -1,6 +1,17 @@
 {
   "name": "Aevum",
-  "tagline": "Future begins today",
-  "description": "Aevum is a personal-finance app that turns everyday spending into future savings — automatically. Every time you incur an expense, Aevum levies a small self-imposed \"consumption tax\" and transfers the proceeds into a dedicated savings account of your choice, building a provision for that same kind of expense down the road. Set budgets for the things that matter, and overspending adds a penalty on top — a sharper nudge to stay disciplined. It also auto-categorizes your transactions, generates smart expense analytics, and forecasts recurring bills, while the weekly tax ledger increments your savings pool. It's a budgeting tool with built-in self-accountability — a savings habit that quietly funds your future self.",
+  "tagline": "Future begins today.",
+  "one_liner": "Turn everyday spending into future savings — automatically.",
+  "description": "Aevum means an age — time that endures and accrues rather than runs out. Wealth is meant to grow the same way: gently, one ordinary step at a time. Most money apps are built on fear — budgets, streaks, the guilt when you slip; they're very good at making you anxious and not very good at making you wealthier. Aevum starts from the opposite premise: a small nudge you set yourself turns everyday spending into savings — a quiet push in the right direction that never becomes a shove. No pressure, no shame, no discipline required — just a calmer path to real wealth that grows while you live your life.",
+  "description_long": "Here's the whole idea, plainly — and why it isn't what it sounds like.\n\nMost of what leaves your account leaves by habit: small, forgettable expenses that never quite turn into savings. Aevum changes that without asking you to budget harder or spend less. Every time you record an expense, it adds a small self-imposed \"tax\" on top — at a rate you choose, category by category — and moves that amount into a savings account you own. It isn't a fee and it isn't lost. It's your money, set aside for you, building a provision for the next expense of the same kind: spend on dining today and you're quietly funding future dining; spend on travel, future travel.\n\nSet a budget on the things that matter, and going over adds a little more — not a punishment, just a sharper nudge you asked for. You stay in control the whole way: you set every rate, you can change or pause them anytime, and you can see exactly where each unit went.\n\nAround that core, Aevum does the quiet work of a good assistant — categorizing your transactions, reading your statements, forecasting the recurring bills you tend to forget, and turning it all into clear analytics, while a weekly ledger tallies what you've set aside. No lectures, no alarms, no shame for spending. Just a steady, private habit that turns today's ordinary purchases into tomorrow's security.",
+  "story": {
+    "name": {
+      "heading": "The name",
+      "body": [
+        "Aevum is Latin for an age — an enduring duration; time that accrues rather than runs out. In older philosophy it named the middle term between fleeting time and eternity: the duration of things that persist. It is the right word for money, the most patient thing you own.",
+        "Written another way, एवं is Sanskrit for \"and\" — together with. That is the other half of the promise: this isn't a tool for people who already speak the language of finance. It's for everyone else."
+      ]
+    }
+  },
   "logo_path": "brand/logo.svg"
 }

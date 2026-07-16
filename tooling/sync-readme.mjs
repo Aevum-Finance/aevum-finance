@@ -25,7 +25,7 @@ function brandBlock(brand) {
     '<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->',
     `# ${brand.name}`,
     '',
-    `> **${brand.tagline}.**`,
+    `> **${brand.tagline}**`,
     '',
     body,
     END,

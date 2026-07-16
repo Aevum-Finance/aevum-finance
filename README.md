@@ -1,10 +1,18 @@
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"  srcset="USER_GUIDE/images/product-banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="USER_GUIDE/images/product-banner-cream.png">
+    <img alt="Aevum — Future begins today." src="USER_GUIDE/images/product-banner-cream.png" width="100%">
+  </picture>
+</div>
+
 <!-- BRAND:start -->
 <!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->
 # Aevum
 
 > **Future begins today.**
 
-**Aevum is a personal-finance app that turns everyday spending into future savings — automatically.** Every time you incur an expense, Aevum levies a small self-imposed "consumption tax" and transfers the proceeds into a dedicated savings account of your choice, building a provision for that same kind of expense down the road. Set budgets for the things that matter, and overspending adds a penalty on top — a sharper nudge to stay disciplined. It also auto-categorizes your transactions, generates smart expense analytics, and forecasts recurring bills, while the weekly tax ledger increments your savings pool. It's a budgeting tool with built-in self-accountability — a savings habit that quietly funds your future self.
+**Aevum means an age — time that endures and accrues rather than runs out.** Wealth is meant to grow the same way: gently, one ordinary step at a time. Most money apps are built on fear — budgets, streaks, the guilt when you slip; they're very good at making you anxious and not very good at making you wealthier. Aevum starts from the opposite premise: a small nudge you set yourself turns everyday spending into savings — a quiet push in the right direction that never becomes a shove. No pressure, no shame, no discipline required — just a calmer path to real wealth that grows while you live your life.
 <!-- BRAND:end -->
 
 ![Aevum landing page](USER_GUIDE/images/landing.png)
