@@ -52,7 +52,7 @@ So there are two distinct things happening:
 Aevum totals your tax (plus any penalties) over a week and presents it as a
 single bill. Weeks run **Monday to Sunday** in your timezone.
 
-![Weekly bill](images/weekly-bill.png)
+![Weekly bill](images/screenshots/weekly-bill.png)
 
 ```mermaid
 flowchart LR
@@ -67,7 +67,7 @@ flowchart LR
 - **Paid** — you settle it by moving the money into your savings account (Aevum
   can do this automatically — see [Your savings account](savings-account.md)).
 
-![Taxation bills](images/tax-tracker.png)
+![Taxation bills](images/screenshots/tax-tracker.png)
 
 If a bill goes unsettled past its grace period it's flagged **overdue**, and
 very stale bills may be **expired** — but in normal use you'll just see bills

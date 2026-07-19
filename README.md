@@ -1,8 +1,8 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="USER_GUIDE/images/product-banner-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="USER_GUIDE/images/product-banner-cream.png">
-    <img alt="Aevum — Future begins today." src="USER_GUIDE/images/product-banner-cream.png" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="USER_GUIDE/images/brand/product-banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="USER_GUIDE/images/brand/product-banner-cream.png">
+    <img alt="Aevum — Future begins today." src="USER_GUIDE/images/brand/product-banner-cream.png" width="100%">
   </picture>
 </div>
 
@@ -16,7 +16,7 @@
 **Aevum means an age — time that endures and accrues rather than runs out.** Wealth is meant to grow the same way: gently, one ordinary step at a time. Most money apps are built on fear — budgets, streaks, the guilt when you slip; they're very good at making you anxious and not very good at making you wealthier. Aevum starts from the opposite premise: a small nudge you set yourself turns everyday spending into savings — a quiet push in the right direction that never becomes a shove. No pressure, no shame, no discipline required — just a calmer path to real wealth that grows while you live your life.
 <!-- BRAND:end -->
 
-![Aevum landing page](USER_GUIDE/images/landing.png)
+![Aevum landing page](USER_GUIDE/images/screenshots/landing.png)
 
 ---
 
@@ -56,7 +56,7 @@ just tracked — it's actually moved into your savings account, so the disciplin
 turns into a real balance. That savings account is the foundation Aevum will
 build on as it grows.
 
-![Aevum dashboard](USER_GUIDE/images/dashboard.png)
+![Aevum dashboard](USER_GUIDE/images/screenshots/dashboard.png)
 
 ## What you can do
 

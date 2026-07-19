@@ -2,7 +2,7 @@
 // screenshots / F2). Drives the frontend's dev-only capture gallery
 // (`frontend/capture.html`, served by `vite dev`): for each documented view it
 // navigates `?view=<name>`, waits for fonts, and screenshots the view node (or
-// the portalled dialog) into USER_GUIDE/images/<name>.png.
+// the portalled dialog) into USER_GUIDE/images/screenshots/<name>.png.
 //
 // Determinism: the gallery forces light theme + reduced motion; here we pin the
 // timezone, emulate prefers-reduced-motion, freeze `Date` to a fixed instant
@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const IMAGES = path.resolve(HERE, '../USER_GUIDE/images');
+const IMAGES = path.resolve(HERE, '../USER_GUIDE/images/screenshots');
 const BASE = process.env.BASE ?? 'http://localhost:5173';
 
 // Frozen "now" — a February 2026 instant so CalendarView's fixed-monthKey grid

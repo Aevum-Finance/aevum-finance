@@ -9,8 +9,8 @@ Aevum reads PDF statements from popular UPI apps — **PhonePe, Google Pay,
 Paytm**, and the list keeps growing. Pick the matching format when you upload (or
 let Aevum detect it for you).
 
-![Statement upload](images/import-statement.png)
-![Choosing Parser](images/parser-picker.png)
+![Statement upload](images/screenshots/import-statement.png)
+![Choosing Parser](images/screenshots/parser-picker.png)
 
 ## How to import
 
@@ -24,7 +24,7 @@ let Aevum detect it for you).
 4. When it finishes, your transactions are in, already **auto-categorized** using
    your [rules](categories-and-rules.md) and attributed to the right account.
 
-![Importing transactions](images/import-queue.png)
+![Importing transactions](images/screenshots/import-queue.png)
 
 ```mermaid
 flowchart LR
@@ -40,7 +40,7 @@ budgets, and feed recurring detection. Anything Aevum couldn't confidently
 categorize is left in a general state for you to tidy up, and you can re-tag any
 imported transaction.
 
-![Imported transactions](images/import-result.png)
+![Imported transactions](images/screenshots/import-result.png)
 
 ## FAQ
 

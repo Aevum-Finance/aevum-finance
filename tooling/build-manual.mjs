@@ -7,9 +7,14 @@
 // Usage:  npm install && npm run manual   (from tooling/)
 // Output: USER_GUIDE/user_manual.pdf
 //
-// Requires the screenshots referenced by the docs to exist under
-// USER_GUIDE/images/ — until they're captured, those spots render as broken
-// image icons (everything else is complete).
+// Requires the screenshots the docs reference to exist under
+// USER_GUIDE/images/screenshots/ — CI-generated in aevum-web and dispatched here,
+// never hand-dropped. Until they land, those spots render as broken-image icons
+// (everything else is complete). Product banners live alongside in images/brand/
+// and are owned by the aevum-brand dispatcher.
+//
+// Paths are not hardcoded here: the HTML is written into USER_GUIDE/ so the docs'
+// own relative `images/…` links resolve as-is. Moving an image is a docs edit.
 
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';

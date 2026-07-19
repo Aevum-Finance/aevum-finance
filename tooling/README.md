@@ -34,7 +34,7 @@ the repo root — it never hand-authors content.
   description).
 - **`npm run manual`** — concatenates the topic-wise [USER_GUIDE](../USER_GUIDE/) docs into
   one marketable **`USER_GUIDE/user_manual.pdf`** with a generated cover, table of contents,
-  page numbers, rendered Mermaid diagrams, and the screenshots from `USER_GUIDE/images/`.
+  page numbers, rendered Mermaid diagrams, and the screenshots from `USER_GUIDE/images/screenshots/`.
 - **`npm run build`** — the cheap aggregate: `sync-readme` + `stats`. (Excludes `manual`,
   which is heavy — puppeteer + network.)
 
@@ -63,8 +63,10 @@ npm run manual         # → ../USER_GUIDE/user_manual.pdf
   one. `.github` was the earlier candidate and was rejected once privacy became a requirement:
   it is structurally always-public, which is the very property that first recommended it.
 - **Screenshots first** (for `manual`). The PDF embeds the images the docs reference under
-  `USER_GUIDE/images/`; capture those before building, or those spots render as broken-image
-  icons (everything else is complete).
+  `USER_GUIDE/images/screenshots/`, which are generated in `aevum-web`'s CI and dispatched
+  here as a PR — never hand-dropped. Until they land, those spots render as broken-image
+  icons (everything else is complete). Product banners sit alongside in `images/brand/`,
+  owned by the `aevum-brand` dispatcher.
 - **Mermaid** (for `manual`) is rendered to static SVG in a headless browser before capture;
   it needs network access at build time (mermaid loads from a CDN).
 - This folder ships with the repo (publishable on GitHub); the generated PDF lands in

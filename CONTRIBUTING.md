@@ -156,16 +156,29 @@ start fresh from your real statements.
 
 ## Documentation screenshots
 
-User Guide screenshots live in `USER_GUIDE/images/`. The guide pages already
-reference them with Markdown image links and a `<!-- TODO: screenshot -->`
-marker, so dropping a correctly-named PNG into the folder makes the image appear
-with no edits to the prose.
+`USER_GUIDE/images/` has **two subfolders with two different owners**, and the split
+is deliberate: ownership is a directory boundary, so neither producer can overwrite
+the other's files even by accident.
 
-- **Naming:** `<topic>-<subject>.png`, lowercase, matching the link in the doc
-  (e.g. `add-transaction.png`, `transactions-list.png`, `privacy-mask.png`).
-- **Find what's outstanding:** `grep -rn "TODO: screenshot" USER_GUIDE/`.
-- **Use synthetic data:** generate sample statements with the dummy-statement
-  tool (above) and import them, so screenshots show a realistically *populated*
-  app without exposing any real financial data.
-- **Before publishing:** fill in every placeholder — the links 404 until the
-  matching PNG exists.
+| Folder | Owner | How it changes |
+|---|---|---|
+| `images/screenshots/` | **`aevum-web`** | Regenerated in CI from the dev-only capture gallery, then dispatched here as a PR. |
+| `images/brand/` | **`aevum-brand`** | Product banners, pushed by the brand dispatcher per `brand-manifest.json`. |
+
+**Do not hand-edit or hand-drop either.** A screenshot committed by hand is a copy
+nothing can reproduce; the next CI run overwrites it and the difference is invisible
+in review. If a shot looks wrong, fix the gallery or the fixture in `aevum-web` — the
+PNG is output, never a source.
+
+- **Why CI and not a local run:** PNG bytes depend on the Chrome version and the
+  installed fonts. Alternating between a laptop and a runner rewrites every image
+  with no visible change — megabytes of binary churn that hides the real diffs.
+- **Naming:** `<topic>-<subject>.png`, lowercase, matching both the link in the doc
+  and the entry in `aevum-web`'s `screenshot-manifest.json` (e.g. `transactions-list.png`).
+  The manifest is what tells the dispatcher which paths it owns.
+- **The exception — hand-kept shots.** `add-transaction`, `import-queue`,
+  `import-result`, `import-statement` and `parser-picker` are real multi-step flows
+  with no capture path built. They are maintained by hand and the capture job leaves
+  any file it does not own untouched.
+- **Use synthetic data**, never real financial data, for anything captured by hand —
+  generate sample statements with the synthetic-statement tool (above).

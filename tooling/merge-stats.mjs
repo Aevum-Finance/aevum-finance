@@ -91,7 +91,7 @@ async function build({ asOf } = {}) {
       metrics:
         'aevum-stats.json (this file); per-lane detail in backend/docs/stats.backend.json + frontend/docs/stats.frontend.json',
       performance: ['backend/docs/performance.md', 'frontend/docs/performance.md'],
-      screenshots: 'USER_GUIDE/images/',
+      screenshots: 'USER_GUIDE/images/screenshots/',
       authors: 'AUTHORS.md',
     },
   };

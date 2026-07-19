@@ -5,7 +5,7 @@ person you sent money to. Beneficiaries are how Aevum understands _who_ your
 money goes to, which is what powers automatic categorization and your
 spending-by-payee insights.
 
-![Beneficiaries list](images/beneficiaries-list.png)
+![Beneficiaries list](images/screenshots/beneficiaries-list.png)
 
 ## Two kinds: merchants and people
 
