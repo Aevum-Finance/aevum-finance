@@ -2,6 +2,7 @@
   "name": "Aevum",
   "tagline": "Future begins today.",
   "one_liner": "Turn everyday spending into future savings — automatically.",
+  "headline": "Every spend sets a little aside for future you.",
   "description": "Aevum means an age — time that endures and accrues rather than runs out. Wealth is meant to grow the same way: gently, one ordinary step at a time. Most money apps are built on fear — budgets, streaks, the guilt when you slip; they're very good at making you anxious and not very good at making you wealthier. Aevum starts from the opposite premise: a small nudge you set yourself turns everyday spending into savings — a quiet push in the right direction that never becomes a shove. No pressure, no shame, no discipline required — just a calmer path to real wealth that grows while you live your life.",
   "description_long": "Here's the whole idea, plainly — and why it isn't what it sounds like.\n\nMost of what leaves your account leaves by habit: small, forgettable expenses that never quite turn into savings. Aevum changes that without asking you to budget harder or spend less. Every time you record an expense, it adds a small self-imposed \"tax\" on top — at a rate you choose, category by category — and moves that amount into a savings account you own. It isn't a fee and it isn't lost. It's your money, set aside for you, building a provision for the next expense of the same kind: spend on dining today and you're quietly funding future dining; spend on travel, future travel.\n\nSet a budget on the things that matter, and going over adds a little more — not a punishment, just a sharper nudge you asked for. You stay in control the whole way: you set every rate, you can change or pause them anytime, and you can see exactly where each unit went.\n\nAround that core, Aevum does the quiet work of a good assistant — categorizing your transactions, reading your statements, forecasting the recurring bills you tend to forget, and turning it all into clear analytics, while a weekly ledger tallies what you've set aside. No lectures, no alarms, no shame for spending. Just a steady, private habit that turns today's ordinary purchases into tomorrow's security.",
   "story": {
@@ -13,5 +14,11 @@
       ]
     }
   },
-  "logo_path": "brand/logo.svg"
+  "logo_path": "brand/logo.svg",
+  "assets": {
+    "logo_svg": "https://www.aevumfinance.com/brand/logo.svg",
+    "email_logo_png": "https://www.aevumfinance.com/brand/email-logo.png",
+    "banner_png": "https://www.aevumfinance.com/brand/product-banner-cream.png",
+    "banner_dark_png": "https://www.aevumfinance.com/brand/product-banner-dark.png"
+  }
 }
