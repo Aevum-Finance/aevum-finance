@@ -16,12 +16,19 @@ the repo root — it never hand-authors content.
   — the moment the numbers lock against each lane's pinned commit.
   `--check` exits non-zero if the committed outputs are stale; `--stdout` prints the JSON
   without writing; `AS_OF=YYYY-MM-DD` pins the publish date.
-- **`npm run sync-branding`** — vendors the brand source into this repo:
-  copies [`backend/app/constants/branding.json`](../backend/app/constants/branding.json)
-  (the authoring SoT — the backend consumes it at runtime) → local **`tooling/branding.json`**,
-  a byte-identical mirror. `sync-readme` and `manual` read this local copy, **never across the
-  submodule boundary**, so they keep working once the submodules go private. `--check` fails if
-  the vendored copy is stale. (Edit brand strings in the backend source, then re-run this.)
+- **`npm run sync-branding`** — vendors a brand copy into this repo from
+  [`backend/app/constants/branding.json`](../backend/app/constants/branding.json) → local
+  **`tooling/branding.json`**. `sync-readme` and `manual` read this local copy, **never across
+  the submodule boundary**, so they keep working once the submodules go private. `--check`
+  fails if the vendored copy is stale.
+
+  ⚠️ **Neither end of that copy is the SoT any more.** Since 2026-07-19 the brand source is the
+  PRIVATE `aevum-brand` repo, whose dispatcher pushes `branding.json` **directly** into this
+  repo's `tooling/branding.json` (and independently into the backend's copy) per
+  `brand-manifest.json`. So `sync-branding` now re-derives a mirror from a mirror — harmless,
+  and still useful as a drift check, but **do not edit brand strings in the backend to change
+  them.** Edit them in `aevum-brand` and let the dispatcher push. The first dispatch found this
+  repo's copy was missing `headline` and the entire `assets` block.
 - **`npm run sync-readme`** — regenerates the `<!-- BRAND:start -->` … `<!-- BRAND:end -->`
   block in the root `README.md` from the vendored `tooling/branding.json` (name / tagline /
   description).
@@ -48,12 +55,13 @@ npm run manual         # → ../USER_GUIDE/user_manual.pdf
 ## Notes
 
 - **Generated artifacts, not sources.** `aevum-stats.json`, `METRICS.md`, `tooling/branding.json`
-  (a vendored mirror of the backend source), and the README brand block are all generated — edit
-  the upstream source (per-lane stats, the backend's `branding.json`) or the generator here, never
-  the output.
-- **Brand SoT is the backend, for now.** The brand strings are authored in the backend and vendored
-  here. An eventual re-homing (brand *voice* authored in this public outer repo, submodules
-  mirroring it) is a documentation-architecture decision, not settled here.
+  (pushed by `aevum-brand`), and the README brand block are all generated — edit the upstream
+  source (per-lane stats; brand copy in `aevum-brand/branding.json`) or the generator here,
+  never the output.
+- **Brand SoT is the private `aevum-brand` repo** (settled 2026-07-19). The re-homing this note
+  used to call unsettled has happened — and it went to a private repo, NOT to this public outer
+  one. `.github` was the earlier candidate and was rejected once privacy became a requirement:
+  it is structurally always-public, which is the very property that first recommended it.
 - **Screenshots first** (for `manual`). The PDF embeds the images the docs reference under
   `USER_GUIDE/images/`; capture those before building, or those spots render as broken-image
   icons (everything else is complete).

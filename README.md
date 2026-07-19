@@ -7,7 +7,8 @@
 </div>
 
 <!-- BRAND:start -->
-<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->
+<!-- Generated from tooling/branding.json via `npm run sync-readme`. That file is PUSHED by
+     the private aevum-brand repo (the brand SoT) — edit brand copy there, never here. -->
 # Aevum
 
 > **Future begins today.**
