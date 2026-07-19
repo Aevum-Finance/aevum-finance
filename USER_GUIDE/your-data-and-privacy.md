@@ -32,7 +32,10 @@ You can export your data at any time as **CSV** (for spreadsheets) or **JSON**
 (for developers and backups). Exports are per-resource — your transactions, your
 beneficiaries, and so on — so you can take exactly what you need.
 
-![Exporting data](images/screenshots/privacy-export.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/privacy-export-dark.png">
+  <img alt="Exporting data" src="images/screenshots/privacy-export.png">
+</picture>
 
 ## Mask amounts on screen
 
@@ -41,7 +44,10 @@ you're on a train, sharing your screen, or just don't want your balances visible
 at a glance. Masked amounts reveal when you hover or focus on them, so you can
 still check a figure when you need to without unmasking everything.
 
-![Amount masking toggle](images/screenshots/privacy-mask.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/privacy-mask-dark.png">
+  <img alt="Amount masking toggle" src="images/screenshots/privacy-mask.png">
+</picture>
 
 ## Delete individual things
 

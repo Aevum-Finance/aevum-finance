@@ -35,6 +35,13 @@ the repo root — it never hand-authors content.
 - **`npm run manual`** — concatenates the topic-wise [USER_GUIDE](../USER_GUIDE/) docs into
   one marketable **`USER_GUIDE/user_manual.pdf`** with a generated cover, table of contents,
   page numbers, rendered Mermaid diagrams, and the screenshots from `USER_GUIDE/images/screenshots/`.
+- **`npm run manual:check`** — exits non-zero if the docs or images have moved since
+  `user_manual.pdf` was built. Compares an **input hash**
+  (`USER_GUIDE/.manual-inputs.sha256`), never the PDF's own bytes: the PDF carries a build
+  timestamp and puppeteer embeds a creation date, so its bytes change on every build and
+  comparing them would rebuild forever. `npm run manual` records a fresh hash as it builds,
+  so the two cannot fall out of step. `.github/workflows/manual.yml` runs this on every push
+  that touches `USER_GUIDE/` and rebuilds when it fails.
 - **`npm run build`** — the cheap aggregate: `sync-readme` + `stats`. (Excludes `manual`,
   which is heavy — puppeteer + network.)
 
@@ -67,6 +74,11 @@ npm run manual         # → ../USER_GUIDE/user_manual.pdf
   here as a PR — never hand-dropped. Until they land, those spots render as broken-image
   icons (everything else is complete). Product banners sit alongside in `images/brand/`,
   owned by the `aevum-brand` dispatcher.
+
+  **The capture script itself is no longer here.** It lives in `aevum-web` beside the
+  gallery and the `*View`s it shoots, because the drift trigger for a screenshot is that
+  view's snapshot test — a trigger a repo away from its subject cannot gate. This repo is
+  the consumer: images arrive by PR, and merging one rebuilds the PDF.
 - **Mermaid** (for `manual`) is rendered to static SVG in a headless browser before capture;
   it needs network access at build time (mermaid loads from a CDN).
 - This folder ships with the repo (publishable on GitHub); the generated PDF lands in

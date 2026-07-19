@@ -42,8 +42,14 @@ The Transactions page lists everything with filtering, sorting, and search. You
 can also view spending grouped by beneficiary to see where your money actually
 goes.
 
-![Transactions list](images/screenshots/transactions-list.png)
-![Transactions Calendar](images/screenshots/transactions-calendar.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/transactions-list-dark.png">
+  <img alt="Transactions list" src="images/screenshots/transactions-list.png">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/transactions-calendar-dark.png">
+  <img alt="Transactions Calendar" src="images/screenshots/transactions-calendar.png">
+</picture>
 
 ## FAQ
 

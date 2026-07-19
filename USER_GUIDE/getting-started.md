@@ -28,7 +28,10 @@ After signing in you land on your **dashboard** — a summary of recent activity
 your current week's tax, and budgets. The top navigation takes you to
 Transactions, Budgets, your bills, and Settings.
 
-![The dashboard](images/screenshots/dashboard-initial.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/dashboard-initial-dark.png">
+  <img alt="The dashboard" src="images/screenshots/dashboard-initial.png">
+</picture>
 
 ## 4. Add your first transaction
 

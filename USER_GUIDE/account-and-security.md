@@ -28,7 +28,10 @@ Authenticator, Authy, etc.) in addition to your password. To set it up, go to
 your account security settings, scan the QR code with your app, and confirm a
 code to finish enrolling.
 
-![Two-factor setup](images/screenshots/2fa-setup.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/2fa-setup-dark.png">
+  <img alt="Two-factor setup" src="images/screenshots/2fa-setup.png">
+</picture>
 
 When 2FA is on, signing in asks for your code after your password. It also
 protects sensitive actions like changing your email.

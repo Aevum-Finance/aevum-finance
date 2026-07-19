@@ -125,6 +125,15 @@ ${body}
   });
   try {
     const page = await browser.newPage();
+    // A PDF has no theme — it is one static document, printed light. The docs
+    // embed screenshots as <picture> with a prefers-color-scheme source, so this
+    // is what decides which variant gets printed. It is FORCED rather than left
+    // to the headless default: a machine (or a future puppeteer) defaulting to
+    // dark would silently print dark screenshots inside a light document, and
+    // the build would still succeed.
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: 'light' },
+    ]);
     await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
     // Render Mermaid to static SVG before printing (avoids an async race).
     await page.evaluate(async () => {

@@ -16,7 +16,10 @@
 **Aevum means an age — time that endures and accrues rather than runs out.** Wealth is meant to grow the same way: gently, one ordinary step at a time. Most money apps are built on fear — budgets, streaks, the guilt when you slip; they're very good at making you anxious and not very good at making you wealthier. Aevum starts from the opposite premise: a small nudge you set yourself turns everyday spending into savings — a quiet push in the right direction that never becomes a shove. No pressure, no shame, no discipline required — just a calmer path to real wealth that grows while you live your life.
 <!-- BRAND:end -->
 
-![Aevum landing page](USER_GUIDE/images/screenshots/landing.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="USER_GUIDE/images/screenshots/landing-dark.png">
+  <img alt="Aevum landing page" src="USER_GUIDE/images/screenshots/landing.png">
+</picture>
 
 ---
 
@@ -56,7 +59,10 @@ just tracked — it's actually moved into your savings account, so the disciplin
 turns into a real balance. That savings account is the foundation Aevum will
 build on as it grows.
 
-![Aevum dashboard](USER_GUIDE/images/screenshots/dashboard.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="USER_GUIDE/images/screenshots/dashboard-dark.png">
+  <img alt="Aevum dashboard" src="USER_GUIDE/images/screenshots/dashboard.png">
+</picture>
 
 ## What you can do
 

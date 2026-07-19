@@ -33,7 +33,10 @@ You create and manage rules on the **Categorization Rules** page (in Settings).
 There's at most one rule per beneficiary, and like categories, the ones Aevum
 seeded wear a "System" chip.
 
-![Categorization rules](images/screenshots/categorization-rules.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/categorization-rules-dark.png">
+  <img alt="Categorization rules" src="images/screenshots/categorization-rules.png">
+</picture>
 
 ### Creating a rule while adding a transaction
 

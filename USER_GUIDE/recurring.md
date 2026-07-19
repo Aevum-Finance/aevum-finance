@@ -16,7 +16,10 @@ forecast so your actuals stay clean and your predictions stay honest.
 
 ## What you'll see
 
-![Recurring forecasts](images/screenshots/recurring-forecast.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/recurring-forecast-dark.png">
+  <img alt="Recurring forecasts" src="images/screenshots/recurring-forecast.png">
+</picture>
 
 - Upcoming recurring expenses Aevum expects, with their predicted dates and
   amounts.

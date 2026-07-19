@@ -8,7 +8,10 @@ label is "Expense Tracker") that brings three things together: what you've spent
 in each category, the limit you've set for it, and how you're tracking against
 that limit. You set, adjust, and watch your budgets all in one place.
 
-![Expense Tracker](images/screenshots/expense-tracker.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/expense-tracker-dark.png">
+  <img alt="Expense Tracker" src="images/screenshots/expense-tracker.png">
+</picture>
 
 ## Setting a budget
 
