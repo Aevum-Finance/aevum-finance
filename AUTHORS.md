@@ -1,3 +1,7 @@
+<!-- TWIN FILE. An identical AUTHORS.md lives in Aevum-Finance/.github, where GitHub uses it as
+     the ORG-WIDE fallback for repos without their own. They are hand-kept in sync — edit BOTH,
+     or neither. -->
+
 # Authors
 
 Aevum was **designed and built end-to-end by Rohit Solanki** — domain model, service
