@@ -7,8 +7,8 @@
 # the reader something the product no longer does.
 #
 # This is the downstream half of the screenshot pipeline. aevum-web captures and
-# opens a PR here; merging that PR lands new images on main, which lands here, and
-# the manual is rebuilt from them. Without this step the PDF would silently lag
+# pushes new images straight to main here, which lands on this workflow, and the
+# manual is rebuilt from them. Without this step the PDF would silently lag
 # its own inputs — the same failure the brand CDN has, where a broken email logo
 # is never reported because mail clients do not report broken images.
 #
@@ -47,7 +47,11 @@ permissions:
 jobs:
   rebuild:
     name: rebuild the PDF
-    runs-on: ubuntu-latest
+    # Pinned for the same reason aevum-web pins its capture runner: the PDF is a
+    # rendered artifact, and the runner image's font set is the one input npm's
+    # lockfile does not cover. Unpinned, the manual's typography could shift
+    # between rebuilds with no commit accounting for it.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
