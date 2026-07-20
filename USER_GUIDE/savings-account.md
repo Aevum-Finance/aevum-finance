@@ -17,6 +17,14 @@ flowchart LR
     B --> C[A real, growing<br/>savings balance]
 ```
 
+The Savings screen shows that balance, what it is composed of, and how it has
+grown week by week.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/savings-dark.png">
+  <img alt="The Savings screen: set-aside balance, composition, and growth over time" src="images/screenshots/savings.png">
+</picture>
+
 ## Paying your bill
 
 You can settle bills two ways:
