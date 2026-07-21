@@ -131,19 +131,24 @@ blocking.
 
 ## Try Aevum with sample data
 
-`dummy-statement/` is a standalone tool (its own venv) that generates **synthetic**
-bank/UPI statements and renders them as PhonePe / Paytm / Google Pay-styled PDFs.
-It's how you (or a privacy-conscious new user) can explore Aevum end-to-end
-without touching real financial data — and it's also what the import pipeline is
-tested against.
+[**synthetic-statement**](https://github.com/RohitSSolanki/synthetic-statement) generates
+**synthetic** bank/UPI statements and renders them as PhonePe / Paytm / Google Pay-styled
+PDFs. It's how you (or a privacy-conscious new user) can explore Aevum end-to-end without
+touching real financial data — and it's also what the import pipeline is tested against.
+
+The zero-setup way is the hosted, in-browser generator — compute stays in your browser,
+nothing is uploaded:
+
+> **<https://synth.rohitsolanki.in/>** — pick options, download a PDF / CSV / JSON.
+
+Or install the package (it's `pip`-installable — formerly the vendored `dummy-statement`
+submodule) and generate locally:
 
 ```bash
-cd dummy-statement
-python -m venv .venv && source .venv/bin/activate
-.venv/bin/pip install -r requirements.txt
+pip install "synthetic-statement[pdf] @ git+https://github.com/RohitSSolanki/synthetic-statement@main"
 
-./generate_statement.sh -y --seed 7 --range 2026-01-05:2026-01-25 --output-dir runs/demo
-./render_statement.sh runs/demo --app all     # writes phonepe.pdf / paytm.pdf / gpay.pdf
+synthetic-statement --yes --seed 7 --range 2026-01-05:2026-01-25 --output-dir runs/demo
+python -m synthetic_statement.render_statement runs/demo --app all   # phonepe/paytm/gpay.pdf
 ```
 
 Then [import](USER_GUIDE/importing-statements.md) one of those PDFs into Aevum
@@ -151,8 +156,7 @@ and explore with fully synthetic data. When you're ready to use Aevum for real,
 do a [data reset](USER_GUIDE/your-data-and-privacy.md#reset-all-your-data) and
 start fresh from your real statements.
 
-> Everything the tool ships is synthetic. Real statements you drop in for parser
-> calibration are git-ignored by design — see the tool's own `README.md`.
+> Everything the generator ships is synthetic — see its own `README.md`.
 
 ## Documentation screenshots
 

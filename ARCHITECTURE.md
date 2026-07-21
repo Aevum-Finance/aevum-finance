@@ -17,7 +17,6 @@ repository with its own history, CI, and docs:
 | ------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | [`backend/`](backend/)   | The API and all domain logic                                                                 | Python · FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL · Redis · Alembic |
 | [`frontend/`](frontend/) | The single-page web app                                                                      | React 18 · TypeScript · Vite · Zustand · TanStack Query                  |
-| `dummy-statement/`       | A dev-only tool that generates synthetic bank/UPI statements for testing the import pipeline | (standalone, own venv)                                                   |
 
 The outer repo only tracks **which commit** of each submodule is current; all
 real code lives inside the submodules. See [CONTRIBUTING.md](CONTRIBUTING.md)

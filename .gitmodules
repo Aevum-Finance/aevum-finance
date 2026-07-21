@@ -7,7 +7,3 @@
 	path = frontend
 	url = https://github.com/Aevum-Finance/aevum-web
 	branch = main
-[submodule "dummy-statement"]
-	path = dummy-statement
-	url = https://github.com/RohitSSolanki/dummy-statement
-	branch = main
