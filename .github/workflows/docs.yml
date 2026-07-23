@@ -1,0 +1,172 @@
+# The outer repo's docs gate + fold (T-docs-tiering, aevum-finance lane).
+#
+# This repo's docs are mostly DERIVED: the lane mirror under docs/internal/, the
+# generated regions in docs/public/ and ARCHITECTURE.md, the built manual PDF, and
+# METRICS.md / aevum-stats.json. Derived content must never fail a build — it is a
+# pure function of its inputs, so the honest
+# response to drift is to CORRECT it, not to block on it. That split is the whole
+# posture here, and it matches what both code lanes already do:
+#
+#   FAIL (fail-closed, a human must fix):
+#     - product-features coverage — a topic pointing at a missing/infra module, or
+#       a user_facing module claimed by no topic. That is a GENERATION FAILURE: the
+#       hand-authored manifest is wrong, and no regeneration can guess the answer.
+#     - broken doc links — the one doc problem that is not regenerable.
+#     - the tooling tests.
+#
+#   FOLD (regenerate + commit back on main):
+#     - the lane mirror, the injected regions, the merged metrics, and the manual
+#       PDF. Mechanical drift gets corrected in place.
+#
+# Why the fold needs the LANE repos: this repo does not track them at all, and the
+# mirror reflects each lane's main TIP. So the fold checks both out explicitly and
+# reads them through lanes.mjs.
+#
+# ⚠️ SETUP: both lanes are private, so the default GITHUB_TOKEN cannot read them —
+# add a PAT with read access to both as the `DOCS_TOKEN` secret. The fold degrades
+# to a clear failure without it; the `check` job never needs it.
+
+name: docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Safety net: catches lane drift even when nothing was pushed here. This is the
+  # deliberate stand-in for per-lane repository_dispatch, which is deferred.
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Fail-closed gates only. Deliberately does NOT check the foldable artifacts:
+  # a PR carrying stale generated regions is fine — main folds them on merge.
+  # Needs no lane access, so it runs on forks too.
+  check:
+    name: gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tooling/package-lock.json
+
+      # The browser download is only needed by the PDF build (fold job).
+      - run: npm ci
+        working-directory: tooling
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+
+      - name: product-features coverage
+        working-directory: tooling
+        run: npm run --silent features:check
+
+      - name: doc links
+        working-directory: tooling
+        run: npm run --silent links
+
+      - name: tooling tests
+        working-directory: tooling
+        run: npm test
+
+  fold:
+    name: fold derived docs
+    # Never fold on a red gate, and never from a PR (a fork PR cannot push here).
+    needs: [check]
+    if: github.event_name != 'pull_request'
+    # Pinned for the same reason manual.yml pins: the PDF is a rendered artifact
+    # and the runner's font set is the one input the lockfile does not cover.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    concurrency:
+      group: docs-fold-main
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # This repo is a content aggregator: it does NOT track the lanes as
+      # submodules. The fold checks each one out explicitly at its main TIP —
+      # which is what the mirror is supposed to reflect. Both lanes are private,
+      # so DOCS_TOKEN (a PAT with read on both) is required here; without it
+      # these steps fail loudly rather than silently mirroring nothing.
+      - name: check out the backend lane
+        uses: actions/checkout@v4
+        with:
+          repository: Aevum-Finance/aevum-api
+          ref: main
+          path: .lanes/aevum-api
+          token: ${{ secrets.DOCS_TOKEN }}
+
+      - name: check out the frontend lane
+        uses: actions/checkout@v4
+        with:
+          repository: Aevum-Finance/aevum-web
+          ref: main
+          path: .lanes/aevum-web
+          token: ${{ secrets.DOCS_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tooling/package-lock.json
+
+      - run: npm ci
+        working-directory: tooling
+
+      # lanes.mjs resolves the on-disk lanes; here they are the explicit
+      # checkouts above rather than flat-workspace siblings.
+      - name: regenerate everything derived
+        working-directory: tooling
+        env:
+          AEVUM_BACKEND_DIR: ${{ github.workspace }}/.lanes/aevum-api
+          AEVUM_FRONTEND_DIR: ${{ github.workspace }}/.lanes/aevum-web
+        run: |
+          set -euo pipefail
+          npm run --silent docs     # lane mirror  -> docs/internal/
+          npm run --silent public   # T0 provenance regions in docs/public/
+          npm run --silent outer    # ARCHITECTURE.md regions
+          npm run --silent stats    # aevum-stats.json + METRICS.md
+
+      # Rebuilt HERE rather than left to manual.yml: a fold pushed with the
+      # workflow token does not trigger other workflows, so manual.yml would never
+      # see docs/public change and the PDF would silently lag its own source.
+      - name: rebuild the PDF if its inputs moved
+        working-directory: tooling
+        run: |
+          set -euo pipefail
+          if npm run --silent manual:check; then
+            echo "PDF is current."
+          else
+            npm run --silent manual
+          fi
+
+      - name: commit the fold
+        run: |
+          set -euo pipefail
+          git config user.name  "Aevum Docs Bot"
+          git config user.email "docs-bot@aevumfinance.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no drift — nothing to fold"
+            exit 0
+          fi
+          git diff --cached --name-only | sed 's/^/  folded: /'
+          # [skip ci] is the loop guard: it holds whichever token ends up pushing,
+          # including a PAT (which, unlike GITHUB_TOKEN, does re-trigger workflows).
+          git commit -m "docs(bot): fold regenerated mirror, docs and metrics [skip ci]"
+          git push

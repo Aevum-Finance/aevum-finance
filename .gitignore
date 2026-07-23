@@ -20,6 +20,11 @@ CLAUDE.md
 # Node deps — lockfiles ARE committed, the tree is not.
 node_modules/
 
+# Lane checkouts the docs fold makes in CI to read each lane's public docs from.
+# This repo aggregates the lanes; it does not vendor them. Load-bearing: the fold
+# ends in `git add -A`, so without this the whole of both lanes would be staged.
+.lanes/
+
 # Python tooling venvs / caches, if any.
 .venv/
 __pycache__/
