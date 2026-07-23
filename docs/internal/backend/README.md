@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@34999cd1/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@e09e7c9e/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. The front door to the docs tree — a "start here"
      index, not content of its own. Point readers at the map, the per-feature

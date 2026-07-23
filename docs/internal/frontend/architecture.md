@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@739af13d/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@b006f48c/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. A high-altitude tour of how the web app is put
      together — enough to orient anyone (including a developer meeting the codebase

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@be3d1be7/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@b006f48c/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the api lane's T1 into the T0 product doc.
