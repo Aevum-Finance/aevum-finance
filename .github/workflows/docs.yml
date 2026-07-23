@@ -18,6 +18,15 @@
 #     - the lane mirror, the injected regions, the merged metrics, and the manual
 #       PDF. Mechanical drift gets corrected in place.
 #
+# This workflow is the SOLE owner of the PDF. manual.yml used to rebuild it on a
+# paths filter, and that filter still named USER_GUIDE/** after the prose moved to
+# docs/public/ — so the workflow whose only job was "rebuild when the sources
+# move" had stopped watching its sources, and a dispatched screenshot would never
+# have reached it. Repointing the filter would have made TWO workflows rebuild and
+# push the same two files on the same event, racing each other's push. One owner
+# with no paths filter is both the fix and the simpler design: every push to main
+# folds, and the input hash makes it a no-op when nothing actually moved.
+#
 # Why the fold needs the LANE repos: this repo does not track them at all, and the
 # mirror reflects each lane's main TIP. So the fold checks both out explicitly and
 # reads them through lanes.mjs.
@@ -142,9 +151,11 @@ jobs:
           npm run --silent outer    # ARCHITECTURE.md regions
           npm run --silent stats    # aevum-stats.json + METRICS.md
 
-      # Rebuilt HERE rather than left to manual.yml: a fold pushed with the
-      # workflow token does not trigger other workflows, so manual.yml would never
-      # see docs/public change and the PDF would silently lag its own source.
+      # The PDF's inputs are the prose in docs/public/*.md AND the images it
+      # embeds — screenshots dispatched from aevum-web, brand marks from
+      # aevum-brand. Both arrive as a push to main, which lands here. The hash
+      # gate decides whether anything actually moved; the PDF's own bytes never
+      # do, since puppeteer stamps a creation date on every build.
       - name: rebuild the PDF if its inputs moved
         working-directory: tooling
         run: |
