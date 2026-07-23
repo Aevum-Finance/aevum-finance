@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@e09e7c9e/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@34999cd1/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. A plain-language overview of how the backend's
      speed is measured and kept in check. The detailed audit (micro-benchmarks,

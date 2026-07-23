@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@b006f48c/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@3f604247/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. The entry point to the web app's documentation.
      Links out to the general-audience pages (this file + public/) and down into the
