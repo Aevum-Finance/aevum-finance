@@ -112,6 +112,14 @@ jobs:
       # which is what the mirror is supposed to reflect. Both lanes are private,
       # so DOCS_TOKEN (a PAT with read on both) is required here; without it
       # these steps fail loudly rather than silently mirroring nothing.
+      #
+      # fetch-depth: 0 is LOAD-BEARING, not thoroughness. The mirror stamps each
+      # doc with the commit that last touched THAT FILE, so an unrelated lane
+      # commit never re-stamps the tree. Resolving that needs history: under the
+      # default shallow checkout (depth 1) `git log -1 -- <file>` can only return
+      # HEAD, so every stamp collapses to the lane tip — green run, written files,
+      # wrong SHAs, and a permanent fight with any full local clone. sync-docs
+      # now refuses to mirror a shallow lane rather than mirror it wrongly.
       - name: check out the backend lane
         uses: actions/checkout@v4
         with:
@@ -119,6 +127,7 @@ jobs:
           ref: main
           path: .lanes/aevum-api
           token: ${{ secrets.DOCS_TOKEN }}
+          fetch-depth: 0
 
       - name: check out the frontend lane
         uses: actions/checkout@v4
@@ -127,6 +136,7 @@ jobs:
           ref: main
           path: .lanes/aevum-web
           token: ${{ secrets.DOCS_TOKEN }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:

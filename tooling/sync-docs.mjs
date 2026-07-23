@@ -35,7 +35,7 @@
 import { readFile, writeFile, readdir, mkdir, rm } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { LANE_DIR } from './lanes.mjs';
 
@@ -55,6 +55,41 @@ const EXCLUDE_TOP = new Set(['internal', 'archive']);
 const SHA_LEN = 8;
 
 // --- helpers -------------------------------------------------------------
+
+/**
+ * A shallow lane clone CANNOT answer "which commit last touched this file". With
+ * only HEAD in the history, `git log -1 -- <path>` returns HEAD for every path —
+ * so every stamp collapses to the lane tip and the per-file provenance silently
+ * becomes a lie that still looks like an answer.
+ *
+ * It is worth failing loudly over. This mirror is the ONLY version record left
+ * after the gitlinks were dropped, and the failure has no symptom at the point of
+ * generation: the run is green, the files are written, and the SHAs are wrong. It
+ * also churns — a shallow CI run and a full local run disagree on every file, so
+ * they overwrite each other's stamps on every fold, forever.
+ *
+ * The cause is never subtle: actions/checkout defaults to fetch-depth 1.
+ */
+export function assertFullHistory(lane) {
+  let shallow;
+  try {
+    shallow = execFileSync('git', ['-C', lane.dir, 'rev-parse', '--is-shallow-repository'], {
+      encoding: 'utf8',
+    }).trim();
+  } catch {
+    // Not a git clone at all — fileSha() already degrades to an unstamped mirror,
+    // which is honest (it claims no provenance rather than the wrong provenance).
+    return;
+  }
+  if (shallow === 'true') {
+    throw new Error(
+      `sync-docs: the ${lane.key} lane (${lane.repo}) is a SHALLOW clone, so per-file ` +
+        'provenance cannot be resolved — every stamp would collapse to the lane tip.\n' +
+        '  In CI: set `fetch-depth: 0` on that lane\'s actions/checkout step.\n' +
+        '  Locally: `git -C <lane> fetch --unshallow`.'
+    );
+  }
+}
 
 // The commit that last authored <repoRelPath>, as a clone-stable 8-char prefix.
 function fileSha(laneDir, repoRelPath) {
@@ -104,6 +139,7 @@ async function collect(laneDir) {
 // relative to MIRROR_ROOT (e.g. "backend/architecture.md"). bytes is a Buffer so
 // non-markdown (json/toml, any future images) round-trips untouched.
 async function buildLane(lane) {
+  assertFullHistory(lane);
   const rels = await collect(lane.dir);
   const files = [];
   const provenance = [];
@@ -251,7 +287,12 @@ async function main() {
   await writeMirror(built);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Direct-execution guard — same as the other generators. Without it, importing a
+// helper from this module (the shallow-clone assertion, from the tests) would run
+// a full mirror sync as a side effect of the import.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
