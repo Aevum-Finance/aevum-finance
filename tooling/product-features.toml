@@ -1,0 +1,83 @@
+# Product-feature registry — the editorial source of truth for the T0 doc merge.
+#
+# The ONE thing no generator can derive: how the code lanes' per-MODULE docs group
+# into the product's TOPIC axis. A product topic ("Savings account") often spans
+# several modules (bank_accounts + treasury), and modules split across lanes for
+# implementation reasons (backend `users` + frontend `account`) belong to one topic
+# ("Account & security"). This file declares that grouping; feature-index.mjs reads
+# it alongside each lane's own module manifest and ASSERTS coverage — every
+# user_facing module in either lane must be claimed by some topic here, and every
+# module a topic references must exist and be user_facing. A drift on either side
+# fails the build (the same coverage discipline the lane manifests use for T3).
+#
+# Each topic drives one docs/public/<key>.md merged product page, which in turn
+# feeds the USER_GUIDE. `backend` / `frontend` list the lane MODULE names (as keyed
+# in that lane's modules.manifest); their titles + one-line scopes are pulled from
+# the manifests at merge time, so they are not repeated here. `blurb` is the topic's
+# product-voice one-liner.
+
+[topics.getting-started]
+title    = "Getting started"
+blurb    = "Create your account, add your first transaction, and find your way around."
+backend  = ["onboarding"]
+frontend = ["onboarding", "dashboard"]
+
+[topics.consumption-tax]
+title    = "The consumption tax & your weekly bill"
+blurb    = "The self-imposed tax at the heart of Aevum, and the single weekly bill it rolls up to."
+backend  = ["taxation"]
+frontend = ["taxation"]
+
+[topics.savings-account]
+title    = "Your savings account"
+blurb    = "Where the tax goes — a real, set-aside balance that grows as you spend."
+backend  = ["bank_accounts", "treasury"]
+frontend = ["bankAccounts", "treasury"]
+
+[topics.transactions]
+title    = "Transactions"
+blurb    = "Recording what you spend and earn, by hand or by importing a statement."
+backend  = ["transactions"]
+frontend = ["transactions"]
+
+[topics.beneficiaries]
+title    = "Beneficiaries"
+blurb    = "The merchants and people your money goes to."
+backend  = ["beneficiaries"]
+frontend = ["beneficiaries"]
+
+[topics.categories-and-rules]
+title    = "Categories & rules"
+blurb    = "How Aevum sorts your spending into categories, and how you teach it."
+backend  = ["categorization", "tags"]
+frontend = ["categorization", "tags"]
+
+[topics.budgets]
+title    = "Budgets"
+blurb    = "Per-category limits, and the penalty when you cross one."
+backend  = ["budgets"]
+frontend = ["budgets"]
+
+[topics.recurring]
+title    = "Recurring bills"
+blurb    = "Letting Aevum see your repeating bills coming."
+backend  = ["recurring"]
+frontend = ["recurring"]
+
+[topics.account-and-security]
+title    = "Account & security"
+blurb    = "Your profile, sign-in, two-factor, recovery, and device-aware sessions."
+backend  = ["auth", "users"]
+frontend = ["auth", "account"]
+
+[topics.data-and-privacy]
+title    = "Your data & privacy"
+blurb    = "Exporting your data, and what Aevum keeps or removes when you leave."
+backend  = ["exports"]
+frontend = []
+
+[topics.notifications]
+title    = "Notifications & activity"
+blurb    = "The activity feed that surfaces new bills, budget breaches, and failed imports."
+backend  = ["activity"]
+frontend = []
