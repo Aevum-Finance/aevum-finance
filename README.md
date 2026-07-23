@@ -1,8 +1,8 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="USER_GUIDE/images/brand/product-banner-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="USER_GUIDE/images/brand/product-banner-cream.png">
-    <img alt="Aevum — Future begins today." src="USER_GUIDE/images/brand/product-banner-cream.png" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="docs/public/images/brand/product-banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/public/images/brand/product-banner-cream.png">
+    <img alt="Aevum — Future begins today." src="docs/public/images/brand/product-banner-cream.png" width="100%">
   </picture>
 </div>
 
@@ -17,8 +17,8 @@
 <!-- BRAND:end -->
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="USER_GUIDE/images/screenshots/landing-dark.png">
-  <img alt="Aevum landing page" src="USER_GUIDE/images/screenshots/landing.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/public/images/screenshots/landing-dark.png">
+  <img alt="Aevum landing page" src="docs/public/images/screenshots/landing.png">
 </picture>
 
 ---
@@ -60,8 +60,8 @@ turns into a real balance. That savings account is the foundation Aevum will
 build on as it grows.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="USER_GUIDE/images/screenshots/dashboard-dark.png">
-  <img alt="Aevum dashboard" src="USER_GUIDE/images/screenshots/dashboard.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/public/images/screenshots/dashboard-dark.png">
+  <img alt="Aevum dashboard" src="docs/public/images/screenshots/dashboard.png">
 </picture>
 
 ## What you can do
@@ -86,33 +86,34 @@ build on as it grows.
 
 ## Learn more
 
-New here? Start with the [**User Guide**](USER_GUIDE/README.md). Useful entry
+New here? Start with the [**User Guide**](docs/public/README.md). Useful entry
 points:
 
-- [Getting started](USER_GUIDE/getting-started.md) — create an account and add
+- [Getting started](docs/public/getting-started.md) — create an account and add
   your first transaction
-- [The consumption tax & your weekly bill](USER_GUIDE/consumption-tax.md) — the
+- [The consumption tax & your weekly bill](docs/public/consumption-tax.md) — the
   idea at the heart of Aevum
-- [Your savings account](USER_GUIDE/savings-account.md) — where the tax goes, and
+- [Your savings account](docs/public/savings-account.md) — where the tax goes, and
   what's coming next
-- [Budgets](USER_GUIDE/budgets.md) · [Categories & rules](USER_GUIDE/categories-and-rules.md)
-  · [Recurring bills](USER_GUIDE/recurring.md)
-- [Importing statements](USER_GUIDE/importing-statements.md) ·
-  [Account & security](USER_GUIDE/account-and-security.md) ·
-  [Your data & privacy](USER_GUIDE/your-data-and-privacy.md)
+- [Transactions & importing](docs/public/transactions.md) ·
+  [Budgets](docs/public/budgets.md) · [Categories & rules](docs/public/categories-and-rules.md)
+  · [Recurring bills](docs/public/recurring.md)
+- [Account & security](docs/public/account-and-security.md) ·
+  [Your data & privacy](docs/public/data-and-privacy.md)
 
 ---
 
 ### Building Aevum?
 
-Aevum is a monorepo of two git submodules — a **FastAPI** backend and a
-**React** frontend. If you want to run it locally, contribute, or understand how
-it's put together:
+Aevum is built as two repositories — a **FastAPI** backend and a **React**
+frontend. This repo is Aevum's public home: it carries the product docs and
+mirrors each lane's documentation. If you want to understand how it's put
+together, or run it locally:
 
 - [**CONTRIBUTING.md**](CONTRIBUTING.md) — tech stack, setup, running both apps,
   testing, and configuration
 - [**ARCHITECTURE.md**](ARCHITECTURE.md) — how the pieces fit together, then a
-  route down into each submodule's own docs
+  route down into each lane's mirrored docs under [`docs/`](docs/)
 
 > "Aevum" is the product brand; "Personal Budget App" is the legacy name still
 > used as this monorepo's directory name.

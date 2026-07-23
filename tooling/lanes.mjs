@@ -1,12 +1,14 @@
-// Where the code lanes live ON DISK, relative to this superproject clone.
+// Where the code lanes live ON DISK, relative to this clone.
 //
-// Flat workspace (default): the lanes are SIBLINGS of the aevum-finance clone —
-//   ../aevum-api  (the "backend" gitlink)  ·  ../aevum-web  (the "frontend" gitlink)
-// while the superproject keeps its submodule gitlink PATHS as backend/frontend, so
-// the published doc links in aevum-stats.json / METRICS.md still resolve on GitHub.
+// This repo AGGREGATES the lanes; it does not vendor or track them (no submodules).
+// It only ever needs them on disk at generation time, to copy each lane's public
+// docs into the mirror — after which everything it publishes is self-contained.
 //
-// Override per layout via env (resolved relative to the repo root) — e.g. a nested
-// submodule checkout would set AEVUM_BACKEND_DIR=backend, AEVUM_FRONTEND_DIR=frontend.
+// Flat workspace (default): the lanes are SIBLINGS of this clone —
+//   ../aevum-api  (backend)  ·  ../aevum-web  (frontend)
+//
+// Override per layout via env (resolved relative to the repo root) — CI checks the
+// lanes out explicitly and sets AEVUM_BACKEND_DIR / AEVUM_FRONTEND_DIR to those paths.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 

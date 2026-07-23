@@ -1,9 +1,9 @@
 {
   "note": "Canonical Aevum metrics — generated, do not hand-edit.",
-  "as_of": "2026-07-15",
+  "as_of": "2026-07-23",
   "source_refs": {
-    "backend": "1d4dbcda",
-    "frontend": "f91f6c18"
+    "backend": "6ae05e37",
+    "frontend": "ccfec38e"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
@@ -20,23 +20,23 @@
         "DELETE": 14
       },
       "routers": 28,
-      "tests": 1098,
-      "test_functions": 1006,
+      "tests": 1208,
+      "test_functions": 1049,
       "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
       "scheduled_workers": 8,
-      "email_types": 10
+      "email_types": 11
     },
     "complexity": {
       "note": "Static analysis (radon) over app/ — re-derived each run.",
-      "avg_cyclomatic": "A (2.64)",
-      "maintainability_grade_a_pct": 99.2,
-      "maintainability": "grade A on 261/263 modules (99.2%)"
+      "avg_cyclomatic": "A (2.67)",
+      "maintainability_grade_a_pct": 99.3,
+      "maintainability": "grade A on 268/270 modules (99.3%)"
     },
     "sloc": {
       "note": "Accurate code lines (pygount, excludes blanks/comments).",
-      "backend_app": 23745,
-      "backend_tests": 16749,
-      "total": 40494
+      "backend_app": 24227,
+      "backend_tests": 17341,
+      "total": 41568
     },
     "benchmark": {
       "note": "Tier-2 measured performance — captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
@@ -252,32 +252,32 @@
     "lane": "frontend",
     "counts": {
       "feature_modules": 16,
-      "test_files": 169,
-      "tests": 824,
+      "test_files": 183,
+      "tests": 924,
       "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"
     },
     "complexity": {
       "note": "Static analysis (eslint metrics, bench/eslint.metrics.config.mjs) over src/ — per-function maxima.",
-      "functions": 3174,
+      "functions": 3502,
       "cyclomatic_max": 15,
       "cognitive_max": 15,
       "fn_lines_max": 200
     },
     "sloc": {
       "note": "Accurate code lines (bench/loc.mjs, excludes blanks/comments).",
-      "frontend_src": 48816,
-      "frontend_tests": 16033,
-      "total": 64849
+      "frontend_src": 55915,
+      "frontend_tests": 17698,
+      "total": 73613
     },
     "benchmark": {
       "note": "Tier-2 measured performance — bundle sizes via bench:update, Lighthouse via bench:lab, captured at release/CI and preserved between static regens. 'Indicative, not contractual'.",
-      "captured_at": "2026-07-07T11:44:56.217Z",
+      "captured_at": "2026-07-20T16:06:00.338Z",
       "bundle": {
         "note": "gzip @ level 9 (framework-internal reading; `npm run size` is the enforced gate).",
-        "entry_gzip_bytes": 97226,
-        "css_gzip_bytes": 16455,
-        "chunk_count": 170,
-        "test_suite_ms": 47557
+        "entry_gzip_bytes": 101746,
+        "css_gzip_bytes": 17758,
+        "chunk_count": 198,
+        "test_suite_ms": 66058
       },
       "lighthouse": {
         "note": "Median-of-N Lighthouse (default mobile + slow-4G); scores 0-100, web-vitals in ms.",
@@ -378,12 +378,12 @@
   },
   "contract": {
     "note": "Stable paths a downstream consumer pulls at build time.",
-    "metrics": "aevum-stats.json (this file); per-lane detail in backend/docs/stats.backend.json + frontend/docs/stats.frontend.json",
+    "metrics": "aevum-stats.json (this file); per-lane detail in docs/internal/backend/stats.backend.json + docs/internal/frontend/stats.frontend.json",
     "performance": [
-      "backend/docs/performance.md",
-      "frontend/docs/performance.md"
+      "docs/internal/backend/performance.md",
+      "docs/internal/frontend/performance.md"
     ],
-    "screenshots": "USER_GUIDE/images/",
+    "screenshots": "USER_GUIDE/images/screenshots/",
     "authors": "AUTHORS.md"
   }
 }

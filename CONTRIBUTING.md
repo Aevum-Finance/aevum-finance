@@ -2,16 +2,16 @@
 
 Everything a developer needs to clone, run, test, and contribute to Aevum. For
 *how the pieces fit together*, read [ARCHITECTURE.md](ARCHITECTURE.md) first;
-for *what the app does*, see the [User Guide](USER_GUIDE/README.md).
+for *what the app does*, see the [User Guide](docs/public/README.md).
 
-Aevum is a monorepo of two git submodules — a **FastAPI** backend and a
-**React** frontend — each its own repository. Most day-to-day work happens
-*inside* a submodule and is committed there; the outer repo just pins which
-commit of each submodule is current.
+Aevum is built as two repositories — a **FastAPI** backend (`aevum-api`) and a
+**React** frontend (`aevum-web`). All development happens *in those repos*. This
+repo does not contain application code: it is Aevum's public home, carrying the
+product documentation and a mirror of each lane's own docs.
 
 ## Tech stack
 
-| | Backend (`backend/`) | Frontend (`frontend/`) |
+| | Backend (`aevum-api`) | Frontend (`aevum-web`) |
 | --- | --- | --- |
 | Language | Python 3.13 | TypeScript 5.9 |
 | Framework | FastAPI | React 18 |
@@ -24,20 +24,27 @@ commit of each submodule is current.
 
 ## Clone
 
-The submodules must come down with the outer repo:
+**The two lanes are private repositories**, and this repo does not track them —
+it mirrors their public docs instead, so everything published here reads from a
+plain clone with no access to either lane.
+
+To actually run Aevum you need access to both. Clone them as **siblings**, which
+is the layout the doc tooling expects:
 
 ```bash
-git clone --recurse-submodules <monorepo-url>
-# already cloned without submodules?
-git submodule update --init --recursive
+git clone <outer-url>       aevum-finance
+git clone <aevum-api-url>   aevum-api      # the backend lane
+git clone <aevum-web-url>   aevum-web      # the frontend lane
 ```
+
+The setup steps below run inside `aevum-api/` and `aevum-web/` respectively.
 
 ## Backend setup
 
 Postgres + Redis run via docker-compose; the app and its tooling run in a venv.
 
 ```bash
-cd backend
+cd aevum-api
 docker compose up -d                                   # Postgres + Redis
 
 python -m venv .venv
@@ -51,8 +58,8 @@ cp .env.example .env                                   # then fill in the REQUIR
 
 API docs once it's up: <http://localhost:4000/docs> (Swagger) and
 <http://localhost:4000/redoc>. The full env-var reference is in
-[`backend/README.md`](backend/README.md); the deeper architecture rules are in
-[`backend/CONTRIBUTING.md`](backend/CONTRIBUTING.md).
+the backend lane's own `README.md`; the deeper architecture rules are in its
+`CONTRIBUTING.md`.
 
 > `run.py` enables hot-reload only outside production (it gates on `NODE_ENV`).
 > On Render the app runs from the Dockerfile command, not `run.py`.
@@ -60,7 +67,7 @@ API docs once it's up: <http://localhost:4000/docs> (Swagger) and
 ## Frontend setup
 
 ```bash
-cd frontend
+cd aevum-web
 npm install
 npm run dev                                            # Vite dev server on http://localhost:5173
 ```
@@ -71,7 +78,7 @@ URLs end up double-slashed.
 
 ## Common commands
 
-**Backend** (from `backend/`, with the venv active):
+**Backend** (from `aevum-api/`, with the venv active):
 
 ```bash
 .venv/bin/pytest                                       # full suite (ephemeral Postgres testcontainer)
@@ -80,7 +87,7 @@ URLs end up double-slashed.
 ruff check .                                            # lint (E501 line-length intentionally ignored)
 ```
 
-**Frontend** (from `frontend/`):
+**Frontend** (from `aevum-web/`):
 
 ```bash
 npm test                                               # Vitest run
@@ -100,25 +107,29 @@ npm run gen:api                                         # regenerate API types f
 
 ## Conventions
 
-Each submodule documents its own conventions in depth — read them before a first
+Each lane documents its own conventions in depth — read them before a first
 contribution:
 
 - **Backend** — feature-based modules, async-only data access, dependency
   injection, services own business logic. See
-  [`backend/CONTRIBUTING.md`](backend/CONTRIBUTING.md) and
-  [`backend/docs/conventions.md`](backend/docs/conventions.md).
+  the `aevum-api` lane's `CONTRIBUTING.md` and its engineering handbook at
+  `docs/internal/handbook/engineering.md`.
 - **Frontend** — feature isolation enforced by `eslint-plugin-boundaries`,
   modal-first CRUD, typed API layer per feature. See
-  [`frontend/CONTRIBUTING.md`](frontend/CONTRIBUTING.md) and
-  [`frontend/docs/conventions.md`](frontend/docs/conventions.md).
+  the `aevum-web` lane's `CONTRIBUTING.md` and its engineering handbook at
+  `docs/internal/handbook/engineering.md`.
 
-A couple of monorepo-wide rules:
+A couple of cross-repo rules:
 
-- **Commit inside the submodule that owns the change.** A backend change is
-  committed in `backend/`; a frontend change in `frontend/`. The outer repo is
-  bumped separately, only to move the submodule pointers.
-- **Keep a change within one submodule where possible.** Cross-stack work is two
+- **Commit in the lane that owns the change.** A backend change is committed in
+  `aevum-api`, a frontend change in `aevum-web`. This repo is never where code
+  changes land — it only ever carries docs and the tooling that aggregates them.
+- **Keep a change within one lane where possible.** Cross-stack work is two
   commits in two repos, coordinated — not one commit that reaches across.
+- **Docs live with the code they describe.** Each lane authors its own docs;
+  this repo mirrors the public ones and merges them into the product docs. Fix a
+  lane's doc *in that lane* — a mirrored copy here is output, and the next fold
+  overwrites it.
 
 ## Tests & quality gates
 
@@ -126,7 +137,7 @@ A couple of monorepo-wide rules:
 - Frontend: `npm test` green, `npm run typecheck` clean, `npm run lint` at zero
   warnings, and `npm run build` succeeds.
 
-Run the relevant gate before you push; both submodules treat a red gate as
+Run the relevant gate before you push; both lanes treat a red gate as
 blocking.
 
 ## Try Aevum with sample data
@@ -151,16 +162,16 @@ synthetic-statement --yes --seed 7 --range 2026-01-05:2026-01-25 --output-dir ru
 python -m synthetic_statement.render_statement runs/demo --app all   # phonepe/paytm/gpay.pdf
 ```
 
-Then [import](USER_GUIDE/importing-statements.md) one of those PDFs into Aevum
+Then [import](docs/public/transactions.md) one of those PDFs into Aevum
 and explore with fully synthetic data. When you're ready to use Aevum for real,
-do a [data reset](USER_GUIDE/your-data-and-privacy.md#reset-all-your-data) and
+do a [data reset](docs/public/data-and-privacy.md#reset-all-your-data) and
 start fresh from your real statements.
 
 > Everything the generator ships is synthetic — see its own `README.md`.
 
 ## Documentation screenshots
 
-`USER_GUIDE/images/` has **two subfolders with two different owners**, and the split
+`docs/public/images/` has **two subfolders with two different owners**, and the split
 is deliberate: ownership is a directory boundary, so neither producer can overwrite
 the other's files even by accident.
 

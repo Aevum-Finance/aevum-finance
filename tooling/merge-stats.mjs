@@ -89,8 +89,8 @@ async function build({ asOf } = {}) {
     contract: {
       note: 'Stable paths a downstream consumer pulls at build time.',
       metrics:
-        'aevum-stats.json (this file); per-lane detail in backend/docs/stats.backend.json + frontend/docs/stats.frontend.json',
-      performance: ['backend/docs/performance.md', 'frontend/docs/performance.md'],
+        'aevum-stats.json (this file); per-lane detail in docs/internal/backend/stats.backend.json + docs/internal/frontend/stats.frontend.json',
+      performance: ['docs/internal/backend/performance.md', 'docs/internal/frontend/performance.md'],
       screenshots: 'USER_GUIDE/images/screenshots/',
       authors: 'AUTHORS.md',
     },
@@ -132,8 +132,8 @@ function renderMd(m) {
     '',
     'Engineering metrics for Aevum, merged from each submodule’s per-lane stats. Full',
     'machine-readable detail in [`aevum-stats.json`](aevum-stats.json); per-lane sources in',
-    '[`backend/docs/stats.backend.json`](backend/docs/stats.backend.json) and',
-    '[`frontend/docs/stats.frontend.json`](frontend/docs/stats.frontend.json).',
+    '[`docs/internal/backend/stats.backend.json`](docs/internal/backend/stats.backend.json) and',
+    '[`docs/internal/frontend/stats.frontend.json`](docs/internal/frontend/stats.frontend.json).',
     '',
     '## Scale',
     '',
@@ -180,8 +180,8 @@ function renderMd(m) {
     '',
     'Tier-2 numbers (API latency, bundle sizes, Lighthouse) are **indicative, not contractual** —',
     'measured in a local/staging environment and preserved between static regenerations. See each',
-    'lane’s `performance.md` ([backend](backend/docs/performance.md) ·',
-    '[frontend](frontend/docs/performance.md)) for methodology and the full hot-path tables.',
+    'lane’s `performance.md` ([backend](docs/internal/backend/performance.md) ·',
+    '[frontend](docs/internal/frontend/performance.md)) for methodology and the full hot-path tables.',
     '',
   ];
   return lines.join('\n');
