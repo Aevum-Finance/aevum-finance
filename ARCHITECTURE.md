@@ -2,25 +2,52 @@
 
 A developer's map of how Aevum fits together. This page covers the
 **cross-cutting** picture — the two apps, the datastores, and how they talk.
-Each submodule then owns the deep detail of its own internals; follow the links
-at the bottom.
+Each lane then owns the deep detail of its own internals; follow the links as
+you go.
 
-> User looking for how to _use_ Aevum? You want the [User Guide](USER_GUIDE/README.md),
+> User looking for how to _use_ Aevum? You want the [User Guide](docs/public/README.md),
 > not this page.
 
 ## The repository
 
-Aevum is a **monorepo of git submodules** — each submodule is its own
-repository with its own history, CI, and docs:
+Aevum is built as two independent repositories — each with its own history, CI,
+and docs. This repo does not vendor or track them; it **aggregates** them:
 
-| Path                     | What it is                                                                                   | Stack                                                                    |
-| ------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [`backend/`](backend/)   | The API and all domain logic                                                                 | Python · FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL · Redis · Alembic |
-| [`frontend/`](frontend/) | The single-page web app                                                                      | React 18 · TypeScript · Vite · Zustand · TanStack Query                  |
+| Lane         | What it is                   | Stack                                                                    |
+| ------------ | ---------------------------- | ------------------------------------------------------------------------ |
+| `aevum-api`  | The API and all domain logic | Python · FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL · Redis · Alembic |
+| `aevum-web`  | The single-page web app      | React 18 · TypeScript · Vite · Zustand · TanStack Query                  |
 
-The outer repo only tracks **which commit** of each submodule is current; all
-real code lives inside the submodules. See [CONTRIBUTING.md](CONTRIBUTING.md)
-for clone + setup.
+**Both lanes are private**, so this repo does not link into them: every page you
+need is mirrored here instead. Each lane's public documentation is copied into
+[`docs/internal/`](docs/internal/) (stamped with the commit it came from), and
+the product docs in [`docs/public/`](docs/public/) merge the two. So this map —
+and everything it points at — resolves from a plain clone, with no access to
+either lane. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup.
+
+## The product, feature by feature
+
+Every user-facing capability is documented as one product topic under
+[`docs/public/`](docs/public/), merged from the backend's mechanism and the
+frontend's surface:
+
+<!-- BEGIN GENERATED:feature-index -->
+
+| Topic | Covers |
+| --- | --- |
+| [Getting started](docs/public/getting-started.md) | Onboarding · Dashboard |
+| [The consumption tax & your weekly bill](docs/public/consumption-tax.md) | Taxation |
+| [Your savings account](docs/public/savings-account.md) | Bank accounts · Treasury |
+| [Transactions](docs/public/transactions.md) | Transactions |
+| [Beneficiaries](docs/public/beneficiaries.md) | Beneficiaries |
+| [Categories & rules](docs/public/categories-and-rules.md) | Categorization · Tags |
+| [Budgets](docs/public/budgets.md) | Budgets |
+| [Recurring bills](docs/public/recurring.md) | Recurring |
+| [Account & security](docs/public/account-and-security.md) | Auth · Users · Account |
+| [Your data & privacy](docs/public/data-and-privacy.md) | Exports |
+| [Notifications & activity](docs/public/notifications.md) | Activity feed |
+
+<!-- END GENERATED:feature-index -->
 
 ## System topology
 
@@ -59,21 +86,53 @@ API (the deploy host blocks outbound SMTP)._
   (`npm run gen:api`), so a contract change shows up as a type error rather than
   a runtime surprise.
 
-## Backend shape (feature-based)
+## How the code is organized
 
-The backend uses a **screaming / feature-based** architecture: every domain
-feature owns its own models, schemas, services, and routes under
-`app/modules/<feature>/`, and cross-cutting infrastructure (config, the async DB
-engine, security, middleware) lives in `app/core/`. Features never import each
-other's internals — cross-module references go through string-based ORM
-relationships and public service contracts, so there are no circular imports.
+Both apps use the same **screaming / feature-based** shape: every domain feature
+owns its models, schemas, services and routes (backend) or its pages, hooks and
+API surface (frontend); features never reach into each other's internals — only
+through a public contract. Cross-cutting infrastructure and shared primitives
+live in their own layers.
 
-The domain itself — transactions → categorization → taxation → bills → savings
-account → treasury — is described in the [README](README.md#how-it-works) (for
-the idea) and in the backend docs (for the mechanics). The **treasury** module is
-the accounting view over the set-aside cash (an append-only revenue journal,
-reconcile-on-read); it's a one-way reader of taxation + transactions and backs
-the frontend's **"Savings"** page.
+<!-- BEGIN GENERATED:module-tree -->
+
+**Backend — `app/`**
+
+- `core/` — infrastructure: config, the async DB engine, cache, scheduler, storage, middleware, the model registry
+- `shared/` — ownerless cross-feature helpers (serial ids, calendar periods, password hashing / encryption) that depend only on core
+- `constants/` — system-wide constants and reference data — one import surface
+- `db/` — first-run migrate + seed
+- `modules/` — the features — one directory each (see below)
+- `web/` — the server-rendered landing page route (outside /api/v1)
+- `main.py` — entrypoint: wires every router under /api/v1
+
+**Frontend — `src/`**
+
+- `app/` — the shell — providers, router, the root layout every page mounts inside
+- `shared/` — cross-feature primitives: the typed API client, UI components, hooks, Zustand stores
+- `features/` — one folder per surface — auth, transactions, taxation, budgets, … (the product)
+
+<!-- END GENERATED:module-tree -->
+
+On the backend, cross-module references go through string-based ORM
+relationships and public service contracts, so there are no circular imports. On
+the frontend, feature isolation is **enforced by the toolchain** —
+`eslint-plugin-boundaries` forbids a feature from importing another feature's
+internals; a feature reaches another only through its public `api/` surface, and
+the handful of deliberate cross-feature compositions carry an explicit
+allow-rule. Routing is a data router with per-feature lazy-loaded route arrays.
+
+→ Deep detail: the backend's own overview in
+[`docs/internal/backend/architecture.md`](docs/internal/backend/architecture.md)
+and the frontend's in
+[`docs/internal/frontend/architecture.md`](docs/internal/frontend/architecture.md).
+
+## The domain flow
+
+The heart of Aevum: transactions → categorization → taxation → bills → savings
+account → treasury. The **treasury** is the accounting view over the set-aside
+cash (an append-only revenue journal, reconcile-on-read); it's a one-way reader
+of taxation + transactions and backs the frontend's **"Savings"** page.
 
 ```mermaid
 flowchart LR
@@ -86,23 +145,10 @@ flowchart LR
     R[Recurring engine] -. forecasts .-> T
 ```
 
-→ Full detail: [`backend/docs/architecture.md`](backend/docs/architecture.md),
-the per-module pages under [`backend/docs/modules/`](backend/docs/modules/), and
-the data model in [`backend/docs/database.md`](backend/docs/database.md).
-
-## Frontend shape (feature-isolated)
-
-The frontend mirrors the backend's feature split: code lives under
-`src/features/<feature>/`, shared primitives under `src/shared/`, and the app
-shell under `src/app/`. Feature isolation is **enforced by the toolchain** —
-`eslint-plugin-boundaries` forbids a feature from importing another feature's
-internals; a feature reaches another only through its public `api/` surface, and
-the handful of deliberate cross-feature compositions carry an explicit
-allow-rule. Routing is a data router with per-feature lazy-loaded route arrays.
-
-→ Full detail: [`frontend/docs/architecture.md`](frontend/docs/architecture.md),
-the conventions in [`frontend/docs/conventions.md`](frontend/docs/conventions.md),
-and the per-module pages under [`frontend/docs/modules/`](frontend/docs/modules/).
+→ The idea, for a general reader: [README](README.md#how-it-works). The full
+product walk-throughs: [the consumption tax](docs/public/consumption-tax.md),
+[your savings account](docs/public/savings-account.md), and the rest under
+[`docs/public/`](docs/public/).
 
 ## Two flows worth seeing end-to-end
 
@@ -139,19 +185,18 @@ sequenceDiagram
     end
 ```
 
-→ Auth detail: [`backend/docs/modules/auth.md`](backend/docs/modules/auth.md).
-Statement-upload detail:
-[`backend/docs/modules/transactions.md`](backend/docs/modules/transactions.md).
+→ For users: [account & security](docs/public/account-and-security.md) and the
+import section of [transactions](docs/public/transactions.md).
 
 ## Deployment
 
 Both apps deploy to **Render** (the frontend as a static site, the backend as a
-Docker web service alongside managed Postgres + Redis). The runbook lives in
-[`backend/docs/deployment.md`](backend/docs/deployment.md).
+Docker web service alongside managed Postgres + Redis). The deployment runbook
+lives in the backend lane's own internal docs.
 
 ## Where to go next
 
 - **Run it locally / contribute** → [CONTRIBUTING.md](CONTRIBUTING.md)
 - **By the numbers** (modules, tests, SLOC, latency, Lighthouse) → [METRICS.md](METRICS.md)
-- **Backend internals** → [`backend/docs/`](backend/docs/)
-- **Frontend internals** → [`frontend/docs/`](frontend/docs/)
+- **Backend docs** (mirrored) → [`docs/internal/backend/`](docs/internal/backend/)
+- **Frontend docs** (mirrored) → [`docs/internal/frontend/`](docs/internal/frontend/)
