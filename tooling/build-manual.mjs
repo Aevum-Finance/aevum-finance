@@ -1,19 +1,19 @@
 // Builds USER_GUIDE/user_manual.pdf — a single, marketable PDF that consolidates
-// the topic-wise user-guide docs (in the same logical order as USER_GUIDE/
-// README.md) with a generated cover, table of contents, page numbers, rendered
-// Mermaid diagrams, and embedded screenshots. No intermediate .md is kept — the
-// concatenation happens in memory.
+// the T0 product topics under docs/public/ (in the roster's reading order) with a
+// generated cover, table of contents, page numbers, rendered Mermaid diagrams, and
+// embedded screenshots. No intermediate .md is kept — the concatenation happens in
+// memory.
 //
 // Usage:  npm install && npm run manual   (from tooling/)
 // Output: USER_GUIDE/user_manual.pdf
 //
 // Requires the screenshots the docs reference to exist under
-// USER_GUIDE/images/screenshots/ — CI-generated in aevum-web and dispatched here,
+// docs/public/images/screenshots/ — CI-generated in aevum-web and dispatched here,
 // never hand-dropped. Until they land, those spots render as broken-image icons
 // (everything else is complete). Product banners live alongside in images/brand/
 // and are owned by the aevum-brand dispatcher.
 //
-// Paths are not hardcoded here: the HTML is written into USER_GUIDE/ so the docs'
+// Paths are not hardcoded here: the HTML is written into docs/public/ so the docs'
 // own relative `images/…` links resolve as-is. Moving an image is a docs edit.
 
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
@@ -25,25 +25,19 @@ import { marked } from 'marked';
 import puppeteer from 'puppeteer';
 
 import { loadBranding } from './branding.mjs';
+import { build as buildRoster } from './feature-index.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
+// SOURCE: the T0 product docs and the images they embed live together under
+// docs/public/. OUTPUT: the built PDF still lands in USER_GUIDE/, which is now
+// just the manual's home (the PDF + its input hash).
+const PUBLIC = path.resolve(HERE, '../docs/public');
 const USER_GUIDE = path.resolve(HERE, '../USER_GUIDE');
 const OUT = path.join(USER_GUIDE, 'user_manual.pdf');
 
-// Reading order — mirrors USER_GUIDE/README.md (Start here → Everyday use).
-const ORDER = [
-  'getting-started',
-  'consumption-tax',
-  'savings-account',
-  'transactions',
-  'beneficiaries',
-  'categories-and-rules',
-  'budgets',
-  'recurring',
-  'importing-statements',
-  'account-and-security',
-  'your-data-and-privacy',
-];
+// Reading order = the product-topic roster order (feature-index), so the manual
+// and the T0 docs it is built from share one source of truth and can't drift.
+const ORDER = buildRoster().map((t) => t.key);
 
 // Mermaid fences → <div class="mermaid"> blocks (marked passes block HTML
 // through verbatim); mermaid.run() renders them in the headless browser.
@@ -92,7 +86,7 @@ async function main() {
 
   const docs = [];
   for (const slug of ORDER) {
-    const raw = await readFile(path.join(USER_GUIDE, `${slug}.md`), 'utf8');
+    const raw = await readFile(path.join(PUBLIC, `${slug}.md`), 'utf8');
     docs.push({ slug, title: firstHeading(raw, slug), html: marked.parse(inlineMermaid(raw)) });
   }
 
@@ -113,10 +107,10 @@ ${tocHtml(docs)}
 ${body}
 </body></html>`;
 
-  // Write the HTML into USER_GUIDE so relative image paths (images/…) resolve,
+  // Write the HTML into docs/public so relative image paths (images/…) resolve,
   // then point the browser at it via file:// and capture.
   const tmp = await mkdtemp(path.join(tmpdir(), 'aevum-manual-'));
-  const htmlPath = path.join(USER_GUIDE, '.manual.tmp.html');
+  const htmlPath = path.join(PUBLIC, '.manual.tmp.html');
   await writeFile(htmlPath, html, 'utf8');
 
   const browser = await puppeteer.launch({

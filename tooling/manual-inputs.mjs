@@ -1,6 +1,6 @@
 // Input-hash gate for the user manual (T-manual-screenshots-and-ci).
 //
-// The manual has TWO sources: the prose in USER_GUIDE/*.md, and the images the
+// The manual has TWO sources: the prose in docs/public/*.md, and the images the
 // prose embeds. Either one drifting makes the built PDF wrong, so the rebuild
 // trigger has to watch both.
 //
@@ -22,6 +22,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
+// The PDF is built FROM docs/public (prose + the images it embeds); the record
+// lives beside the artifact it describes, in USER_GUIDE/.
+const PUBLIC = path.resolve(HERE, '../docs/public');
 const USER_GUIDE = path.resolve(HERE, '../USER_GUIDE');
 const RECORD = path.join(USER_GUIDE, '.manual-inputs.sha256');
 
@@ -29,15 +32,15 @@ const RECORD = path.join(USER_GUIDE, '.manual-inputs.sha256');
 function inputFiles() {
   const files = [];
 
-  for (const name of readdirSync(USER_GUIDE).sort()) {
-    if (name.endsWith('.md')) files.push(path.join(USER_GUIDE, name));
+  for (const name of readdirSync(PUBLIC).sort()) {
+    if (name.endsWith('.md')) files.push(path.join(PUBLIC, name));
   }
 
   // Images are walked rather than listed so a NEW screenshot counts as drift.
   // Both subdirectories matter: screenshots/ is dispatched from aevum-web, and
   // brand/ is pushed by the aevum-brand dispatcher — a banner refresh changes the
   // manual's cover just as surely as a view change does.
-  const imagesRoot = path.join(USER_GUIDE, 'images');
+  const imagesRoot = path.join(PUBLIC, 'images');
   if (existsSync(imagesRoot)) {
     for (const dir of readdirSync(imagesRoot, { withFileTypes: true }).sort((a, b) =>
       a.name.localeCompare(b.name)
@@ -59,7 +62,7 @@ export function hashInputs() {
     // The PATH goes into the hash as well as the bytes, so a rename registers as
     // drift even when the content is identical — the prose links by path, so a
     // rename that nothing else follows produces a broken image in the PDF.
-    h.update(path.relative(USER_GUIDE, file));
+    h.update(path.relative(PUBLIC, file));
     h.update('\0');
     h.update(readFileSync(file));
     h.update('\0');
