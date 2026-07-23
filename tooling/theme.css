@@ -1,11 +1,24 @@
-/* Print theme for the Aevum user manual (rendered by Puppeteer → PDF). */
+/* Print theme for the Aevum user manual (rendered by Puppeteer → PDF).
+ *
+ * The palette is the BRAND's — gold on ink over cream — not a generic accent. It
+ * mirrors aevum-brand's tokens (GOLD #D4AF37, deep gold #C9A227, INK #141414,
+ * CREAM #F7F3EA); the marks themselves are dispatched from there, so the document
+ * and the logo it carries cannot disagree about what Aevum looks like.
+ *
+ * Two golds, deliberately: --gold is STRUCTURAL (rules, borders, the coin), where
+ * it is decoration and its low contrast on white is the point. --gold-deep is for
+ * TEXT (links, numerals), where the bright gold would sit near 2:1 against white
+ * and be genuinely hard to read in print, which has no zoom and no dark mode.
+ */
 
 :root {
-  --ink: #0f172a;
-  --muted: #475569;
-  --faint: #94a3b8;
-  --accent: #4f46e5;
-  --rule: #e2e8f0;
+  --ink: #141414;
+  --muted: #55504a;
+  --faint: #9a9187;
+  --gold: #c9a227;
+  --gold-deep: #8a6d1f;
+  --cream: #f7f3ea;
+  --rule: #e6e0d4;
 }
 
 * {
@@ -26,30 +39,56 @@ body {
 }
 
 /* --- Cover --- */
+/* Sized in mm, NOT in vh: in paged media 100vh is the whole PAGE box, so a vh
+   cover overflows the printable area by exactly the margins and prints as an
+   off-centre band with a white gutter down one side. A4 (297mm) minus this
+   build's top/bottom margins (18 + 20) leaves 259mm; 254 keeps the panel clear
+   of the boundary that would spill an empty second page. */
 .cover {
-  height: 100vh;
+  min-height: 254mm;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 6mm;
-  background: linear-gradient(135deg, #eef2ff 0%, #ffffff 55%, #ecfeff 100%);
+  padding: 0 10mm;
+  border-top: 3pt solid var(--gold);
+  background: linear-gradient(160deg, var(--cream) 0%, #fffdf8 58%, #f2ead9 100%);
 }
+/* The lockup is vector (an inlined SVG data URI), so it is sized in mm and stays
+   crisp at print resolution — no max-width in px to second-guess. */
+.cover-lockup {
+  width: 78mm;
+  height: auto;
+}
+/* Fallback only — used when the brand dispatcher has not delivered the lockup. */
 .cover-name {
   font-size: 56pt;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--accent);
+  color: var(--ink);
 }
 .cover-tagline {
-  margin-top: 4pt;
+  margin-top: 10pt;
   font-size: 16pt;
   font-weight: 600;
-  color: var(--muted);
+  color: var(--gold-deep);
+}
+.cover-rule {
+  width: 34mm;
+  margin: 16pt 0 0;
+  border: 0;
+  border-top: 2pt solid var(--gold);
+}
+.cover-lead {
+  margin-top: 16pt;
+  max-width: 150mm;
+  font-size: 13pt;
+  font-weight: 600;
+  color: var(--ink);
 }
 .cover-desc {
-  margin-top: 18pt;
+  margin-top: 10pt;
   max-width: 150mm;
-  font-size: 11.5pt;
+  font-size: 10.5pt;
   color: var(--muted);
 }
 .cover-label {
@@ -80,7 +119,7 @@ body {
 }
 .toc-num {
   font-weight: 700;
-  color: var(--accent);
+  color: var(--gold-deep);
   min-width: 18pt;
 }
 .toc-title {
@@ -91,7 +130,7 @@ body {
 .doc h1 {
   font-size: 24pt;
   letter-spacing: -0.01em;
-  border-bottom: 2px solid var(--accent);
+  border-bottom: 2px solid var(--gold);
   padding-bottom: 4pt;
   margin: 0 0 12pt;
 }
@@ -108,7 +147,7 @@ body {
   color: var(--ink);
 }
 .doc a {
-  color: var(--accent);
+  color: var(--gold-deep);
   text-decoration: none;
 }
 .doc table {
@@ -124,17 +163,17 @@ body {
   text-align: left;
 }
 .doc th {
-  background: #f8fafc;
+  background: #faf7f0;
 }
 .doc code {
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   font-size: 9.5pt;
-  background: #f1f5f9;
+  background: #f4f1e9;
   padding: 1pt 4pt;
   border-radius: 3pt;
 }
 .doc pre {
-  background: #f8fafc;
+  background: #faf8f2;
   border: 1px solid var(--rule);
   border-radius: 6pt;
   padding: 10pt;
@@ -142,7 +181,7 @@ body {
   font-size: 9pt;
 }
 .doc blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--gold);
   margin: 10pt 0;
   padding: 2pt 0 2pt 12pt;
   color: var(--muted);

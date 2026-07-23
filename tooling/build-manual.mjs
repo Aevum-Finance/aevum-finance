@@ -10,8 +10,14 @@
 // Requires the screenshots the docs reference to exist under
 // docs/public/images/screenshots/ — CI-generated in aevum-web and dispatched here,
 // never hand-dropped. Until they land, those spots render as broken-image icons
-// (everything else is complete). Product banners live alongside in images/brand/
-// and are owned by the aevum-brand dispatcher.
+// (everything else is complete). The brand marks live alongside in images/brand/
+// and are owned by the aevum-brand dispatcher: the cover carries the LOCKUP (coin
+// + wordmark) and every page footer carries the coin. Both are read off disk and
+// INLINED as data URIs rather than linked — a <img src> in puppeteer's footer
+// template does not resolve a relative path, and inlining keeps the marks vector
+// (crisp at any print size) instead of rasterizing them. If a mark is missing the
+// cover degrades to the typeset wordmark rather than printing a broken image:
+// this document is the marketable artifact, so it must never ship visibly broken.
 //
 // Paths are not hardcoded here: the HTML is written into docs/public/ so the docs'
 // own relative `images/…` links resolve as-is. Moving an image is a docs edit.
@@ -53,10 +59,29 @@ function firstHeading(md, fallback) {
   return m ? m[1].trim() : fallback;
 }
 
-function coverHtml(brand) {
+/** An SVG mark as a data URI, or null if the dispatcher has not delivered it. */
+async function inlineMark(name) {
+  try {
+    const svg = await readFile(path.join(PUBLIC, 'images', 'brand', name), 'utf8');
+    return `data:image/svg+xml;base64,${Buffer.from(svg, 'utf8').toString('base64')}`;
+  } catch {
+    console.warn(`manual: brand mark ${name} is missing — falling back to type.`);
+    return null;
+  }
+}
+
+function coverHtml(brand, lockup) {
+  // The lockup already SAYS "Aevum", so the typeset name is its fallback, not its
+  // companion — printing both would set the wordmark twice on one page.
+  const identity = lockup
+    ? `<img class="cover-lockup" src="${lockup}" alt="${escapeHtml(brand.name)}" />`
+    : `<div class="cover-name">${escapeHtml(brand.name)}</div>`;
+
   return `<section class="cover">
-    <div class="cover-name">${escapeHtml(brand.name)}</div>
+    <div class="cover-identity">${identity}</div>
     <div class="cover-tagline">${escapeHtml(brand.tagline)}</div>
+    <hr class="cover-rule" />
+    <p class="cover-lead">${escapeHtml(brand.one_liner ?? '')}</p>
     <p class="cover-desc">${escapeHtml(brand.description)}</p>
     <div class="cover-label">User Manual</div>
   </section>`;
@@ -83,6 +108,7 @@ function escapeHtml(s) {
 
 async function main() {
   const brand = await loadBranding();
+  const [lockup, coin] = await Promise.all([inlineMark('lockup.svg'), inlineMark('logo.svg')]);
 
   const docs = [];
   for (const slug of ORDER) {
@@ -100,7 +126,7 @@ async function main() {
 <style>${theme}</style>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head><body>
-${coverHtml(brand)}
+${coverHtml(brand, lockup)}
 <div class="page-break"></div>
 ${tocHtml(docs)}
 <div class="page-break"></div>
@@ -143,9 +169,12 @@ ${body}
       margin: { top: '18mm', bottom: '20mm', left: '16mm', right: '16mm' },
       displayHeaderFooter: true,
       headerTemplate: '<span></span>',
-      footerTemplate: `<div style="width:100%;font-size:8px;color:#94a3b8;text-align:center;">${escapeHtml(
-        brand.name
-      )} — User Manual · <span class="pageNumber"></span> / <span class="totalPages"></span></div>`,
+      footerTemplate:
+        `<div style="width:100%;font-size:8px;color:#8c8375;font-family:Helvetica,Arial,sans-serif;` +
+        `display:flex;align-items:center;justify-content:center;gap:5px;">` +
+        (coin ? `<img src="${coin}" style="width:9px;height:9px;" />` : '') +
+        `<span>${escapeHtml(brand.name)} — User Manual · ` +
+        `<span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
     });
     console.log(`Wrote ${OUT}`);
   } finally {
