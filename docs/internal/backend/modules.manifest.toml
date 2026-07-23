@@ -1,0 +1,172 @@
+# Module registry — the editorial source of truth for the docs substrate.
+#
+# This is the ONE thing the generators cannot derive from code: the audience
+# classification (user-facing → gets a T1 public/ page · infra → T2-only) plus a
+# display title and a one-line scope. Everything else about a module (its models,
+# routes, exports) is introspected. The substrate generator asserts this manifest
+# is 1:1 with app/modules/* — a new module with no entry here, or an entry with no
+# module, fails the build (same coverage discipline as the T3 reference generator).
+#
+# tier: "user_facing" (has docs/public/<name>.md) | "infra" (T2-only, no public page)
+
+[modules.activity]
+tier  = "user_facing"
+title = "Activity feed"
+scope = "the per-user activity feed and signal settings"
+
+[modules.admin]
+tier  = "infra"
+title = "Admin"
+scope = "the role-gated operator surface"
+
+[modules.auth]
+tier  = "user_facing"
+title = "Auth"
+scope = "sign-in, tokens, 2FA, recovery, device challenges"
+
+[modules.bank_accounts]
+tier  = "user_facing"
+title = "Bank accounts"
+scope = "the user's own account legs + the savings/committee account"
+
+[modules.beneficiaries]
+tier  = "user_facing"
+title = "Beneficiaries"
+scope = "the merchants and people a transaction is with"
+
+[modules.budgets]
+tier  = "user_facing"
+title = "Budgets"
+scope = "per-category limits (off/manual/auto) + the spend trackers"
+
+[modules.categorization]
+tier  = "user_facing"
+title = "Categorization"
+scope = "assigning tags to transactions via rules"
+
+[modules.cemetery]
+tier  = "infra"
+title = "Cemetery"
+scope = "the post-deletion retention island"
+
+[modules.exports]
+tier  = "user_facing"
+title = "Exports"
+scope = "per-domain CSV/JSON data export"
+
+[modules.ledger_pipeline]
+tier  = "infra"
+title = "Ledger pipeline"
+scope = "the ingestion path: staging, dedup, the resolution baton"
+
+[modules.metadata]
+tier  = "infra"
+title = "Metadata"
+scope = "read-only system reference data + capabilities"
+
+[modules.notifications]
+tier  = "infra"
+title = "Notifications"
+scope = "outbound transactional email"
+
+[modules.onboarding]
+tier  = "user_facing"
+title = "Onboarding"
+scope = "post-registration setup + the sample-data demo"
+
+[modules.recurring]
+tier  = "user_facing"
+title = "Recurring"
+scope = "recurring-payment inference and forecast"
+
+[modules.registry]
+tier  = "infra"
+title = "Registry"
+scope = "the SYSTEM-global counterparty catalog"
+
+[modules.relationships]
+tier  = "infra"
+title = "Relationships"
+scope = "user↔beneficiary edges + the resolution ladder"
+
+[modules.tags]
+tier  = "user_facing"
+title = "Tags"
+scope = "the hierarchical category tree and tag types"
+
+[modules.taxation]
+tier  = "user_facing"
+title = "Taxation"
+scope = "the real-time consumption-tax ledger and weekly bills"
+
+[modules.transactions]
+tier  = "user_facing"
+title = "Transactions"
+scope = "the raw ledger + statement upload"
+
+[modules.treasury]
+tier  = "user_facing"
+title = "Treasury"
+scope = "the committee's append-only revenue books"
+
+[modules.users]
+tier  = "user_facing"
+title = "Users"
+scope = "profile, preferences, account reset"
+
+# ---------------------------------------------------------------------------
+# Handbook + structure docs — the OTHER generated index (docs/internal/README.md
+# + docs/internal/handbook/README.md). Same coverage discipline as [modules.*]:
+# the substrate asserts these are 1:1 with the docs on disk (a new handbook or
+# structure doc with no entry here, or an entry with no file, fails the build).
+# 'domain'/'governs' feed the handbook table; 'summary' feeds the structure list.
+# ---------------------------------------------------------------------------
+
+[handbook.engineering]
+domain  = "Engineering"
+governs = "how to build a feature — layering, DI, the schema/`response_model` contract, async, Postgres"
+
+[handbook.product]
+domain  = "Product"
+governs = "the invariants the code upholds — frozen ledger, soft-void, append-only journal, ISO week, capability gating"
+
+[handbook.security]
+domain  = "Security"
+governs = "auth, tokens + DPoP, sessions, envelope encryption, device verification"
+
+[handbook.maintenance]
+domain  = "Maintenance"
+governs = "the scheduler, weekly workers, the ops runbook, the 5xx catalog + logging"
+
+[handbook.testing]
+domain  = "Testing"
+governs = "suite layout, fixtures, isolation, run commands, coverage"
+
+[handbook.deployment]
+domain  = "Deployment"
+governs = "the Render deploy — image, blueprint, secrets, feature flags"
+
+[handbook.documentation]
+domain  = "Documentation"
+governs = "the docs system itself — the tiers, the generate→inject→fold pipeline, and how to add a module or doc"
+
+[structure.architecture]
+summary = "the design: the resolved-ledger model, layering, request lifecycle, the model registry"
+
+[structure.core]
+summary = "the infrastructure adapters and entrypoint wiring"
+
+[structure.shared]
+summary = "the ownerless cross-feature domain helpers"
+
+[structure.database]
+summary = "the schema's *why* — relationships, invariants, seeds — plus pointers to the generated reference"
+
+[structure.performance]
+summary = "the benchmark audit"
+
+[structure.metrics]
+summary = "the generated-stats + benchmark tiers and the drift gates"
+
+[structure.API]
+summary = "the `/api/v1` endpoint inventory and namespace notes"

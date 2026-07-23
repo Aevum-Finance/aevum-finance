@@ -1,0 +1,27 @@
+{
+  "_comment": "Annotations for the top-level src/ tree rendered into architecture.md. The STRUCTURE (which top-level dirs exist) is read from the filesystem; this file supplies the one-line annotation the tree can't derive. buildTree coverage-asserts the two agree — a new top-level dir under src/ with no entry here fails the build, and an entry with no dir fails too. Entries with show:false are annotated (so they're documented and coverage-checked) but kept out of the T1 'three layers' view; that view shows only the three architectural layers. Order here is render order. Trailing-slash keys are directories.",
+  "root": "src",
+  "entries": {
+    "app/": {
+      "note": "the shell — providers, router, the root layout every page mounts inside"
+    },
+    "shared/": {
+      "note": "cross-feature primitives: the typed API client, UI components, hooks, Zustand stores"
+    },
+    "features/": {
+      "note": "one folder per surface — auth, transactions, taxation, budgets, … (the product)"
+    },
+    "test/": {
+      "note": "shared MSW test infrastructure (mock server + handlers)",
+      "show": false
+    },
+    "capture/": {
+      "note": "dev-only screenshot capture gallery (feeds the user manual)",
+      "show": false
+    },
+    "main.tsx": {
+      "note": "entrypoint — mounts the providers, router and routes",
+      "show": false
+    }
+  }
+}

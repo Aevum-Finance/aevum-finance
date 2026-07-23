@@ -1,0 +1,19 @@
+# Annotations for the top-level app/ tree rendered into architecture.md.
+#
+# The STRUCTURE (which top-level dirs exist) is read from the filesystem; this file
+# supplies only the one-line annotation the tree can't derive. The substrate
+# coverage-asserts the two agree: a new top-level directory under app/ with no entry
+# here fails the build (it can't silently appear un-described), and an entry with no
+# directory fails too. Order here is the order rendered. Trailing-slash entries are
+# directories; the rest are files.
+
+root = "app"
+
+[entries]
+"core/" = "infrastructure: config, the async DB engine, cache, scheduler, storage, middleware, the model registry"
+"shared/" = "ownerless cross-feature helpers (serial ids, calendar periods, password hashing / encryption) that depend only on core"
+"constants/" = "system-wide constants and reference data — one import surface"
+"db/" = "first-run migrate + seed"
+"modules/" = "the features — one directory each (see below)"
+"web/" = "the server-rendered landing page route (outside /api/v1)"
+"main.py" = "entrypoint: wires every router under /api/v1"

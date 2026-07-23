@@ -1,0 +1,129 @@
+{
+  "note": "Canonical Aevum frontend metrics — generated, do not hand-edit.",
+  "lane": "frontend",
+  "counts": {
+    "feature_modules": 16,
+    "test_files": 183,
+    "tests": 924,
+    "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"
+  },
+  "complexity": {
+    "note": "Static analysis (eslint metrics, bench/eslint.metrics.config.mjs) over src/ — per-function maxima.",
+    "functions": 3502,
+    "cyclomatic_max": 15,
+    "cognitive_max": 15,
+    "fn_lines_max": 200
+  },
+  "sloc": {
+    "note": "Accurate code lines (bench/loc.mjs, excludes blanks/comments).",
+    "frontend_src": 55915,
+    "frontend_tests": 17698,
+    "total": 73613
+  },
+  "benchmark": {
+    "note": "Tier-2 measured performance — bundle sizes via bench:update, Lighthouse via bench:lab, captured at release/CI and preserved between static regens. 'Indicative, not contractual'.",
+    "captured_at": "2026-07-20T16:06:00.338Z",
+    "bundle": {
+      "note": "gzip @ level 9 (framework-internal reading; `npm run size` is the enforced gate).",
+      "entry_gzip_bytes": 101746,
+      "css_gzip_bytes": 17758,
+      "chunk_count": 198,
+      "test_suite_ms": 66058
+    },
+    "lighthouse": {
+      "note": "Median-of-N Lighthouse (default mobile + slow-4G); scores 0-100, web-vitals in ms.",
+      "version": "12.6.1",
+      "runs": 5,
+      "pages": {
+        "/": {
+          "performance": 86,
+          "accessibility": 92,
+          "bestPractices": 96,
+          "seo": 91,
+          "lcpMs": 4020,
+          "tbtMs": 50,
+          "cls": 0,
+          "fcpMs": 1790,
+          "speedIndexMs": 1790
+        },
+        "/login": {
+          "performance": 99,
+          "accessibility": 95,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2140,
+          "tbtMs": 20,
+          "cls": 0.004,
+          "fcpMs": 1090,
+          "speedIndexMs": 1090
+        },
+        "/register": {
+          "performance": 99,
+          "accessibility": 95,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2140,
+          "tbtMs": 50,
+          "cls": 0,
+          "fcpMs": 1100,
+          "speedIndexMs": 1100
+        },
+        "/dashboard": {
+          "performance": 94,
+          "accessibility": 91,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 3050,
+          "tbtMs": 70,
+          "cls": 0,
+          "fcpMs": 1100,
+          "speedIndexMs": 1100
+        },
+        "/transactions": {
+          "performance": 95,
+          "accessibility": 91,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2890,
+          "tbtMs": 70,
+          "cls": 0,
+          "fcpMs": 1100,
+          "speedIndexMs": 1100
+        },
+        "/consumption-tax": {
+          "performance": 96,
+          "accessibility": 91,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2730,
+          "tbtMs": 60,
+          "cls": 0,
+          "fcpMs": 1100,
+          "speedIndexMs": 1100
+        },
+        "/budgets": {
+          "performance": 96,
+          "accessibility": 91,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2740,
+          "tbtMs": 80,
+          "cls": 0,
+          "fcpMs": 1120,
+          "speedIndexMs": 1120
+        },
+        "/account/security": {
+          "performance": 97,
+          "accessibility": 91,
+          "bestPractices": 96,
+          "seo": 100,
+          "lcpMs": 2600,
+          "tbtMs": 60,
+          "cls": 0,
+          "fcpMs": 1100,
+          "speedIndexMs": 1100
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "_comment": "Module registry — the editorial source of truth for the docs substrate. This is the ONE thing the generators cannot derive from code: the audience classification (user_facing -> gets a T1 public/ page; infra -> T2-only), a display title, and a one-line scope. The substrate generator asserts this is 1:1 with the real modules: every src/features/* has an entry with code:true, the two backend-mirrored concepts (activity, metadata) have code:false (docs only, no reference.md), and every entry has an internal README. public_slug defaults to the module name; bankAccounts uses the kebab public page bank-accounts.md.",
+  "modules": {
+    "account": {
+      "tier": "user_facing",
+      "title": "Account",
+      "scope": "the /account/* profile, security, privacy and settings area"
+    },
+    "admin": {
+      "tier": "infra",
+      "title": "Admin",
+      "scope": "the operator portal"
+    },
+    "auth": {
+      "tier": "user_facing",
+      "title": "Auth",
+      "scope": "sign-in, 2FA, recovery, and the device-bound token machinery"
+    },
+    "bankAccounts": {
+      "tier": "user_facing",
+      "title": "Bank accounts",
+      "scope": "your accounts + the savings account, with UPI/QR input",
+      "public_slug": "bank-accounts"
+    },
+    "beneficiaries": {
+      "tier": "user_facing",
+      "title": "Beneficiaries",
+      "scope": "the merchants and people you pay"
+    },
+    "budgets": {
+      "tier": "user_facing",
+      "title": "Budgets",
+      "scope": "spending limits and the expense tracker"
+    },
+    "categorization": {
+      "tier": "user_facing",
+      "title": "Categorization",
+      "scope": "the auto-tagging rules surface"
+    },
+    "dashboard": {
+      "tier": "user_facing",
+      "title": "Dashboard",
+      "scope": "the authenticated home — a glance over every feature"
+    },
+    "onboarding": {
+      "tier": "user_facing",
+      "title": "Onboarding",
+      "scope": "the guided setup, sample-data demo, and product tour"
+    },
+    "recurring": {
+      "tier": "user_facing",
+      "title": "Recurring",
+      "scope": "spotting and confirming repeating bills"
+    },
+    "tags": {
+      "tier": "user_facing",
+      "title": "Tags",
+      "scope": "the category tree that sets each transaction's tax treatment"
+    },
+    "taxation": {
+      "tier": "user_facing",
+      "title": "Taxation",
+      "scope": "the Tax Tracker surface"
+    },
+    "transactions": {
+      "tier": "user_facing",
+      "title": "Transactions",
+      "scope": "the ledger, manual entry and statement upload"
+    },
+    "treasury": {
+      "tier": "user_facing",
+      "title": "Treasury",
+      "scope": "the Savings page"
+    },
+    "settings": {
+      "tier": "infra",
+      "title": "Settings",
+      "scope": "the /settings/* shell that mounts other features' pages"
+    },
+    "users": {
+      "tier": "infra",
+      "title": "Users",
+      "scope": "the current-user data layer (no pages of its own)"
+    },
+    "activity": {
+      "tier": "infra",
+      "title": "Activity",
+      "scope": "the signal feed and notification bell",
+      "code": false
+    },
+    "metadata": {
+      "tier": "infra",
+      "title": "Metadata",
+      "scope": "read-only reference data, now living in shared/",
+      "code": false
+    }
+  },
+  "_handbook_comment": "Handbook + structure docs — the OTHER generated index (internal/README.md + internal/handbook/README.md). Coverage-asserted 1:1 with the docs on disk, same as modules. 'domain'/'governs' feed the handbook table; 'summary' feeds the structure list; order is editorial (as written here).",
+  "handbook": {
+    "engineering": {
+      "domain": "Engineering",
+      "governs": "how a feature is built in code — the presentational view seam, module boundaries, week, API contract"
+    },
+    "interaction": {
+      "domain": "Interaction",
+      "governs": "the shared UI surfaces and how they behave — modals, searchable lists, banners, row highlight"
+    },
+    "design-system": {
+      "domain": "Design system",
+      "governs": "the visual & motion _design language_ — tokens, the two-beat model, chips, enum labels, QR"
+    },
+    "testing": {
+      "domain": "Testing",
+      "governs": "the test setup (Vitest + MSW) and how to test a feature"
+    },
+    "documentation": {
+      "domain": "Documentation",
+      "governs": "the docs system itself — the tiers, the generate→inject→fold pipeline, and how to add a feature or doc"
+    }
+  },
+  "structure": {
+    "architecture": {
+      "summary": "the design: the module shape, the routing / data-fetching / state models, and the cross-cutting contracts"
+    },
+    "core": {
+      "summary": "the `src/app/` composition root: the provider stack, the router mount, the root layout, the landing pages"
+    },
+    "shared": {
+      "summary": "the `src/shared/` primitives catalog: nav, modals, charts, the motion foundation, layout shells, theme, error boundaries"
+    },
+    "performance": {
+      "summary": "the bundle budgets, the warm-cost model, the background-warming gate, and the perf/size CI gates"
+    }
+  }
+}

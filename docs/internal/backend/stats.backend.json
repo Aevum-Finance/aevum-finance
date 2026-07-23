@@ -1,0 +1,242 @@
+{
+  "note": "Canonical Aevum backend metrics \u2014 generated, do not hand-edit.",
+  "lane": "backend",
+  "counts": {
+    "feature_modules": 21,
+    "db_models": 54,
+    "api_endpoints": 141,
+    "endpoints_by_method": {
+      "GET": 54,
+      "POST": 54,
+      "PUT": 6,
+      "PATCH": 13,
+      "DELETE": 14
+    },
+    "routers": 28,
+    "tests": 1208,
+    "test_functions": 1049,
+    "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
+    "scheduled_workers": 8,
+    "email_types": 11
+  },
+  "complexity": {
+    "note": "Static analysis (radon) over app/ \u2014 re-derived each run.",
+    "avg_cyclomatic": "A (2.67)",
+    "maintainability_grade_a_pct": 99.3,
+    "maintainability": "grade A on 268/270 modules (99.3%)"
+  },
+  "sloc": {
+    "note": "Accurate code lines (pygount, excludes blanks/comments).",
+    "backend_app": 24227,
+    "backend_tests": 17341,
+    "total": 41568
+  },
+  "benchmark": {
+    "note": "Tier-2 measured performance \u2014 captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
+    "suite": {
+      "note": "Whole test-suite runtime/memory via tests/benchmarks/benchmark.py.",
+      "captured_ref": "feat/accounts @ 0eea692",
+      "modules_evaluated": 69,
+      "passed": 69,
+      "failed": 0,
+      "total_duration_s": 327.99,
+      "peak_memory_mb": 103.48
+    },
+    "engine_hot_paths_ms": {
+      "note": "Service-layer hot paths via tests/benchmarks/benchmark_*.py; canonical narrative = docs/performance.md.",
+      "captured_ref": "feat/accounts @ 0eea692",
+      "tax_recalc_single_mutation": 51,
+      "tax_recalc_week_full_rebuild": 60,
+      "tax_recalc_batch_200txn": 56,
+      "list_transactions_page25": 3.8,
+      "list_grouped_by_merchant_page25": 0.8,
+      "categorize_500_rows": 22,
+      "derive_txn_type": 0.001
+    },
+    "api_latency": {
+      "status": "measured",
+      "captured_at": "2026-07-06",
+      "note": "End-to-end HTTP latency (routing + auth/DPoP + serialization + DB).",
+      "environment": {
+        "base_url": "http://127.0.0.1:4000",
+        "concurrency": 4,
+        "iterations": 120,
+        "warmup": 10,
+        "seed_txns": 60,
+        "host_note": "local/staging \u2014 NOT the cold free-tier box"
+      },
+      "endpoints": {
+        "POST /transactions/ (create)": {
+          "p50_ms": 205.88,
+          "p95_ms": 520.88,
+          "p99_ms": 534.51,
+          "throughput_rps": 4.0,
+          "n": 120
+        },
+        "GET /users/me": {
+          "p50_ms": 20.1,
+          "p95_ms": 209.68,
+          "p99_ms": 323.23,
+          "throughput_rps": 110.2,
+          "n": 120
+        },
+        "GET /transactions/": {
+          "p50_ms": 35.18,
+          "p95_ms": 49.13,
+          "p99_ms": 64.29,
+          "throughput_rps": 107.0,
+          "n": 120
+        },
+        "GET /users/me/stats": {
+          "p50_ms": 43.94,
+          "p95_ms": 53.74,
+          "p99_ms": 55.67,
+          "throughput_rps": 88.3,
+          "n": 120
+        },
+        "GET /expense-tracker/": {
+          "p50_ms": 26.45,
+          "p95_ms": 31.94,
+          "p99_ms": 32.64,
+          "throughput_rps": 146.2,
+          "n": 120
+        },
+        "GET /budget-limits/status": {
+          "p50_ms": 50.95,
+          "p95_ms": 55.78,
+          "p99_ms": 59.32,
+          "throughput_rps": 77.0,
+          "n": 120
+        },
+        "GET /consumption-tax/bills": {
+          "p50_ms": 19.82,
+          "p95_ms": 22.82,
+          "p99_ms": 28.54,
+          "throughput_rps": 195.1,
+          "n": 120
+        }
+      }
+    },
+    "engine_hot_paths": {
+      "note": "Service-layer hot paths via tests/benchmarks/benchmark_modules.py.",
+      "captured_at": "2026-07-06",
+      "captured_ref": "2c82bc6",
+      "metrics": [
+        {
+          "module": "budgets",
+          "metric": "bulk_refresh_for_user",
+          "iters": 5,
+          "avg_ms": 2564.844
+        },
+        {
+          "module": "taxation",
+          "metric": "recalc_for_user_week (full rebuild)",
+          "iters": 20,
+          "avg_ms": 23.501
+        },
+        {
+          "module": "taxation",
+          "metric": "recalc_for_txns (200-txn batch)",
+          "iters": 20,
+          "avg_ms": 23.197
+        },
+        {
+          "module": "budgets",
+          "metric": "refresh_expense_tracker (single month)",
+          "iters": 200,
+          "avg_ms": 22.186
+        },
+        {
+          "module": "taxation",
+          "metric": "recalc_for_txn (single mutation)",
+          "iters": 20,
+          "avg_ms": 18.161
+        },
+        {
+          "module": "categorization",
+          "metric": "categorize_statement_rows  rows=500",
+          "iters": 50,
+          "avg_ms": 10.624
+        },
+        {
+          "module": "activity",
+          "metric": "feed (full)",
+          "iters": 200,
+          "avg_ms": 8.657
+        },
+        {
+          "module": "activity",
+          "metric": "feed (domain=taxation)",
+          "iters": 200,
+          "avg_ms": 5.613
+        },
+        {
+          "module": "beneficiaries",
+          "metric": "identify_beneficiary  miss",
+          "iters": 100,
+          "avg_ms": 5.499
+        },
+        {
+          "module": "beneficiaries",
+          "metric": "check_alias_uniqueness  miss",
+          "iters": 100,
+          "avg_ms": 5.199
+        },
+        {
+          "module": "beneficiaries",
+          "metric": "identify_beneficiary  hit  (alias)",
+          "iters": 100,
+          "avg_ms": 5.176
+        },
+        {
+          "module": "transactions",
+          "metric": "list_transactions  page=25",
+          "iters": 200,
+          "avg_ms": 4.036
+        },
+        {
+          "module": "categorization",
+          "metric": "load_rule_map (full)",
+          "iters": 200,
+          "avg_ms": 3.305
+        },
+        {
+          "module": "categorization",
+          "metric": "load_tag_maps",
+          "iters": 200,
+          "avg_ms": 1.821
+        },
+        {
+          "module": "transactions",
+          "metric": "list_grouped_by_merchant page=25",
+          "iters": 200,
+          "avg_ms": 1.139
+        },
+        {
+          "module": "beneficiaries",
+          "metric": "check_alias_uniqueness  hit",
+          "iters": 100,
+          "avg_ms": 1.052
+        },
+        {
+          "module": "transactions",
+          "metric": "parse_phonepe_pdf_text (synthetic)",
+          "iters": 1000,
+          "avg_ms": 0.044
+        },
+        {
+          "module": "taxation",
+          "metric": "choose_penalty_tag_and_rate (10 breaches)",
+          "iters": 10000,
+          "avg_ms": 0.002
+        },
+        {
+          "module": "taxation",
+          "metric": "derive_txn_type_from_tag_types (mixed)",
+          "iters": 10000,
+          "avg_ms": 0.0
+        }
+      ]
+    }
+  }
+}
