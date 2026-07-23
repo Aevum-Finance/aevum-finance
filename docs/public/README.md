@@ -3,7 +3,13 @@
 Welcome to Aevum — budgeting that turns everyday spending into future savings.
 This guide explains what Aevum does and how to use it, in plain language. No
 code, no setup; if you're here to *build* Aevum, head to
-[CONTRIBUTING.md](../CONTRIBUTING.md) instead.
+[CONTRIBUTING.md](../../CONTRIBUTING.md) instead.
+
+> **Aevum never connects to your bank.** No banking login, no stored password, no
+> account-aggregator link. You type transactions in or upload a statement you
+> already have — and Aevum cannot move your money, only keep the books on
+> transfers you make yourself. The details are in
+> [your data & privacy](data-and-privacy.md).
 
 ## Why "Aevum"?
 
@@ -30,7 +36,8 @@ today's spending into tomorrow's security.
 
 ## Everyday use
 
-- **[Transactions](transactions.md)** — recording what you spend and earn.
+- **[Transactions](transactions.md)** — recording what you spend and earn, by
+  hand or by importing a bank / UPI statement.
 - **[Beneficiaries](beneficiaries.md)** — the merchants and people your money
   goes to.
 - **[Categories & rules](categories-and-rules.md)** — how Aevum sorts your
@@ -39,12 +46,12 @@ today's spending into tomorrow's security.
   them.
 - **[Recurring bills](recurring.md)** — letting Aevum see your repeating
   expenses coming.
-- **[Importing statements](importing-statements.md)** — bringing in transactions
-  from your bank or UPI app.
 - **[Account & security](account-and-security.md)** — protecting your account
   and managing your sessions.
-- **[Your data & privacy](your-data-and-privacy.md)** — export, masking,
-  deletion, and what's kept after you leave.
+- **[Your data & privacy](data-and-privacy.md)** — export, masking, deletion,
+  and what's kept after you leave.
+- **[Notifications & activity](notifications.md)** — the feed that surfaces new
+  bills, budget breaches, and failed imports.
 
 ## The one-minute version
 
