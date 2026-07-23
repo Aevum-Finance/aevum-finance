@@ -131,6 +131,11 @@ A couple of cross-repo rules:
   lane's doc *in that lane* — a mirrored copy here is output, and the next fold
   overwrites it.
 
+This repo's own half of that system — the mirror, the topic roster and its coverage
+assertion, the product merge, and the CI fold — is documented in
+[`docs/engineering/documentation.md`](docs/engineering/documentation.md). Read it before
+adding a product topic or touching anything generated.
+
 ## Tests & quality gates
 
 - Backend: `pytest` must pass; `ruff` clean.
@@ -177,7 +182,7 @@ the other's files even by accident.
 
 | Folder | Owner | How it changes |
 |---|---|---|
-| `images/screenshots/` | **`aevum-web`** | Regenerated in CI from the dev-only capture gallery, then dispatched here as a PR. |
+| `images/screenshots/` | **`aevum-web`** | Regenerated in CI from the dev-only capture gallery, then pushed straight to `main` here. |
 | `images/brand/` | **`aevum-brand`** | Product banners, pushed by the brand dispatcher per `brand-manifest.json`. |
 
 **Do not hand-edit or hand-drop either.** A screenshot committed by hand is a copy
@@ -191,9 +196,11 @@ PNG is output, never a source.
 - **Naming:** `<topic>-<subject>.png`, lowercase, matching both the link in the doc
   and the entry in `aevum-web`'s `screenshot-manifest.json` (e.g. `transactions-list.png`).
   The manifest is what tells the dispatcher which paths it owns.
-- **The exception — hand-kept shots.** `add-transaction`, `import-queue`,
-  `import-result`, `import-statement` and `parser-picker` are real multi-step flows
-  with no capture path built. They are maintained by hand and the capture job leaves
-  any file it does not own untouched.
+- **No exceptions any more.** Five flow shots (`add-transaction`, `import-queue`,
+  `import-result`, `import-statement`, `parser-picker`) were hand-kept until the capture
+  gallery learned to compose them; `aevum-web`'s manifest now lists **no** hand-kept files.
+  The capture job still leaves anything it does not own untouched, so re-introducing an
+  exception is possible — but a hand-kept shot is a shot nothing can reproduce, and it
+  should be the last resort, not the shape of the folder.
 - **Use synthetic data**, never real financial data, for anything captured by hand —
   generate sample statements with the synthetic-statement tool (above).

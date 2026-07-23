@@ -200,3 +200,5 @@ lives in the backend lane's own internal docs.
 - **By the numbers** (modules, tests, SLOC, latency, Lighthouse) → [METRICS.md](METRICS.md)
 - **Backend docs** (mirrored) → [`docs/internal/backend/`](docs/internal/backend/)
 - **Frontend docs** (mirrored) → [`docs/internal/frontend/`](docs/internal/frontend/)
+- **How the docs themselves work** (the mirror, the merge, the fold) →
+  [`docs/engineering/documentation.md`](docs/engineering/documentation.md)
