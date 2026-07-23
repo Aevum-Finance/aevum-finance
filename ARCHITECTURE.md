@@ -188,6 +188,41 @@ sequenceDiagram
 → For users: [account & security](docs/public/account-and-security.md) and the
 import section of [transactions](docs/public/transactions.md).
 
+## How the constellation stays in sync
+
+Four repos, and the automation between them is easy to mistake for magic. Every
+mechanism is documented **in the repo that owns it** — the one whose CI runs it, or
+whose config declares it. This table is the map; the owner's doc is the detail.
+
+| What | Owner | Fires on | Reaches | Credential |
+|---|---|---|---|---|
+| Docs mirror + fold | `aevum-finance` | push to `main`, weekly cron | this repo | `DOCS_TOKEN` — **read** on both lanes |
+| Screenshot capture | `aevum-web` | a **green CI** on its `main` | `aevum-finance@main` | `SCREENSHOT_DISPATCH_PAT` |
+| Brand publish | `aevum-brand` (private) | brand assets or the map change | 5 consumers, one cross-org | two PATs: org + cross-org |
+| Docs generation | each lane | pre-commit, then CI | its own tree | none — `GITHUB_TOKEN` |
+| Deploys | each lane | push to `main` | Render | held at Render |
+
+Two directions, and the difference is the thing to remember: **docs are PULLED**
+(this repo mirrors each lane's public docs — a lane publishes by landing on `main`
+and triggers nothing), while **images are PUSHED** (a lane's CI writes into this
+repo, because only it knows when a view changed).
+
+Consequences worth knowing before debugging:
+
+- **Two producers write to this repo's `main`.** The screenshot dispatcher retries
+  onto the new tip on rejection; the fold runs under a concurrency group. A lost
+  race is expected, not a fault.
+- **A missing token degrades differently per mechanism.** The docs fold *fails*
+  loudly at checkout. The brand dispatcher *skips* the consumer with a warning and
+  still goes green — so a consumer that stopped receiving updates is a log question
+  before it is a map question.
+- **Nothing here reaches back into a private lane.** This repo reads them; it never
+  writes to them. A fix to a mirrored doc belongs in the lane that authored it.
+
+Details live with their owners: this repo's pipeline in
+[`docs/engineering/documentation.md`](docs/engineering/documentation.md), and each
+lane's in its own `docs/internal/handbook/documentation.md`.
+
 ## Deployment
 
 Both apps deploy to **Render** (the frontend as a static site, the backend as a
