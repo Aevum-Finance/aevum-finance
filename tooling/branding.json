@@ -16,9 +16,9 @@
   },
   "logo_path": "brand/logo.svg",
   "assets": {
-    "logo_svg": "https://www.aevumfinance.com/brand/logo.svg",
-    "email_logo_png": "https://www.aevumfinance.com/brand/email-logo.png",
-    "banner_png": "https://www.aevumfinance.com/brand/product-banner-cream.png",
-    "banner_dark_png": "https://www.aevumfinance.com/brand/product-banner-dark.png"
+    "logo_svg": "https://brand.aevumfinance.com/marks/logo.svg",
+    "email_logo_png": "https://brand.aevumfinance.com/marks/export/email-logo.png",
+    "banner_png": "https://brand.aevumfinance.com/banners/product-banner-cream.png",
+    "banner_dark_png": "https://brand.aevumfinance.com/banners/product-banner-dark.png"
   }
 }
