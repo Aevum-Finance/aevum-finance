@@ -58,6 +58,12 @@ blurb    = "Per-category limits, and the penalty when you cross one."
 backend  = ["budgets"]
 frontend = ["budgets"]
 
+[topics.paying-by-upi]
+title    = "Paying by UPI"
+blurb    = "Start a payment from inside Aevum and have it recorded at the same moment — without your money ever passing through it."
+backend  = []
+frontend = ["payments"]
+
 [topics.recurring]
 title    = "Recurring bills"
 blurb    = "Letting Aevum see your repeating bills coming."

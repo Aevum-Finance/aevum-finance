@@ -2,7 +2,7 @@
 
 # Aevum — by the numbers
 
-_Generated 2026-07-23 · backend @ eaba4b35 · frontend @ 0b2ca58e._
+_Generated 2026-07-24 · backend @ 4db0ec35 · frontend @ 5181bb68._
 
 Engineering metrics for Aevum, merged from each submodule’s per-lane stats. Full
 machine-readable detail in [`aevum-stats.json`](aevum-stats.json); per-lane sources in
@@ -13,20 +13,20 @@ machine-readable detail in [`aevum-stats.json`](aevum-stats.json); per-lane sour
 
 | | Backend | Frontend |
 | --- | ---: | ---: |
-| Feature modules | 21 | 16 |
-| Tests | 1,215 | 924 |
-| Code lines (ex. blanks/comments) | 41,683 | 73,613 |
+| Feature modules | 22 | 17 |
+| Tests | 1,269 | 924 |
+| Code lines (ex. blanks/comments) | 43,142 | 73,613 |
 
 ## Backend — API & domain engine
 
-- **21 feature modules** · 54 data models · 141 REST endpoints (28 routers) · 8 scheduled workers
-- **1,215 tests** (pytest) · complexity avg A (2.67) · maintainability grade A on 99.3% of modules
-- **41,683 SLOC** (24,227 app / 17,456 tests)
+- **22 feature modules** · 54 data models · 146 REST endpoints (29 routers) · 8 scheduled workers
+- **1,269 tests** (pytest) · complexity avg A (2.67) · maintainability grade A on 99.3% of modules
+- **43,142 SLOC** (24,950 app / 18,192 tests)
 - **API latency** (local/staging, concurrency 4): reads p50 ~20–51 ms; create-transaction (full tax recalc) p50 ~206 ms
 
 ## Frontend — React SPA
 
-- **16 feature modules** · 3,502 functions · **924 tests** (vitest, 183 files)
+- **17 feature modules** · 3,502 functions · **924 tests** (vitest, 183 files)
 - **73,613 SLOC** (55,915 src / 17,698 tests)
 - **Entry bundle 101.7 kB** gzip · 17.8 kB CSS · 198 chunks
 - **Lighthouse** (mobile, slow-4G): performance 86–99 across 8 routes

@@ -74,6 +74,11 @@ tier  = "user_facing"
 title = "Onboarding"
 scope = "post-registration setup + the sample-data demo"
 
+[modules.payments]
+tier  = "infra"
+title = "Payments (UPI)"
+scope = "the UPI initiate-and-record rail — payment intents + confirm-on-return"
+
 [modules.recurring]
 tier  = "user_facing"
 title = "Recurring"

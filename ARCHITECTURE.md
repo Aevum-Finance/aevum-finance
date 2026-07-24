@@ -42,6 +42,7 @@ frontend's surface:
 | [Beneficiaries](docs/public/beneficiaries.md) | Beneficiaries |
 | [Categories & rules](docs/public/categories-and-rules.md) | Categorization · Tags |
 | [Budgets](docs/public/budgets.md) | Budgets |
+| [Paying by UPI](docs/public/paying-by-upi.md) | Payments |
 | [Recurring bills](docs/public/recurring.md) | Recurring |
 | [Account & security](docs/public/account-and-security.md) | Auth · Users · Account |
 | [Your data & privacy](docs/public/data-and-privacy.md) | Exports |

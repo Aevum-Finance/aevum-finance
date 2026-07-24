@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@739af13d/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@067c271b/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. A high-altitude tour of how the web app is put
      together — enough to orient anyone (including a developer meeting the codebase
@@ -48,7 +48,7 @@ checks — so these figures never drift from what CI enforces:
 
 | Metric                    | Value       |
 | ------------------------- | ----------- |
-| Feature modules           | 16          |
+| Feature modules           | 17          |
 | Tests                     | 924         |
 | Frontend code             | 55,915 SLOC |
 | Max cyclomatic complexity | 15          |

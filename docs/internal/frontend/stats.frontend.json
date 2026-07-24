@@ -2,7 +2,7 @@
   "note": "Canonical Aevum frontend metrics — generated, do not hand-edit.",
   "lane": "frontend",
   "counts": {
-    "feature_modules": 16,
+    "feature_modules": 17,
     "test_files": 183,
     "tests": 924,
     "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"

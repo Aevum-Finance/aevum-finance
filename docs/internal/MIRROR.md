@@ -13,8 +13,8 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `backend/README.md` | aevum-api@34999cd1 |
-| `backend/architecture.md` | aevum-api@eaba4b35 |
-| `backend/modules.manifest.toml` | aevum-api@7bbc06ec |
+| `backend/architecture.md` | aevum-api@0e659604 |
+| `backend/modules.manifest.toml` | aevum-api@36a4386c |
 | `backend/perf/benchmarks.json` | aevum-api@519412bd |
 | `backend/performance.md` | aevum-api@34999cd1 |
 | `backend/public/activity.md` | aevum-api@5b72b821 |
@@ -27,20 +27,20 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/onboarding.md` | aevum-api@5b72b821 |
 | `backend/public/recurring.md` | aevum-api@5b72b821 |
 | `backend/public/tags.md` | aevum-api@5b72b821 |
-| `backend/public/taxation.md` | aevum-api@5b72b821 |
+| `backend/public/taxation.md` | aevum-api@0e659604 |
 | `backend/public/transactions.md` | aevum-api@5b72b821 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@e09e7c9e |
+| `backend/stats.backend.json` | aevum-api@4db0ec35 |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend
 
 | Mirrored file | Source @ |
 | --- | --- |
-| `frontend/README.md` | aevum-web@3f604247 |
-| `frontend/architecture.md` | aevum-web@739af13d |
-| `frontend/modules.manifest.json` | aevum-web@08cdd7ad |
+| `frontend/README.md` | aevum-web@3b099bf1 |
+| `frontend/architecture.md` | aevum-web@067c271b |
+| `frontend/modules.manifest.json` | aevum-web@3b099bf1 |
 | `frontend/performance.md` | aevum-web@b006f48c |
 | `frontend/public/account.md` | aevum-web@be3d1be7 |
 | `frontend/public/auth.md` | aevum-web@be3d1be7 |
@@ -50,10 +50,11 @@ here instead, since they cannot hold an HTML comment.
 | `frontend/public/categorization.md` | aevum-web@be3d1be7 |
 | `frontend/public/dashboard.md` | aevum-web@be3d1be7 |
 | `frontend/public/onboarding.md` | aevum-web@be3d1be7 |
+| `frontend/public/payments.md` | aevum-web@d4196bb0 |
 | `frontend/public/recurring.md` | aevum-web@be3d1be7 |
 | `frontend/public/tags.md` | aevum-web@be3d1be7 |
 | `frontend/public/taxation.md` | aevum-web@be3d1be7 |
 | `frontend/public/transactions.md` | aevum-web@be3d1be7 |
 | `frontend/public/treasury.md` | aevum-web@be3d1be7 |
-| `frontend/stats.frontend.json` | aevum-web@72688dd9 |
+| `frontend/stats.frontend.json` | aevum-web@067c271b |
 | `frontend/tree.annotations.json` | aevum-web@d0997166 |

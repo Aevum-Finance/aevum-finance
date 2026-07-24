@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@3f604247/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@3b099bf1/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. The entry point to the web app's documentation.
      Links out to the general-audience pages (this file + public/) and down into the
@@ -27,21 +27,22 @@ Aevum's product documentation.
 
 <!-- BEGIN GENERATED:module-index-t1 -->
 
-| Feature        | What it does                                                 | Page                                                 |
-| -------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
-| Account        | the /account/\* profile, security, privacy and settings area | [public/account.md](public/account.md)               |
-| Auth           | sign-in, 2FA, recovery, and the device-bound token machinery | [public/auth.md](public/auth.md)                     |
-| Bank accounts  | your accounts + the savings account, with UPI/QR input       | [public/bank-accounts.md](public/bank-accounts.md)   |
-| Beneficiaries  | the merchants and people you pay                             | [public/beneficiaries.md](public/beneficiaries.md)   |
-| Budgets        | spending limits and the expense tracker                      | [public/budgets.md](public/budgets.md)               |
-| Categorization | the auto-tagging rules surface                               | [public/categorization.md](public/categorization.md) |
-| Dashboard      | the authenticated home — a glance over every feature         | [public/dashboard.md](public/dashboard.md)           |
-| Onboarding     | the guided setup, sample-data demo, and product tour         | [public/onboarding.md](public/onboarding.md)         |
-| Recurring      | spotting and confirming repeating bills                      | [public/recurring.md](public/recurring.md)           |
-| Tags           | the category tree that sets each transaction's tax treatment | [public/tags.md](public/tags.md)                     |
-| Taxation       | the Tax Tracker surface                                      | [public/taxation.md](public/taxation.md)             |
-| Transactions   | the ledger, manual entry and statement upload                | [public/transactions.md](public/transactions.md)     |
-| Treasury       | the Savings page                                             | [public/treasury.md](public/treasury.md)             |
+| Feature        | What it does                                                           | Page                                                 |
+| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------- |
+| Account        | the /account/\* profile, security, privacy and settings area           | [public/account.md](public/account.md)               |
+| Auth           | sign-in, 2FA, recovery, and the device-bound token machinery           | [public/auth.md](public/auth.md)                     |
+| Bank accounts  | your accounts + the savings account, with UPI/QR input                 | [public/bank-accounts.md](public/bank-accounts.md)   |
+| Beneficiaries  | the merchants and people you pay                                       | [public/beneficiaries.md](public/beneficiaries.md)   |
+| Budgets        | spending limits and the expense tracker                                | [public/budgets.md](public/budgets.md)               |
+| Categorization | the auto-tagging rules surface                                         | [public/categorization.md](public/categorization.md) |
+| Dashboard      | the authenticated home — a glance over every feature                   | [public/dashboard.md](public/dashboard.md)           |
+| Onboarding     | the guided setup, sample-data demo, and product tour                   | [public/onboarding.md](public/onboarding.md)         |
+| Payments       | the UPI initiate-and-record rail — payload, handoff, confirm-on-return | [public/payments.md](public/payments.md)             |
+| Recurring      | spotting and confirming repeating bills                                | [public/recurring.md](public/recurring.md)           |
+| Tags           | the category tree that sets each transaction's tax treatment           | [public/tags.md](public/tags.md)                     |
+| Taxation       | the Tax Tracker surface                                                | [public/taxation.md](public/taxation.md)             |
+| Transactions   | the ledger, manual entry and statement upload                          | [public/transactions.md](public/transactions.md)     |
+| Treasury       | the Savings page                                                       | [public/treasury.md](public/treasury.md)             |
 
 <!-- END GENERATED:module-index-t1 -->
 

@@ -47,6 +47,11 @@
       "title": "Onboarding",
       "scope": "the guided setup, sample-data demo, and product tour"
     },
+    "payments": {
+      "tier": "user_facing",
+      "title": "Payments",
+      "scope": "the UPI initiate-and-record rail — payload, handoff, confirm-on-return"
+    },
     "recurring": {
       "tier": "user_facing",
       "title": "Recurring",
