@@ -175,8 +175,8 @@ for (const file of walk(R('docs/internal'))) {
   if (id === 'MIRROR') continue;
   const md = readFileSync(file, 'utf8');
   index.push({
-    slug: id,
-    url: `/engineering/${id}`,
+    slug: id.toLowerCase(),
+    url: `/engineering/${id.toLowerCase()}`, // Astro lowercases entry ids (README→readme)
     title: firstHeading(md, id),
     section: 'Engineering',
     summary: summarise(md),

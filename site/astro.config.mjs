@@ -1,11 +1,15 @@
 // @ts-check
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { rehypeDocLinks } from './src/lib/rehype-doc-links.mjs';
 
 // The subdomain is the contract (T-docs-site D2); the host is swappable. Absolute
 // URLs in the sitemap + the /data feeds resolve against this.
 const SITE = 'https://docs.aevumfinance.com';
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 export default defineConfig({
   site: SITE,
@@ -29,6 +33,8 @@ export default defineConfig({
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark' },
     },
+    // D4 link classification gate — fail-closed on any unresolvable link.
+    rehypePlugins: [[rehypeDocLinks, { repoRoot: REPO_ROOT }]],
   },
   build: {
     // Keep styles in external files (hashable under style-src) rather than inlined,
