@@ -1,0 +1,37 @@
+# Security + cache headers for docs.aevumfinance.com (Cloudflare Pages, Netlify-compatible).
+#
+# Mirrors aevum-web's posture (T-docs-site D7): the four security headers below are
+# STATIC and hand-authored; the Content-Security-Policy is NOT here — it is generated
+# at build time by scripts/emit-csp.mjs and APPENDED to dist/_headers, because its
+# script-src carries the sha256 of the inline no-FOUC bootstrap (Base.astro), derived
+# from the built HTML so a hand-pasted hash can never drift. Look at dist/_headers
+# after a build to see the CSP that actually ships. Fail-open: if the emitter doesn't
+# run, the site ships with the static headers and NO CSP rather than a broken one.
+#
+# HSTS is set once at the Cloudflare edge (SSL/TLS → HSTS, includeSubDomains covers
+# this subdomain), exactly as aevum-web does — not here, which would only reach Pages.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# The /data feeds are a public contract (D6): open CORS so a downstream can fetch
+# them client-side, with a short cache so a fold shows up within the hour.
+/data/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/images/*
+  Cache-Control: public, max-age=86400
+
+/brand/*
+  Cache-Control: public, max-age=86400
+
+/manual/user_manual.pdf
+  Cache-Control: public, max-age=86400
+
+# Astro's hashed asset bundles are immutable.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

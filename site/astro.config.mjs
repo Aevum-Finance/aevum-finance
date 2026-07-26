@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { rehypeDocLinks } from './src/lib/rehype-doc-links.mjs';
+import { remarkMermaid } from './src/lib/remark-mermaid.mjs';
 
 // The subdomain is the contract (T-docs-site D2); the host is swappable. Absolute
 // URLs in the sitemap + the /data feeds resolve against this.
@@ -33,6 +34,8 @@ export default defineConfig({
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark' },
     },
+    // D5 — swap mermaid fences for committed SVGs (before shiki sees them).
+    remarkPlugins: [[remarkMermaid, { repoRoot: REPO_ROOT }]],
     // D4 link classification gate — fail-closed on any unresolvable link.
     rehypePlugins: [[rehypeDocLinks, { repoRoot: REPO_ROOT }]],
   },

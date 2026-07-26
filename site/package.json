@@ -6,7 +6,9 @@
   "description": "docs.aevumfinance.com — the Aevum documentation site (Astro SSG, part of the Aevum ecosystem).",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/gen-data.mjs && astro build && node scripts/gen-manual.mjs && node scripts/emit-csp.mjs",
+    "build": "node scripts/gen-data.mjs && astro build && node scripts/emit-csp.mjs",
+    "mermaid:check": "node ../tooling/render-mermaid.mjs --check",
+    "check:data": "node scripts/check-data.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
