@@ -1,0 +1,19 @@
+---
+const year = 2026; // stamped at authoring; no runtime clock in a static build
+---
+
+<footer class="mt-16 border-t border-slate-200 bg-canvas-subtle dark:border-slate-800">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+      <img src="/brand/logo.svg" alt="" width="20" height="20" class="h-5 w-5" />
+      <span>Aevum — future begins today.</span>
+    </div>
+    <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-slate-500 dark:text-slate-400" aria-label="Footer">
+      <a href="https://aevumfinance.com" class="hover:text-accent-700 dark:hover:text-accent-300">The app</a>
+      <a href="/engineering" class="hover:text-accent-700 dark:hover:text-accent-300">Engineering</a>
+      <a href="/manual" class="hover:text-accent-700 dark:hover:text-accent-300">User manual</a>
+      <a href="/data/aevum-stats.json" class="hover:text-accent-700 dark:hover:text-accent-300">Data feeds</a>
+    </nav>
+  </div>
+  <p class="pb-6 text-center text-xs text-slate-400 dark:text-slate-600">© {year} Aevum</p>
+</footer>

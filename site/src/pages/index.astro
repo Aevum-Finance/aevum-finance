@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Search from '../components/Search.astro';
+import { productTopics } from '../lib/roster.mjs';
+
+const topics = productTopics();
+---
+
+<Base title="Aevum Docs" bare>
+  {/* Hero — brand growth-ring ground, ported from the app landing (D10). */}
+  <section class="hero-rings border-b border-slate-200/60 dark:border-slate-800/60">
+    <div class="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-24">
+      <img src="/brand/lockup.svg" alt="Aevum" width="220" height="66" class="mx-auto mb-8 h-16 w-auto" />
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-slate-100">
+        Aevum documentation
+      </h1>
+      <p class="mx-auto mt-3 max-w-xl text-lg text-slate-600 dark:text-slate-300">
+        Everything about turning everyday spending into future savings — how the product works,
+        and how it's built.
+      </p>
+      <div class="mx-auto mt-8 max-w-xl">
+        <Search variant="hero" />
+      </div>
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+        <a href="#topics" class="btn-secondary tap-press">Browse topics</a>
+        <a href="/manual" class="btn-secondary tap-press">User manual (PDF)</a>
+        <a href="/engineering" class="btn-secondary tap-press">Engineering docs</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Topic index */}
+  <section id="topics" class="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+    <h2 class="mb-1 text-sm font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+      Product guide
+    </h2>
+    <p class="mb-6 text-slate-600 dark:text-slate-400">The features, in reading order.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        topics.map((t, i) => (
+          <a
+            href={`/${t.key}`}
+            class="tap-press group flex flex-col rounded-xl border border-slate-200 bg-white p-5 no-underline shadow-sm transition hover:border-accent-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-accent-500"
+          >
+            <span class="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/10 text-sm font-semibold text-accent-700 dark:text-accent-300">
+              {i + 1}
+            </span>
+            <span class="text-base font-semibold text-slate-900 group-hover:text-accent-700 dark:text-slate-100 dark:group-hover:text-accent-300">
+              {t.title}
+            </span>
+            <span class="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.blurb}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    {/* Section entry points */}
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      <a
+        href="/manual"
+        class="tap-press flex items-center gap-4 rounded-xl border border-slate-200 bg-canvas-subtle p-5 no-underline transition hover:border-accent-400 dark:border-slate-800 dark:hover:border-accent-500"
+      >
+        <span class="text-2xl" aria-hidden="true">📖</span>
+        <span>
+          <span class="block font-semibold text-slate-900 dark:text-slate-100">User manual</span>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Every topic as one page — read online or download the PDF.</span>
+        </span>
+      </a>
+      <a
+        href="/engineering"
+        class="tap-press flex items-center gap-4 rounded-xl border border-slate-200 bg-canvas-subtle p-5 no-underline transition hover:border-accent-400 dark:border-slate-800 dark:hover:border-accent-500"
+      >
+        <span class="text-2xl" aria-hidden="true">⚙️</span>
+        <span>
+          <span class="block font-semibold text-slate-900 dark:text-slate-100">Engineering</span>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Architecture and module docs for the backend and frontend.</span>
+        </span>
+      </a>
+    </div>
+  </section>
+</Base>

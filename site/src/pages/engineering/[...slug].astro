@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import DocShell from '../../components/DocShell.astro';
+import { buildEngGroups, engTitle } from '../../lib/eng.mjs';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('engineering');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, entries },
+  }));
+}
+
+const { entry, entries } = Astro.props;
+const { Content, headings } = await render(entry);
+const title = engTitle(entry);
+const groups = buildEngGroups(entries, entry.id);
+---
+
+<Base title={title} description={`Engineering documentation — ${title}.`} bare>
+  <DocShell groups={groups} headings={headings} navLabel="Engineering docs">
+    <p class="not-prose mb-4 text-xs font-medium tracking-wider text-slate-400 uppercase dark:text-slate-500">
+      Engineering
+    </p>
+    <Content />
+  </DocShell>
+</Base>

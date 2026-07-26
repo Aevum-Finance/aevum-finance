@@ -1,0 +1,93 @@
+---
+export interface NavItem {
+  href: string;
+  label: string;
+  active?: boolean;
+}
+export interface NavGroup {
+  heading?: string;
+  items: NavItem[];
+}
+interface TocEntry {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  groups: NavGroup[];
+  headings?: TocEntry[];
+  navLabel: string;
+}
+const { groups, headings = [], navLabel } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+<div class="mx-auto flex w-full max-w-6xl gap-8 px-4 py-10 sm:px-6">
+  {/* Left: section nav */}
+  <aside class="hidden w-56 shrink-0 lg:block">
+    <nav class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2 text-sm" aria-label={navLabel}>
+      {
+        groups.map((g) => (
+          <div class="mb-5">
+            {g.heading && (
+              <p class="mb-2 text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">
+                {g.heading}
+              </p>
+            )}
+            <ul class="space-y-0.5">
+              {g.items.map((it) => (
+                <li>
+                  <a
+                    href={it.href}
+                    aria-current={it.active ? 'page' : undefined}
+                    class:list={[
+                      'block rounded-md px-3 py-1.5 no-underline transition-colors',
+                      it.active
+                        ? 'bg-accent-500/10 font-medium text-accent-700 dark:text-accent-300'
+                        : 'text-slate-600 hover:bg-slate-500/10 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
+                    ]}
+                  >
+                    {it.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </aside>
+
+  {/* Center: content */}
+  <article class="prose min-w-0 flex-1">
+    <slot />
+  </article>
+
+  {/* Right: on-page TOC */}
+  {
+    toc.length > 1 && (
+      <aside class="hidden w-52 shrink-0 xl:block">
+        <nav class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto text-sm" aria-label="On this page">
+          <p class="mb-2 text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">
+            On this page
+          </p>
+          <ul class="space-y-1 border-l border-slate-200 dark:border-slate-800">
+            {toc.map((h) => (
+              <li>
+                <a
+                  href={`#${h.slug}`}
+                  class:list={[
+                    '-ml-px block border-l border-transparent py-0.5 no-underline text-slate-500 hover:border-accent-500 hover:text-accent-700 dark:text-slate-400 dark:hover:text-accent-300',
+                    h.depth === 3 ? 'pl-6' : 'pl-3',
+                  ]}
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    )
+  }
+</div>

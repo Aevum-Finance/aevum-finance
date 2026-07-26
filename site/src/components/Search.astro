@@ -1,0 +1,52 @@
+---
+interface Props {
+  variant?: 'nav' | 'hero';
+}
+const { variant = 'nav' }: Props = Astro.props;
+const hero = variant === 'hero';
+---
+
+<div
+  class="search relative"
+  data-search
+  data-variant={variant}
+>
+  <div class="relative">
+    <svg
+      class:list={[
+        'pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-slate-400',
+        hero ? 'h-5 w-5' : 'h-4 w-4',
+      ]}
+      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input
+      type="search"
+      role="combobox"
+      aria-expanded="false"
+      aria-autocomplete="list"
+      aria-controls={`search-results-${variant}`}
+      autocomplete="off"
+      placeholder={hero ? 'Search the docs…' : 'Search…'}
+      data-search-input
+      class:list={[
+        'w-full rounded-lg border border-slate-300 bg-white text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-accent-400 dark:focus-visible:ring-accent-400',
+        hero ? 'py-3.5 pr-4 pl-11 text-base' : 'py-2 pr-3 pl-9 text-sm',
+      ]}
+    />
+  </div>
+
+  <div
+    id={`search-results-${variant}`}
+    role="listbox"
+    hidden
+    data-search-results
+    class="absolute z-50 mt-2 max-h-[60vh] w-full overflow-y-auto rounded-lg border border-slate-200 bg-white p-1 shadow-xl dark:border-slate-700 dark:bg-slate-900"
+  >
+  </div>
+</div>
+
+<script>
+  import '../scripts/search.ts';
+</script>

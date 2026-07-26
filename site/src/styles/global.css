@@ -1,0 +1,290 @@
+@import 'tailwindcss';
+
+/*
+ * Aevum docs — design system, ported from aevum-web/src/index.css (T-docs-site D10)
+ * so this site reads as part of the Aevum ecosystem, not a separate property. The
+ * TOKEN VALUES are copied verbatim; only app-only surfaces (privacy mask, autofill,
+ * driver.js, the count-up reservation) are dropped, and docs prose is added.
+ */
+
+/* Class-based dark variant — pairs with the no-FOUC inline script in Base.astro
+   (sets html.dark before first paint) and the vanilla theme controller. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic color tokens. `accent-*` FLIPS per theme (teal light / indigo dark);
+ * `success/warning/danger` resolve the same family in both modes. Registered with
+ * `@theme inline` so utilities generate while the :root / html.dark var() overrides
+ * still take effect at runtime.
+ */
+@theme inline {
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-warning-500: var(--warning-500);
+  --color-danger-500: var(--danger-500);
+  --color-danger-600: var(--danger-600);
+
+  --color-canvas: var(--canvas);
+  --color-canvas-subtle: var(--canvas-subtle);
+  --color-gold: var(--gold);
+}
+
+:root {
+  /* Light-mode accent: teal */
+  --accent-50: #f0fdfa;
+  --accent-100: #ccfbf1;
+  --accent-200: #99f6e4;
+  --accent-300: #5eead4;
+  --accent-400: #2dd4bf;
+  --accent-500: #14b8a6;
+  --accent-600: #0d9488;
+  --accent-700: #0f766e;
+  --accent-800: #115e59;
+  --accent-900: #134e4a;
+  --accent-950: #042f2e;
+
+  --success-500: #10b981;
+  --success-600: #059669;
+  --warning-500: #f59e0b;
+  --danger-500: #f43f5e;
+  --danger-600: #e11d48;
+
+  /* Brand ground: the locked CREAM, not white — warmer, lower glare, lets the marks
+     sit natively. Cards stay white on top for elevation. */
+  --canvas: #f7f3ea;
+  --canvas-subtle: #f1ebdd;
+  /* Gold darkened for LIGHT mode — the true #d4af37 fails contrast as text on cream. */
+  --gold: #a8821c;
+}
+
+html.dark {
+  --canvas: #020617; /* slate-950 */
+  --canvas-subtle: #0f172a; /* slate-900 */
+  --gold: #d4af37; /* true brand gold reads fine on dark */
+
+  /* Dark-mode accent: indigo */
+  --accent-50: #eef2ff;
+  --accent-100: #e0e7ff;
+  --accent-200: #c7d2fe;
+  --accent-300: #a5b4fc;
+  --accent-400: #818cf8;
+  --accent-500: #6366f1;
+  --accent-600: #4f46e5;
+  --accent-700: #4338ca;
+  --accent-800: #3730a3;
+  --accent-900: #312e81;
+  --accent-950: #1e1b4b;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* clear the sticky nav on anchor jumps */
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  html.reduce-motion {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-canvas text-slate-800 antialiased dark:text-slate-200;
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
+      sans-serif;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  /* ── Accessibility layer (ported verbatim from aevum-web) ─────────────────── */
+
+  /* User-controlled reduced motion — on top of OS prefers-reduced-motion. */
+  html.reduce-motion *,
+  html.reduce-motion *::before,
+  html.reduce-motion *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* High-contrast — lift muted text/borders toward the WCAG floor. */
+  html.high-contrast .text-slate-500,
+  html.high-contrast .text-slate-400 {
+    color: rgb(51 65 85); /* slate-700 */
+  }
+  html.dark.high-contrast .text-slate-500,
+  html.dark.high-contrast .text-slate-400 {
+    color: rgb(226 232 240); /* slate-200 */
+  }
+  html.high-contrast .text-accent-600 {
+    color: var(--accent-800);
+  }
+  html.dark.high-contrast .text-accent-400,
+  html.dark.high-contrast .text-accent-300 {
+    color: var(--accent-200);
+  }
+
+  /* Force link underlines (WCAG 1.4.1 shape cue). `.no-underline` still wins. */
+  html.underline-links a {
+    text-decoration: underline;
+  }
+
+  /* Always-visible focus ring for keyboard-first / screen-reader users. */
+  html.focus-always *:focus {
+    outline: 2px solid var(--accent-500);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Button tiers — ported from aevum-web (accent flips per theme). */
+  .btn-primary {
+    @apply bg-accent-600 inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-100 ease-out;
+    @apply hover:bg-accent-700;
+    @apply focus-visible:ring-accent-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none;
+    @apply dark:bg-accent-500 dark:hover:bg-accent-400 dark:focus-visible:ring-offset-slate-950;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition duration-100 ease-out;
+    @apply hover:bg-slate-50;
+    @apply focus-visible:ring-accent-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none;
+    @apply dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:focus-visible:ring-offset-slate-950;
+  }
+  .tap-press {
+    @apply transition-transform duration-100 ease-out;
+  }
+  .tap-press:active,
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:active,
+  .btn-secondary:active,
+  .tap-press:active {
+    transform: none;
+  }
+}
+html.reduce-motion .btn-primary:active,
+html.reduce-motion .btn-secondary:active,
+html.reduce-motion .tap-press:active {
+  transform: none;
+}
+
+/*
+ * Hero ground texture — concentric GROWTH RINGS, brand-derived (the coin's reeded
+ * edge + tree rings; aevum = an age that accrues). Ported from aevum-web's landing
+ * so the docs front door echoes the app. Pure CSS, radially dissolved, low alpha.
+ */
+.hero-rings {
+  --ring: rgba(180, 140, 45, 0.11);
+  --glow: rgba(212, 175, 55, 0.13);
+  --rings-ground: var(--canvas);
+  background-image:
+    radial-gradient(circle at 50% 42%, transparent 0%, transparent 46%, var(--rings-ground) 74%),
+    radial-gradient(55% 45% at 38% 45%, var(--glow), transparent 70%),
+    repeating-radial-gradient(circle at 50% 42%, var(--ring) 0 1px, transparent 1px 26px);
+}
+html.dark .hero-rings {
+  --ring: rgba(212, 175, 55, 0.09);
+  --glow: rgba(212, 175, 55, 0.08);
+}
+
+/*
+ * Docs prose — rendered-markdown typography on the same tokens. Hand-written rather
+ * than @tailwindcss/typography so every color resolves through the theme vars (no
+ * dark: variant per element) and no extra dependency joins the CSP surface.
+ */
+.prose {
+  @apply text-[0.975rem] leading-7 text-slate-700 dark:text-slate-300;
+}
+.prose > * + * {
+  @apply mt-4;
+}
+.prose h1 {
+  @apply mt-0 mb-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100;
+}
+.prose h2 {
+  @apply mt-10 mb-3 border-b border-slate-200 pb-2 text-xl font-semibold text-slate-900 dark:border-slate-800 dark:text-slate-100;
+}
+.prose h3 {
+  @apply mt-8 mb-2 text-lg font-semibold text-slate-900 dark:text-slate-100;
+}
+.prose h4 {
+  @apply mt-6 mb-2 text-base font-semibold text-slate-800 dark:text-slate-200;
+}
+.prose a {
+  @apply text-accent-700 dark:text-accent-300 font-medium underline decoration-slate-300 underline-offset-2 transition-colors hover:decoration-current dark:decoration-slate-600;
+}
+.prose strong {
+  @apply font-semibold text-slate-900 dark:text-slate-100;
+}
+.prose ul {
+  @apply list-disc space-y-1.5 pl-6;
+}
+.prose ol {
+  @apply list-decimal space-y-1.5 pl-6;
+}
+.prose li {
+  @apply pl-1;
+}
+.prose li > * + * {
+  @apply mt-2;
+}
+.prose blockquote {
+  @apply border-l-4 border-slate-200 pl-4 text-slate-600 italic dark:border-slate-700 dark:text-slate-400;
+}
+.prose code:not(pre code) {
+  @apply rounded bg-slate-100 px-1.5 py-0.5 text-[0.85em] font-medium text-slate-800 dark:bg-slate-800 dark:text-slate-200;
+}
+.prose pre {
+  @apply overflow-x-auto rounded-lg border border-slate-200 p-4 text-[0.85rem] leading-6 dark:border-slate-800;
+}
+.prose table {
+  @apply block w-full overflow-x-auto text-left text-sm;
+}
+.prose thead {
+  @apply border-b-2 border-slate-200 dark:border-slate-700;
+}
+.prose th {
+  @apply px-3 py-2 font-semibold text-slate-900 dark:text-slate-100;
+}
+.prose td {
+  @apply border-b border-slate-100 px-3 py-2 align-top dark:border-slate-800;
+}
+.prose img {
+  @apply my-6 max-w-full rounded-lg border border-slate-200 dark:border-slate-800;
+}
+.prose hr {
+  @apply my-8 border-slate-200 dark:border-slate-800;
+}
+.prose h2 > a.anchor,
+.prose h3 > a.anchor {
+  @apply ml-2 text-slate-300 no-underline opacity-0 transition-opacity dark:text-slate-600;
+}
+.prose h2:hover > a.anchor,
+.prose h3:hover > a.anchor {
+  @apply opacity-100;
+}

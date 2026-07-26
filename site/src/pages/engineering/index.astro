@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { buildEngGroups } from '../../lib/eng.mjs';
+
+const entries = await getCollection('engineering');
+const groups = buildEngGroups(entries, '');
+---
+
+<Base title="Engineering" description="Architecture and module docs for the Aevum backend and frontend." bare>
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+    <p class="mb-2 text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">Engineering</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">How Aevum is built</h1>
+    <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
+      The architecture and per-module documentation for both lanes, mirrored from the code repos.
+      General-audience and public-safe — the same content the engineering team reads.
+    </p>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2">
+      {
+        groups.map((g) => (
+          <div>
+            <h2 class="mb-3 text-lg font-semibold text-slate-900 dark:text-slate-100">{g.heading}</h2>
+            <ul class="space-y-1">
+              {g.items.map((it) => (
+                <li>
+                  <a
+                    href={it.href}
+                    class="block rounded-md px-3 py-1.5 text-sm text-slate-600 no-underline hover:bg-slate-500/10 hover:text-accent-700 dark:text-slate-400 dark:hover:text-accent-300"
+                  >
+                    {it.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Base>

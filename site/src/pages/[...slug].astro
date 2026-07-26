@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import DocShell from '../components/DocShell.astro';
+import type { NavGroup } from '../components/DocShell.astro';
+import { productTopics, topicRank } from '../lib/roster.mjs';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('product');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const topics = productTopics();
+const meta = topics.find((t) => t.key === entry.id);
+const title = meta?.title ?? headings.find((h) => h.depth === 1)?.text ?? entry.id;
+
+const groups: NavGroup[] = [
+  {
+    heading: 'Product guide',
+    items: topics.map((t) => ({
+      href: `/${t.key}`,
+      label: t.title,
+      active: t.key === entry.id,
+    })),
+  },
+];
+
+// prev / next in roster order
+const ordered = [...topics].sort((a, b) => topicRank(a.key) - topicRank(b.key));
+const idx = ordered.findIndex((t) => t.key === entry.id);
+const prev = idx > 0 ? ordered[idx - 1] : null;
+const next = idx >= 0 && idx < ordered.length - 1 ? ordered[idx + 1] : null;
+---
+
+<Base title={title} description={meta?.blurb} bare>
+  <DocShell groups={groups} headings={headings} navLabel="Product guide">
+    <Content />
+
+    <nav class="mt-12 flex items-center justify-between gap-4 border-t border-slate-200 pt-6 text-sm not-prose dark:border-slate-800" aria-label="Pagination">
+      {
+        prev ? (
+          <a href={`/${prev.key}`} class="tap-press group max-w-[45%] no-underline">
+            <span class="block text-xs text-slate-400 dark:text-slate-500">Previous</span>
+            <span class="font-medium text-slate-700 group-hover:text-accent-700 dark:text-slate-200 dark:group-hover:text-accent-300">← {prev.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next && (
+          <a href={`/${next.key}`} class="tap-press group max-w-[45%] text-right no-underline">
+            <span class="block text-xs text-slate-400 dark:text-slate-500">Next</span>
+            <span class="font-medium text-slate-700 group-hover:text-accent-700 dark:text-slate-200 dark:group-hover:text-accent-300">{next.title} →</span>
+          </a>
+        )
+      }
+    </nav>
+  </DocShell>
+</Base>

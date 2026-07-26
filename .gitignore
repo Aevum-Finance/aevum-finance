@@ -37,3 +37,12 @@ __pycache__/
 # Local-only drafts — never part of the public repo.
 # deferred Playwright draft
 e2e/
+
+# docs site (T-docs-site)
+site/node_modules/
+site/dist/
+site/.astro/
+site/public/data/
+site/public/images/
+site/public/brand/
+site/public/manual/

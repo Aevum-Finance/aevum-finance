@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Wide (docs) pages get a sidebar layout; the landing/manual pass `bare`. */
+  bare?: boolean;
+}
+
+const {
+  title,
+  description = 'Documentation for Aevum — turn everyday spending into future savings.',
+  bare = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const siteTitle = title === 'Aevum Docs' ? title : `${title} · Aevum Docs`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+
+    {/* No-FOUC bootstrap — sets theme + a11y classes on <html> BEFORE first paint,
+        mirroring aevum-web. This inline script's sha256 is hashed into the CSP by
+        scripts/emit-csp.mjs (ported from aevum-web's build-time hasher). */}
+    <script is:inline>
+      (function () {
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('theme') || 'system';
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (t === 'dark' || (t === 'system' && prefersDark)) d.classList.add('dark');
+          var a = {};
+          try {
+            a = JSON.parse(localStorage.getItem('a11y') || '{}') || {};
+          } catch (e) {}
+          if (a.reduceMotion) d.classList.add('reduce-motion');
+          if (a.highContrast) d.classList.add('high-contrast');
+          if (a.underlineLinks) d.classList.add('underline-links');
+          if (a.focusAlways) d.classList.add('focus-always');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="bg-accent-600 sr-only rounded px-3 py-2 text-white focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+      >Skip to content</a
+    >
+    <Nav />
+    <main id="main" class="flex-1">
+      {
+        bare ? (
+          <slot />
+        ) : (
+          <div class="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
+            <slot />
+          </div>
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+</html>

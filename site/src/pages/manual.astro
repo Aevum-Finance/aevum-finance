@@ -1,0 +1,74 @@
+---
+import { getCollection, render } from 'astro:content';
+import { statSync } from 'node:fs';
+import path from 'node:path';
+import Base from '../layouts/Base.astro';
+import { productTopics, topicRank } from '../lib/roster.mjs';
+
+// The manual is every T0 topic as ONE readable page (D5), rendered from the SAME
+// markdown the PDF is built from — so page and PDF cannot disagree about content.
+const entries = await getCollection('product');
+const byKey = new Map(entries.map((e) => [e.id, e]));
+const ordered = productTopics()
+  .filter((t) => byKey.has(t.key))
+  .sort((a, b) => topicRank(a.key) - topicRank(b.key));
+
+const rendered = await Promise.all(
+  ordered.map(async (t) => {
+    const { Content, headings } = await render(byKey.get(t.key));
+    return { ...t, Content, headings };
+  })
+);
+
+// Committed PDF metadata for the download button.
+let pdfKb = 0;
+try {
+  pdfKb = Math.round(statSync(path.resolve('public/manual/user_manual.pdf')).size / 1024);
+} catch {}
+const pdfSize = pdfKb > 1024 ? `${(pdfKb / 1024).toFixed(1)} MB` : `${pdfKb} KB`;
+---
+
+<Base title="User manual" description="The complete Aevum user guide — every topic on one page." bare>
+  <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <header class="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
+      <p class="mb-2 text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">User manual</p>
+      <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">The Aevum guide</h1>
+      <p class="mt-3 text-slate-600 dark:text-slate-300">
+        Every product topic, in one place. Read it here, or take the print-ready PDF with you.
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <a href="/manual/user_manual.pdf" class="btn-primary tap-press" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download PDF
+        </a>
+        <span class="text-sm text-slate-500 dark:text-slate-400">{pdfSize} · {rendered.length} topics</span>
+      </div>
+    </header>
+
+    <nav class="mb-12 rounded-xl border border-slate-200 bg-canvas-subtle p-5 not-prose dark:border-slate-800" aria-label="Contents">
+      <p class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-100">Contents</p>
+      <ol class="grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
+        {
+          rendered.map((t, i) => (
+            <li>
+              <a href={`#${t.key}`} class="text-slate-600 no-underline hover:text-accent-700 dark:text-slate-400 dark:hover:text-accent-300">
+                <span class="mr-1.5 text-slate-400 dark:text-slate-500">{i + 1}.</span>
+                {t.title}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    {
+      rendered.map((t) => (
+        <section id={t.key} class="prose mb-16 scroll-mt-20">
+          <t.Content />
+        </section>
+      ))
+    }
+  </div>
+</Base>
