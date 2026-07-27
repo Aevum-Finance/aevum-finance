@@ -13,8 +13,8 @@
       "DELETE": 14
     },
     "routers": 29,
-    "tests": 1269,
-    "test_functions": 1108,
+    "tests": 1272,
+    "test_functions": 1111,
     "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
     "scheduled_workers": 8,
     "email_types": 11
@@ -27,9 +27,9 @@
   },
   "sloc": {
     "note": "Accurate code lines (pygount, excludes blanks/comments).",
-    "backend_app": 24950,
-    "backend_tests": 18192,
-    "total": 43142
+    "backend_app": 24974,
+    "backend_tests": 18267,
+    "total": 43241
   },
   "benchmark": {
     "note": "Tier-2 measured performance \u2014 captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",

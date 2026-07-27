@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+
 # How the backend works
 
 Aevum's backend is a personal-finance engine built on **FastAPI**, running on an

@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+
 # How the pieces fit
 
 The [consumption-tax engine](the-consumption-tax-engine.md) is the heart of the

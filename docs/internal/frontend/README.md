@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@3b099bf1/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. The entry point to the web app's documentation.
      Links out to the general-audience pages (this file + public/) and down into the
@@ -45,6 +45,13 @@ Aevum's product documentation.
 | Treasury       | the Savings page                                                       | [public/treasury.md](public/treasury.md)             |
 
 <!-- END GENERATED:module-index-t1 -->
+
+## How it works
+
+**[public/engineering/](public/engineering/)** goes a level deeper than the
+per-screen pages — the load-bearing mechanics (the design system, interaction
+patterns, how the pieces fit, testing) for a technical reader. Still public-safe:
+how things work, without the wiring-and-component detail.
 
 ## Note on tiers
 

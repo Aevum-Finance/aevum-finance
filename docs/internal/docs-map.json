@@ -1,0 +1,203 @@
+{
+  "generatedBy": "tooling/gen-docs-map.mjs",
+  "product": [
+    {
+      "key": "getting-started",
+      "source": "public/getting-started.md",
+      "route": "/getting-started",
+      "title": "Getting started",
+      "order": 0
+    },
+    {
+      "key": "consumption-tax",
+      "source": "public/consumption-tax.md",
+      "route": "/consumption-tax",
+      "title": "The consumption tax & your weekly bill",
+      "order": 1
+    },
+    {
+      "key": "savings-account",
+      "source": "public/savings-account.md",
+      "route": "/savings-account",
+      "title": "Your savings account",
+      "order": 2
+    },
+    {
+      "key": "transactions",
+      "source": "public/transactions.md",
+      "route": "/transactions",
+      "title": "Transactions",
+      "order": 3
+    },
+    {
+      "key": "beneficiaries",
+      "source": "public/beneficiaries.md",
+      "route": "/beneficiaries",
+      "title": "Beneficiaries",
+      "order": 4
+    },
+    {
+      "key": "categories-and-rules",
+      "source": "public/categories-and-rules.md",
+      "route": "/categories-and-rules",
+      "title": "Categories & rules",
+      "order": 5
+    },
+    {
+      "key": "budgets",
+      "source": "public/budgets.md",
+      "route": "/budgets",
+      "title": "Budgets",
+      "order": 6
+    },
+    {
+      "key": "paying-by-upi",
+      "source": "public/paying-by-upi.md",
+      "route": "/paying-by-upi",
+      "title": "Paying by UPI",
+      "order": 7
+    },
+    {
+      "key": "recurring",
+      "source": "public/recurring.md",
+      "route": "/recurring",
+      "title": "Recurring bills",
+      "order": 8
+    },
+    {
+      "key": "account-and-security",
+      "source": "public/account-and-security.md",
+      "route": "/account-and-security",
+      "title": "Account & security",
+      "order": 9
+    },
+    {
+      "key": "data-and-privacy",
+      "source": "public/data-and-privacy.md",
+      "route": "/data-and-privacy",
+      "title": "Your data & privacy",
+      "order": 10
+    },
+    {
+      "key": "notifications",
+      "source": "public/notifications.md",
+      "route": "/notifications",
+      "title": "Notifications & activity",
+      "order": 11
+    }
+  ],
+  "engineering": [
+    {
+      "lane": "backend",
+      "id": "backend/readme",
+      "source": "internal/backend/public/engineering/README.md",
+      "route": "/engineering/backend/readme",
+      "title": "How the backend works",
+      "order": 0
+    },
+    {
+      "lane": "backend",
+      "id": "backend/how-the-pieces-fit",
+      "source": "internal/backend/public/engineering/how-the-pieces-fit.md",
+      "route": "/engineering/backend/how-the-pieces-fit",
+      "title": "How the pieces fit",
+      "order": 4
+    },
+    {
+      "lane": "backend",
+      "id": "backend/testing-and-quality",
+      "source": "internal/backend/public/engineering/testing-and-quality.md",
+      "route": "/engineering/backend/testing-and-quality",
+      "title": "Testing and quality",
+      "order": 4
+    },
+    {
+      "lane": "backend",
+      "id": "backend/the-consumption-tax-engine",
+      "source": "internal/backend/public/engineering/the-consumption-tax-engine.md",
+      "route": "/engineering/backend/the-consumption-tax-engine",
+      "title": "The consumption-tax engine",
+      "order": 4
+    },
+    {
+      "lane": "backend",
+      "id": "backend/the-resolved-ledger",
+      "source": "internal/backend/public/engineering/the-resolved-ledger.md",
+      "route": "/engineering/backend/the-resolved-ledger",
+      "title": "The resolved ledger",
+      "order": 4
+    },
+    {
+      "lane": "backend",
+      "id": "backend/architecture",
+      "source": "internal/backend/architecture.md",
+      "route": "/engineering/backend/architecture",
+      "title": "Backend architecture",
+      "order": 8
+    },
+    {
+      "lane": "backend",
+      "id": "backend/performance",
+      "source": "internal/backend/performance.md",
+      "route": "/engineering/backend/performance",
+      "title": "Performance",
+      "order": 9
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/readme",
+      "source": "internal/frontend/public/engineering/README.md",
+      "route": "/engineering/frontend/readme",
+      "title": "How the Frontend Works",
+      "order": 0
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/how-the-pieces-fit",
+      "source": "internal/frontend/public/engineering/how-the-pieces-fit.md",
+      "route": "/engineering/frontend/how-the-pieces-fit",
+      "title": "How the Pieces Fit",
+      "order": 4
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/interaction-patterns",
+      "source": "internal/frontend/public/engineering/interaction-patterns.md",
+      "route": "/engineering/frontend/interaction-patterns",
+      "title": "Interaction Patterns",
+      "order": 4
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/testing-and-quality",
+      "source": "internal/frontend/public/engineering/testing-and-quality.md",
+      "route": "/engineering/frontend/testing-and-quality",
+      "title": "Testing and Quality",
+      "order": 4
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/the-design-system",
+      "source": "internal/frontend/public/engineering/the-design-system.md",
+      "route": "/engineering/frontend/the-design-system",
+      "title": "The Design System",
+      "order": 4
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/architecture",
+      "source": "internal/frontend/architecture.md",
+      "route": "/engineering/frontend/architecture",
+      "title": "Frontend architecture",
+      "order": 8
+    },
+    {
+      "lane": "frontend",
+      "id": "frontend/performance",
+      "source": "internal/frontend/performance.md",
+      "route": "/engineering/frontend/performance",
+      "title": "Performance",
+      "order": 9
+    }
+  ]
+}

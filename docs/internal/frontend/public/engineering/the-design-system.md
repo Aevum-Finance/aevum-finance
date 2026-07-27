@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+
 # The Design System
 
 How Aevum's visual layer works, at a mechanics level. The goal is a single,
@@ -88,7 +90,7 @@ secondary, a low-emphasis inline action, a destructive confirm — and each role
 maps to one token that carries both its look and its behavior (for example, a
 commit button stays disabled until the form is dirty and flashes on success).
 Two buttons that look similar can belong to different roles; classifying by what
-the control *does* means it inherits the right visual and the right behavior
+the control _does_ means it inherits the right visual and the right behavior
 automatically.
 
 Motion timings and easings live in one token set as well, and shared feedback

@@ -14,48 +14,21 @@
  * new lane doc cannot silently ship a dead link — or an unclassified one — onto the
  * public web. Fail-closed.
  */
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { engSlug } from './eng.mjs';
-
-function walkMd(dir, root, out) {
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) walkMd(p, root, out);
-    else if (e.name.endsWith('.md')) out.push(path.relative(root, p).replace(/\.md$/, ''));
-  }
-  return out;
-}
+import { docBySource } from './docs-map.mjs';
 
 export function rehypeDocLinks({ repoRoot }) {
+  const DOCS = path.join(repoRoot, 'docs');
   const PUBLIC = path.join(repoRoot, 'docs/public');
-  const INTERNAL = path.join(repoRoot, 'docs/internal');
 
-  const productKeys = new Set(
-    readdirSync(PUBLIC)
-      .filter((f) => f.endsWith('.md') && f !== 'README.md')
-      .map((f) => f.replace(/\.md$/, ''))
-  );
-  // The PUBLISHED engineering set mirrors content.config: the curated mechanics docs
-  // (engineering/**) + the retained cross-cutting T1 (architecture/performance). Module
-  // retellings under <lane>/public/*.md exist in the mirror but are NOT published.
-  const engIds = new Set();
-  const engDir = path.join(INTERNAL, 'engineering');
-  if (existsSync(engDir)) walkMd(engDir, INTERNAL, []).forEach((id) => engIds.add(id));
-  for (const lane of ['backend', 'frontend'])
-    for (const doc of ['architecture', 'performance'])
-      if (existsSync(path.join(INTERNAL, lane, `${doc}.md`))) engIds.add(`${lane}/${doc}`);
-
+  // Published? Ask the docs-map contract — the single authority on what is published and
+  // where it routes (product AND engineering, both tiers). A target inside docs/ that the
+  // contract doesn't list is unpublished; anything outside docs/ is not ours to route.
   const routeFor = (absTarget) => {
-    if (absTarget.startsWith(PUBLIC + path.sep)) {
-      const key = path.relative(PUBLIC, absTarget).replace(/\.md$/, '');
-      return productKeys.has(key) ? `/${key}` : null;
-    }
-    if (absTarget.startsWith(INTERNAL + path.sep)) {
-      const id = path.relative(INTERNAL, absTarget).replace(/\.md$/, '');
-      return engIds.has(id) ? `/engineering/${engSlug(id)}` : null;
-    }
-    return null;
+    const rel = path.relative(DOCS, absTarget);
+    if (rel.startsWith('..') || path.isAbsolute(rel)) return null;
+    return docBySource(rel.split(path.sep).join('/'))?.route ?? null;
   };
 
   // A relative link is "known-unpublished" (degrade, not fail) when it points at a

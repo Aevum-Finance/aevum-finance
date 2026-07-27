@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+
 # Interaction Patterns
 
 Most of what makes an app feel like one product rather than a pile of screens
@@ -108,7 +110,7 @@ users get a static version — the cue never depends on animation to do its job.
 
 **Redirect over nested modal for full features.** A lightweight sub-task — minting
 a missing tag while filling a form — can open a small dialog on top of the current
-one. But when the sub-flow *is* a complete feature with its own screen, the app
+one. But when the sub-flow _is_ a complete feature with its own screen, the app
 navigates to that screen carrying the in-progress context, rather than stacking a
 whole feature inside a modal. This keeps feature boundaries clean and avoids
 disorienting modal-on-modal depth.
@@ -117,6 +119,6 @@ disorienting modal-on-modal depth.
 Device-shaped switches — theme, text size, reduced motion, the on-demand privacy
 mask — stay on the device, because the right value on a laptop may be wrong on a
 phone. Account-shaped preferences — currency, timezone, formats, and the display
-choices that are properties of the *person* rather than the screen — follow the
+choices that are properties of the _person_ rather than the screen — follow the
 user everywhere they sign in. The distinction decides where each setting is
 remembered, so it always comes back where the user expects it.

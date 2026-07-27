@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+
 # The resolved ledger
 
 The [consumption-tax engine](the-consumption-tax-engine.md) can only be trusted if the

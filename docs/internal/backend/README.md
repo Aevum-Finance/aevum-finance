@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@34999cd1/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. The front door to the docs tree — a "start here"
      index, not content of its own. Point readers at the map, the per-feature
@@ -41,6 +41,13 @@ part of the product without reading its implementation.
 | Users          | profile, preferences, account reset                         | [public/users.md](public/users.md)                   |
 
 <!-- END GENERATED:module-index-t1 -->
+
+## How it works
+
+**[public/engineering/](public/engineering/)** goes a level deeper than the
+per-feature pages — the load-bearing mechanics (the consumption-tax engine, the
+resolved ledger, how the pieces fit, testing) for a technical reader. Still
+public-safe: how things work, without the schema-and-wiring detail.
 
 ## Developer and AI detail
 

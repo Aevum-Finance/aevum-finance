@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+
 # Testing and quality
 
 Correctness in a system that moves money cannot rest on good intentions or a careful eye.

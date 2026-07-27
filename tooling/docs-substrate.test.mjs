@@ -12,9 +12,13 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import { parseToml } from './toml-lite.mjs';
 import { build, CoverageError } from './feature-index.mjs';
 import { assertFullHistory } from './sync-docs.mjs';
+import { build as buildDocsMap } from './gen-docs-map.mjs';
 
 // --- toml-lite -----------------------------------------------------------
 
@@ -158,4 +162,32 @@ test('sync-docs: a full clone passes, and resolves per-file history', () => {
       encoding: 'utf8',
     }).trim();
   assert.notEqual(shaOf('first.md'), shaOf('second.md'));
+});
+
+// --- gen-docs-map (the docs path contract) -------------------------------
+
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+test('docs-map: contract is internally sound (unique routes, real sources, well-formed)', () => {
+  const map = buildDocsMap();
+  const all = [...map.product, ...map.engineering];
+  assert.ok(map.product.length && map.engineering.length, 'both tiers present');
+
+  // Every entry carries the shared facts, and its source resolves to a real file.
+  for (const d of all) {
+    assert.ok(d.source && d.route && d.title, `entry fully formed: ${JSON.stringify(d)}`);
+    assert.ok(existsSync(path.join(REPO, 'docs', d.source)), `source exists: ${d.source}`);
+  }
+  // Engineering routes carry the section prefix; product routes do not.
+  for (const d of map.engineering) assert.match(d.route, /^\/engineering\//);
+  for (const d of map.product) assert.doesNotMatch(d.route, /^\/engineering\//);
+
+  // Routes are unique — the contract is a 1:1 map from doc to canonical URL.
+  const routes = all.map((d) => d.route);
+  assert.equal(new Set(routes).size, routes.length, 'routes are unique');
+});
+
+test('docs-map: the committed contract is in sync with its inputs', () => {
+  const committed = readFileSync(path.join(REPO, 'docs/internal/docs-map.json'), 'utf8');
+  assert.equal(committed, JSON.stringify(buildDocsMap(), null, 2) + '\n', 'run `npm run docs:map`');
 });

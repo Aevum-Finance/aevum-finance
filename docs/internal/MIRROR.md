@@ -12,8 +12,8 @@ here instead, since they cannot hold an HTML comment.
 
 | Mirrored file | Source @ |
 | --- | --- |
-| `backend/README.md` | aevum-api@34999cd1 |
-| `backend/architecture.md` | aevum-api@0e659604 |
+| `backend/README.md` | aevum-api@6b1e4989 |
+| `backend/architecture.md` | aevum-api@d856f6bb |
 | `backend/modules.manifest.toml` | aevum-api@36a4386c |
 | `backend/perf/benchmarks.json` | aevum-api@519412bd |
 | `backend/performance.md` | aevum-api@34999cd1 |
@@ -23,6 +23,11 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/beneficiaries.md` | aevum-api@5b72b821 |
 | `backend/public/budgets.md` | aevum-api@5b72b821 |
 | `backend/public/categorization.md` | aevum-api@5b72b821 |
+| `backend/public/engineering/README.md` | aevum-api@6b1e4989 |
+| `backend/public/engineering/how-the-pieces-fit.md` | aevum-api@6b1e4989 |
+| `backend/public/engineering/testing-and-quality.md` | aevum-api@6b1e4989 |
+| `backend/public/engineering/the-consumption-tax-engine.md` | aevum-api@6b1e4989 |
+| `backend/public/engineering/the-resolved-ledger.md` | aevum-api@6b1e4989 |
 | `backend/public/exports.md` | aevum-api@5b72b821 |
 | `backend/public/onboarding.md` | aevum-api@5b72b821 |
 | `backend/public/recurring.md` | aevum-api@5b72b821 |
@@ -31,14 +36,14 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/transactions.md` | aevum-api@5b72b821 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@4db0ec35 |
+| `backend/stats.backend.json` | aevum-api@d856f6bb |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend
 
 | Mirrored file | Source @ |
 | --- | --- |
-| `frontend/README.md` | aevum-web@3b099bf1 |
+| `frontend/README.md` | aevum-web@88bd7892 |
 | `frontend/architecture.md` | aevum-web@067c271b |
 | `frontend/modules.manifest.json` | aevum-web@3b099bf1 |
 | `frontend/performance.md` | aevum-web@b006f48c |
@@ -49,6 +54,11 @@ here instead, since they cannot hold an HTML comment.
 | `frontend/public/budgets.md` | aevum-web@be3d1be7 |
 | `frontend/public/categorization.md` | aevum-web@be3d1be7 |
 | `frontend/public/dashboard.md` | aevum-web@be3d1be7 |
+| `frontend/public/engineering/README.md` | aevum-web@88bd7892 |
+| `frontend/public/engineering/how-the-pieces-fit.md` | aevum-web@88bd7892 |
+| `frontend/public/engineering/interaction-patterns.md` | aevum-web@88bd7892 |
+| `frontend/public/engineering/testing-and-quality.md` | aevum-web@88bd7892 |
+| `frontend/public/engineering/the-design-system.md` | aevum-web@88bd7892 |
 | `frontend/public/onboarding.md` | aevum-web@be3d1be7 |
 | `frontend/public/payments.md` | aevum-web@d4196bb0 |
 | `frontend/public/recurring.md` | aevum-web@be3d1be7 |

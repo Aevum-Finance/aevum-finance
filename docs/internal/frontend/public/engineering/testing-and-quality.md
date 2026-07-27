@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+
 # Testing and Quality
 
 Quality on the frontend is enforced by machinery, not by good intentions. The

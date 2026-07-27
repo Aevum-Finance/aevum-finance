@@ -2,20 +2,23 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import DocShell from '../../components/DocShell.astro';
-import { buildEngGroups, engTitle, engSlug } from '../../lib/eng.mjs';
+import { buildEngGroups } from '../../lib/eng.mjs';
+import { engDocForEntry } from '../../lib/docs-map.mjs';
 
 export async function getStaticPaths() {
+  // The glob may load more than we publish; the docs-map contract is the authority.
+  // Keep only loaded entries that map to a contract doc, and route them at its id.
   const entries = await getCollection('engineering');
-  return entries.map((entry) => ({
-    params: { slug: engSlug(entry.id) },
-    props: { entry, entries },
-  }));
+  return entries
+    .map((entry) => ({ entry, doc: engDocForEntry(entry) }))
+    .filter(({ doc }) => doc)
+    .map(({ entry, doc }) => ({ params: { slug: doc.id }, props: { entry, doc } }));
 }
 
-const { entry, entries } = Astro.props;
+const { entry, doc } = Astro.props;
 const { Content, headings } = await render(entry);
-const title = engTitle(entry);
-const groups = buildEngGroups(entries, entry.id);
+const title = doc.title;
+const groups = buildEngGroups(doc.source);
 ---
 
 <Base title={title} description={`Engineering documentation — ${title}.`} bare>

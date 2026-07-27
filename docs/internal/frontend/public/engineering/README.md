@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+
 # How the Frontend Works
 
 Aevum's web app is a single-page React application. This page explains the shape

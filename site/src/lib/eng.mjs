@@ -1,29 +1,12 @@
-// Nav structure + titles for the ENGINEERING section. After T-docs-site's engineering
-// rework the section is the curated "how it works" set — the mechanics docs mirrored to
-// docs/internal/engineering/<lane>/**, plus the retained-by-difference cross-cutting T1
-// (architecture, performance). The shallow per-module retellings (docs/internal/<lane>/
-// public/*.md) are NOT surfaced — they just re-tell T0 (the user manual).
+// Nav + titles for the ENGINEERING section — now a thin reader over the docs-map contract
+// (docs/internal/docs-map.json via docs-map.mjs). The published set, routes, titles and
+// reading order all come from the contract; this module just shapes them into nav groups and
+// landing cards. No path/slug derivation lives here anymore.
+import { engineeringDocs, engDocForEntry } from './docs-map.mjs';
 
-export function firstHeading(body, fallback) {
-  const m = (body ?? '').match(/^#\s+(.+?)\s*$/m);
-  return m ? m[1].replace(/[#*`]/g, '').trim() : fallback;
-}
-
-function prettify(id) {
-  const last = id.split('/').pop() ?? id;
-  return last.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
+// Title of a rendered engineering entry, from the contract (single source of truth).
 export function engTitle(entry) {
-  return firstHeading(entry.body, prettify(entry.id));
-}
-
-// Mirror entry id → engineering-section route slug. The engineering docs live under
-// `engineering/<lane>/…`; strip that infix so the route is /engineering/<lane>/<doc>
-// rather than /engineering/engineering/<lane>/<doc>. Cross-cutting T1 ids (backend/
-// architecture) already have the right shape.
-export function engSlug(id) {
-  return (id.startsWith('engineering/') ? id.slice('engineering/'.length) : id).toLowerCase();
+  return engDocForEntry(entry)?.title ?? entry.id;
 }
 
 const LANES = [
@@ -31,40 +14,24 @@ const LANES = [
   ['frontend', 'Frontend'],
 ];
 
-// Reading order within a lane: the overview first, then the deep dives, with the
-// retained architecture/performance references last.
-function rank(slug) {
-  const base = slug.split('/').pop();
-  if (base === 'readme') return 0;
-  if (base === 'architecture') return 8;
-  if (base === 'performance') return 9;
-  return 4;
-}
-
-export function buildEngGroups(entries, activeId) {
+// Left-rail nav, grouped by lane in the contract's curation order. `activeSource` is the
+// docs/-relative source of the current page (or '' on the section index).
+export function buildEngGroups(activeSource = '') {
   const groups = [];
   for (const [key, label] of LANES) {
-    const lane = entries
-      .map((e) => ({ e, slug: engSlug(e.id) }))
-      .filter(({ slug }) => slug.startsWith(key + '/'))
-      .sort((a, b) => rank(a.slug) - rank(b.slug) || engTitle(a.e).localeCompare(engTitle(b.e)));
-    if (!lane.length) continue;
-    groups.push({
-      heading: label,
-      items: lane.map(({ e, slug }) => ({
-        href: `/engineering/${slug}`,
-        label: engTitle(e),
-        active: e.id === activeId,
-      })),
-    });
+    const items = engineeringDocs
+      .filter((d) => d.lane === key)
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
+      .map((d) => ({ href: d.route, label: d.title, active: d.source === activeSource }));
+    if (items.length) groups.push({ heading: label, items });
   }
   return groups;
 }
 
-// The per-lane overview entry (its README), for the section landing.
-export function laneOverviews(entries) {
+// The per-lane overview doc (its README), for the section landing's "start here" cards.
+export function laneOverviews() {
   return LANES.map(([key, label]) => {
-    const entry = entries.find((e) => engSlug(e.id) === `${key}/readme`);
-    return entry ? { key, label, entry, slug: engSlug(entry.id) } : null;
+    const doc = engineeringDocs.find((d) => d.lane === key && /(^|\/)readme$/i.test(d.id));
+    return doc ? { key, label, doc } : null;
   }).filter(Boolean);
 }

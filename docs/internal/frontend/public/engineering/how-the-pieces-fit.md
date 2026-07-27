@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+
 # How the Pieces Fit
 
 A short tour of the load-bearing mechanisms behind the frontend — the seams and
@@ -31,7 +33,7 @@ hooks, cache entries are keyed per feature and action, and a write invalidates
 exactly the reads it affects so the UI re-syncs without manual refetching.
 Sensibly short freshness windows and a light retry posture mean a screen paints
 from cache instantly and revalidates in the background. Everything that is
-*not* server data — theme, display preferences, the signed-in user, the
+_not_ server data — theme, display preferences, the signed-in user, the
 accessibility switches — lives in **lightweight client stores**, one per domain,
 kept deliberately separate from the server cache. Every request to the backend
 goes through one typed client and one central registry of URLs, so the app has a
@@ -63,7 +65,7 @@ failure, and the number ratchets down over time rather than being quietly
 loosened. Keeping under it is what forces the lazy-loading discipline
 everywhere: heavy libraries, below-the-fold showcases, and behind-a-click
 surfaces are all split into their own chunks that load on demand. To keep those
-lazy chunks from feeling slow when they *are* needed, the app does
+lazy chunks from feeling slow when they _are_ needed, the app does
 **background warming** — it quietly pre-fetches the chunks a user is likely to
 reach next, during idle moments, so a deferred surface still appears instantly.
 The classification rule underneath all of this is simple: what's in sight must

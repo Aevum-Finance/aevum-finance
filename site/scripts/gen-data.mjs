@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import GithubSlugger from 'github-slugger';
 
 import { parseToml } from '../../tooling/toml-lite.mjs';
-import { engSlug } from '../src/lib/eng.mjs';
+import { engineeringDocs } from '../src/lib/docs-map.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.resolve(HERE, '..');
@@ -70,6 +70,11 @@ mkdirSync(DATA, { recursive: true });
 
 copy(R('aevum-stats.json'), path.join(DATA, 'aevum-stats.json'));
 const stats = JSON.parse(readFileSync(R('aevum-stats.json'), 'utf8'));
+
+// The docs PATH CONTRACT (docs-map.json) — republished verbatim so downstream consumers
+// (personal site, marketing) resolve doc → canonical URL against the same single authority
+// the site itself routes from, instead of re-deriving paths from the mirror layout.
+copy(R('docs/internal/docs-map.json'), path.join(DATA, 'docs-map.json'));
 
 // backend: stats.backend.json is JSON; modules/tree are TOML → normalise to JSON.
 copy(R('docs/internal/backend/stats.backend.json'), path.join(DATA, 'backend/stats.json'));
@@ -145,16 +150,6 @@ function headingsOf(md) {
   }
   return out;
 }
-function walk(dir) {
-  const out = [];
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) out.push(...walk(p));
-    else if (e.name.endsWith('.md')) out.push(p);
-  }
-  return out;
-}
-
 const index = [];
 // Product (T0) in roster order.
 const topics = parseToml(readFileSync(R('tooling/product-features.toml'), 'utf8')).topics ?? {};
@@ -171,24 +166,15 @@ for (const [key, meta] of Object.entries(topics)) {
     headings: headingsOf(md),
   });
 }
-// Engineering — the PUBLISHED set only (mirrors content.config): the curated
-// mechanics docs (engineering/**) + retained architecture/performance. Module
-// retellings under <lane>/public/*.md are excluded, matching the site.
-const engFiles = [];
-const engDir = R('docs/internal/engineering');
-if (existsSync(engDir)) engFiles.push(...walk(engDir));
-for (const lane of ['backend', 'frontend'])
-  for (const doc of ['architecture', 'performance']) {
-    const f = R('docs/internal', lane, `${doc}.md`);
-    if (existsSync(f)) engFiles.push(f);
-  }
-for (const file of engFiles) {
-  const id = path.relative(R('docs/internal'), file).replace(/\.md$/, '');
-  const md = readFileSync(file, 'utf8');
+// Engineering — straight from the docs-map contract (the published set + routes +
+// titles), so the index can never disagree with what the site actually routes. Each
+// entry's prose is read from its contract `source` for the headings/summary.
+for (const d of engineeringDocs) {
+  const md = readFileSync(R('docs', d.source), 'utf8');
   index.push({
-    slug: engSlug(id),
-    url: `/engineering/${engSlug(id)}`,
-    title: firstHeading(md, id),
+    slug: d.id,
+    url: d.route,
+    title: d.title,
     section: 'Engineering',
     summary: summarise(md),
     headings: headingsOf(md),

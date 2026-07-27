@@ -23,6 +23,12 @@ const CONTRACT = {
   'frontend/benchmarks.json': ['lane', 'benchmark'],
   'docs-index.json': (v) => Array.isArray(v) && v.length > 0 && 'url' in v[0] && 'headings' in v[0],
   'screenshots.json': (v) => Array.isArray(v) && (v.length === 0 || 'scene' in v[0]),
+  // The docs PATH CONTRACT — a downstream resolves doc → canonical URL against it, so its
+  // shape (each entry carries a source + route) is itself a published contract.
+  'docs-map.json': (v) =>
+    Array.isArray(v.engineering) &&
+    Array.isArray(v.product) &&
+    [...v.engineering, ...v.product].every((d) => 'source' in d && 'route' in d),
 };
 
 const problems = [];

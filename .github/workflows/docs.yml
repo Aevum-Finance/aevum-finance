@@ -85,6 +85,10 @@ jobs:
         working-directory: tooling
         run: npm run --silent links
 
+      - name: docs contract in sync
+        working-directory: tooling
+        run: npm run --silent docs:map:check
+
       - name: tooling tests
         working-directory: tooling
         run: npm test
@@ -157,6 +161,7 @@ jobs:
         run: |
           set -euo pipefail
           npm run --silent docs     # lane mirror  -> docs/internal/
+          npm run --silent docs:map # docs path contract -> docs/internal/docs-map.json
           npm run --silent public   # T0 provenance regions in docs/public/
           npm run --silent outer    # ARCHITECTURE.md regions
           npm run --silent stats    # aevum-stats.json + METRICS.md

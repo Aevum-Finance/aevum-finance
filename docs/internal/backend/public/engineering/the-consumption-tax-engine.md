@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+
 # The consumption-tax engine
 
 This is Aevum's flagship mechanism. The product charges the user a small,
