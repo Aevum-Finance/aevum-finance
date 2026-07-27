@@ -21,17 +21,24 @@ export function remarkMermaid({ repoRoot }) {
       for (let i = 0; i < node.children.length; i++) {
         const c = node.children[i];
         if (c.type === 'code' && c.lang === 'mermaid') {
-          const svgPath = path.join(DIR, `${hash(c.value)}.svg`);
-          if (!existsSync(svgPath)) {
+          const h = hash(c.value);
+          const light = path.join(DIR, `${h}.svg`);
+          const dark = path.join(DIR, `${h}.dark.svg`);
+          if (!existsSync(light) || !existsSync(dark)) {
             throw new Error(
-              `[docs-site D5] No pre-rendered SVG for a mermaid diagram in ` +
+              `[docs-site D5] No pre-rendered light+dark SVG for a mermaid diagram in ` +
                 `${file?.path ? path.relative(repoRoot, file.path) : '?'}. ` +
                 `Run \`node tooling/render-mermaid.mjs\` and commit docs/public/.mermaid/.`
             );
           }
+          // Both themes embedded; CSS shows the one matching the active theme (D10).
           node.children[i] = {
             type: 'html',
-            value: `<figure class="mermaid-figure">${readFileSync(svgPath, 'utf8')}</figure>`,
+            value:
+              `<figure class="mermaid-figure">` +
+              `<div class="mm-light">${readFileSync(light, 'utf8')}</div>` +
+              `<div class="mm-dark">${readFileSync(dark, 'utf8')}</div>` +
+              `</figure>`,
           };
         } else {
           visit(c);

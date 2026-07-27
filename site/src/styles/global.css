@@ -277,13 +277,22 @@ html.dark .hero-rings {
 .prose img {
   @apply my-6 max-w-full rounded-lg border border-slate-200 dark:border-slate-800;
 }
-/* Pre-rendered mermaid — the neutral SVG always sits on a light card so it stays
-   legible in dark mode too (the diagram bakes its own colors). */
+/* Pre-rendered mermaid — a light and a dark SVG are both embedded; show the one that
+   matches the active theme so the diagram sits native on the page in either mode. */
 .prose .mermaid-figure {
-  @apply my-6 overflow-x-auto rounded-lg border border-slate-200 bg-white p-4 text-center dark:border-slate-700;
+  @apply my-6 overflow-x-auto rounded-lg border border-slate-200 bg-canvas-subtle p-4 text-center dark:border-slate-800;
 }
 .prose .mermaid-figure svg {
   @apply mx-auto h-auto;
+}
+.prose .mermaid-figure .mm-dark {
+  display: none;
+}
+:root.dark .prose .mermaid-figure .mm-light {
+  display: none;
+}
+:root.dark .prose .mermaid-figure .mm-dark {
+  display: block;
 }
 .prose hr {
   @apply my-8 border-slate-200 dark:border-slate-800;

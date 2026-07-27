@@ -43,8 +43,18 @@ function collectDiagrams() {
 const check = process.argv.includes('--check');
 const diagrams = collectDiagrams();
 
+// Each diagram is rendered in BOTH themes so the site can show the one that matches
+// (neutral on light, dark on dark) instead of forcing every diagram onto a white card.
+const VARIANTS = [
+  ['', 'neutral'],
+  ['.dark', 'dark'],
+];
+
 if (check) {
-  const missing = [...diagrams.keys()].filter((h) => !existsSync(path.join(OUT, `${h}.svg`)));
+  const missing = [];
+  for (const h of diagrams.keys())
+    for (const [suffix] of VARIANTS)
+      if (!existsSync(path.join(OUT, `${h}${suffix}.svg`))) missing.push(`${h}${suffix}`);
   if (missing.length) {
     console.error(`[render-mermaid] MISSING ${missing.length} SVG(s): ${missing.join(', ')}`);
     console.error('Run `node tooling/render-mermaid.mjs` and commit docs/public/.mermaid/.');
@@ -69,20 +79,21 @@ try {
      </head><body></body></html>`,
     { waitUntil: 'networkidle0' }
   );
-  await page.evaluate(() => window.mermaid.initialize({ startOnLoad: false, theme: 'neutral' }));
-
   let n = 0;
   for (const [hash, src] of diagrams) {
-    const svg = await page.evaluate(async (code) => {
-      const { svg } = await window.mermaid.render('m' + Math.random().toString(36).slice(2), code);
-      return svg;
-    }, src);
-    // Strip the fixed max-width mermaid injects so the diagram scales to the column.
-    const cleaned = svg.replace(/style="max-width:[^"]*"/, 'style="max-width:100%"');
-    writeFileSync(path.join(OUT, `${hash}.svg`), cleaned + '\n');
-    n++;
+    for (const [suffix, theme] of VARIANTS) {
+      await page.evaluate((t) => window.mermaid.initialize({ startOnLoad: false, theme: t }), theme);
+      const svg = await page.evaluate(async (code) => {
+        const { svg } = await window.mermaid.render('m' + Math.random().toString(36).slice(2), code);
+        return svg;
+      }, src);
+      // Strip the fixed max-width mermaid injects so the diagram scales to the column.
+      const cleaned = svg.replace(/style="max-width:[^"]*"/, 'style="max-width:100%"');
+      writeFileSync(path.join(OUT, `${hash}${suffix}.svg`), cleaned + '\n');
+      n++;
+    }
   }
-  console.log(`[render-mermaid] rendered ${n} diagram(s) → docs/public/.mermaid/`);
+  console.log(`[render-mermaid] rendered ${n} SVG(s) (${diagrams.size} diagrams × 2 themes).`);
 } finally {
   await browser.close();
 }

@@ -56,6 +56,7 @@ copy(R('docs/public/images'), P('images'));
 // Brand marks for the site chrome (self-origin — no CSP img-src addition).
 const BRAND = R('docs/public/images/brand');
 copy(path.join(BRAND, 'lockup.svg'), P('brand/lockup.svg'));
+copy(path.join(BRAND, 'lockup-dark.svg'), P('brand/lockup-dark.svg')); // cream wordmark for dark
 copy(path.join(BRAND, 'logo.svg'), P('brand/logo.svg'));
 copy(path.join(BRAND, 'logo.svg'), P('brand/favicon.svg'));
 

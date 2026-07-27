@@ -82,7 +82,8 @@ function initMenu() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
   });
-  panel.addEventListener('click', (e) => e.stopPropagation());
+  // NB: no stopPropagation on the panel — it would swallow the delegated [data-theme]
+  // click handler below. Outside-click-close already guards with panel.contains().
 }
 
 document.addEventListener('click', (e) => {
