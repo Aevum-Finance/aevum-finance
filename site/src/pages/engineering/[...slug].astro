@@ -2,12 +2,12 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import DocShell from '../../components/DocShell.astro';
-import { buildEngGroups, engTitle } from '../../lib/eng.mjs';
+import { buildEngGroups, engTitle, engSlug } from '../../lib/eng.mjs';
 
 export async function getStaticPaths() {
   const entries = await getCollection('engineering');
   return entries.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: engSlug(entry.id) },
     props: { entry, entries },
   }));
 }

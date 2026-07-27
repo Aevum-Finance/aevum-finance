@@ -16,6 +16,7 @@
  */
 import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
+import { engSlug } from './eng.mjs';
 
 function walkMd(dir, root, out) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -35,7 +36,15 @@ export function rehypeDocLinks({ repoRoot }) {
       .filter((f) => f.endsWith('.md') && f !== 'README.md')
       .map((f) => f.replace(/\.md$/, ''))
   );
-  const engIds = new Set(walkMd(INTERNAL, INTERNAL, []).filter((id) => id !== 'MIRROR'));
+  // The PUBLISHED engineering set mirrors content.config: the curated mechanics docs
+  // (engineering/**) + the retained cross-cutting T1 (architecture/performance). Module
+  // retellings under <lane>/public/*.md exist in the mirror but are NOT published.
+  const engIds = new Set();
+  const engDir = path.join(INTERNAL, 'engineering');
+  if (existsSync(engDir)) walkMd(engDir, INTERNAL, []).forEach((id) => engIds.add(id));
+  for (const lane of ['backend', 'frontend'])
+    for (const doc of ['architecture', 'performance'])
+      if (existsSync(path.join(INTERNAL, lane, `${doc}.md`))) engIds.add(`${lane}/${doc}`);
 
   const routeFor = (absTarget) => {
     if (absTarget.startsWith(PUBLIC + path.sep)) {
@@ -43,10 +52,8 @@ export function rehypeDocLinks({ repoRoot }) {
       return productKeys.has(key) ? `/${key}` : null;
     }
     if (absTarget.startsWith(INTERNAL + path.sep)) {
-      // Astro's glob loader lowercases entry ids (README -> readme); match that so the
-      // route points at the page Astro actually built (CF Pages is case-sensitive).
       const id = path.relative(INTERNAL, absTarget).replace(/\.md$/, '');
-      return engIds.has(id) ? `/engineering/${id.toLowerCase()}` : null;
+      return engIds.has(id) ? `/engineering/${engSlug(id)}` : null;
     }
     return null;
   };
@@ -88,7 +95,9 @@ export function rehypeDocLinks({ repoRoot }) {
         node.properties.href = anchor ? `${route}#${anchor}` : route;
         return;
       }
-      if (isKnownUnpublished(rel)) {
+      // A .md link to a real doc we chose NOT to publish (e.g. a module retelling the
+      // engineering section drops) degrades too — it exists, it's just not routed.
+      if (isKnownUnpublished(rel) || (/\.md$/.test(rel) && existsSync(absTarget))) {
         // Degrade in place: the <a> becomes a <span>, keeping its label, dropping the
         // door. No array mutation, so the tree stays well-formed.
         node.tagName = 'span';

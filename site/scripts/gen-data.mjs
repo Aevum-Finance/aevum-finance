@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 import GithubSlugger from 'github-slugger';
 
 import { parseToml } from '../../tooling/toml-lite.mjs';
+import { engSlug } from '../src/lib/eng.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.resolve(HERE, '..');
@@ -170,14 +171,23 @@ for (const [key, meta] of Object.entries(topics)) {
     headings: headingsOf(md),
   });
 }
-// Engineering (T1), MIRROR.md excluded.
-for (const file of walk(R('docs/internal'))) {
+// Engineering — the PUBLISHED set only (mirrors content.config): the curated
+// mechanics docs (engineering/**) + retained architecture/performance. Module
+// retellings under <lane>/public/*.md are excluded, matching the site.
+const engFiles = [];
+const engDir = R('docs/internal/engineering');
+if (existsSync(engDir)) engFiles.push(...walk(engDir));
+for (const lane of ['backend', 'frontend'])
+  for (const doc of ['architecture', 'performance']) {
+    const f = R('docs/internal', lane, `${doc}.md`);
+    if (existsSync(f)) engFiles.push(f);
+  }
+for (const file of engFiles) {
   const id = path.relative(R('docs/internal'), file).replace(/\.md$/, '');
-  if (id === 'MIRROR') continue;
   const md = readFileSync(file, 'utf8');
   index.push({
-    slug: id.toLowerCase(),
-    url: `/engineering/${id.toLowerCase()}`, // Astro lowercases entry ids (README→readme)
+    slug: engSlug(id),
+    url: `/engineering/${engSlug(id)}`,
     title: firstHeading(md, id),
     section: 'Engineering',
     summary: summarise(md),

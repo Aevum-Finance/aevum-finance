@@ -19,7 +19,9 @@ import { fileURLToPath } from 'node:url';
 // gate — runs anywhere, including a puppeteer-free CF build.
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const PUBLIC = path.resolve(HERE, '../docs/public');
+const DOCS = path.resolve(HERE, '../docs');
+const PUBLIC = path.join(DOCS, 'public');
+// SVGs are content-addressed (hash of the source), so one store serves every doc.
 const OUT = path.join(PUBLIC, '.mermaid');
 const FENCE = /```mermaid\s*\n([\s\S]*?)```/g;
 
@@ -27,16 +29,25 @@ export function mermaidHash(src) {
   return createHash('sha256').update(src.trim()).digest('hex').slice(0, 16);
 }
 
+// Scan BOTH the product docs (docs/public) and the mirrored engineering docs
+// (docs/internal/**), since both carry diagrams the site renders.
 function collectDiagrams() {
   const map = new Map(); // hash -> source
-  for (const name of readdirSync(PUBLIC)) {
-    if (!name.endsWith('.md')) continue;
-    const md = readFileSync(path.join(PUBLIC, name), 'utf8');
-    for (const m of md.matchAll(FENCE)) {
-      const src = m[1].trim();
-      map.set(mermaidHash(src), src);
+  const walk = (dir) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.name === '.mermaid') continue;
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.endsWith('.md')) {
+        for (const m of readFileSync(p, 'utf8').matchAll(FENCE)) {
+          const src = m[1].trim();
+          map.set(mermaidHash(src), src);
+        }
+      }
     }
-  }
+  };
+  walk(PUBLIC);
+  walk(path.join(DOCS, 'internal'));
   return map;
 }
 

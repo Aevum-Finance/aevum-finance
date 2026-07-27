@@ -10,10 +10,15 @@ const product = defineCollection({
   loader: glob({ pattern: ['*.md', '!README.md'], base: '../docs/public' }),
 });
 
-// T1 — the mirrored lane docs at `/engineering`. MIRROR.md is a private-SHA
-// provenance table (D3): kept in the repo, never a route.
+// The ENGINEERING section: the curated "how it works" mechanics docs
+// (engineering/<lane>/**), plus the retained-by-difference cross-cutting T1
+// (architecture, performance). The shallow per-module retellings under
+// <lane>/public/*.md are deliberately excluded — they just re-tell T0.
 const engineering = defineCollection({
-  loader: glob({ pattern: ['**/*.md', '!MIRROR.md'], base: '../docs/internal' }),
+  loader: glob({
+    pattern: ['engineering/**/*.md', '*/architecture.md', '*/performance.md'],
+    base: '../docs/internal',
+  }),
 });
 
 export const collections = { product, engineering };

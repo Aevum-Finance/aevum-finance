@@ -1,26 +1,47 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { buildEngGroups } from '../../lib/eng.mjs';
+import { buildEngGroups, laneOverviews, engTitle } from '../../lib/eng.mjs';
 
 const entries = await getCollection('engineering');
 const groups = buildEngGroups(entries, '');
+const overviews = laneOverviews(entries);
 ---
 
-<Base title="Engineering" description="Architecture and module docs for the Aevum backend and frontend." bare>
+<Base title="Engineering" description="How Aevum is built — the architecture and mechanics of the backend and frontend." bare>
   <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
     <p class="mb-2 text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">Engineering</p>
     <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">How Aevum is built</h1>
     <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-      The architecture and per-module documentation for both lanes, mirrored from the code repos.
-      General-audience and public-safe — the same content the engineering team reads.
+      A tour of the machinery — the architecture and the load-bearing mechanisms — for a
+      technical reader. Public-safe: how things work, without the schema-and-wiring detail.
+      (For using the app, see the <a href="/manual" class="text-accent-700 dark:text-accent-300">user manual</a>.)
     </p>
 
-    <div class="mt-10 grid gap-8 sm:grid-cols-2">
+    {/* The two "how it works" front doors */}
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        overviews.map((o) => (
+          <a
+            href={`/engineering/${o.slug}`}
+            class="tap-press group rounded-xl border border-slate-200 bg-white p-6 no-underline shadow-sm transition hover:border-accent-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-accent-500"
+          >
+            <span class="text-xs font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">{o.label}</span>
+            <span class="mt-1 block text-lg font-semibold text-slate-900 group-hover:text-accent-700 dark:text-slate-100 dark:group-hover:text-accent-300">
+              {engTitle(o.entry)}
+            </span>
+            <span class="mt-1 block text-sm text-slate-500 dark:text-slate-400">Start here →</span>
+          </a>
+        ))
+      }
+    </div>
+
+    {/* Full index per lane */}
+    <div class="mt-12 grid gap-8 sm:grid-cols-2">
       {
         groups.map((g) => (
           <div>
-            <h2 class="mb-3 text-lg font-semibold text-slate-900 dark:text-slate-100">{g.heading}</h2>
+            <h2 class="mb-3 text-sm font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">{g.heading}</h2>
             <ul class="space-y-1">
               {g.items.map((it) => (
                 <li>
