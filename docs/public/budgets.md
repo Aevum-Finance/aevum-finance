@@ -57,7 +57,7 @@ A budget doesn't cost you anything on its own. What it does is change how the se
 This is the part most people get backwards, so it's worth being explicit:
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Taxable spending] --> B[Base tax<br/>always applies]
     A --> C{Over your<br/>budget?}
     C -->|No| D[No penalty]

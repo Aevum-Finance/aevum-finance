@@ -38,7 +38,7 @@ one at a time or imported a thousand at once from a bank statement. There is exa
 road, and it runs in one guaranteed order.
 
 ```mermaid
-flowchart LR
+flowchart TD
     M[Manual entry] --> ST[Stage]
     U[Statement import] --> ST
     ST --> D[De-duplicate]

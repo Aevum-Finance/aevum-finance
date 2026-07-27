@@ -17,7 +17,7 @@ Four things happen, in order, and each is a different part of the system's job u
 the last:
 
 ```mermaid
-flowchart LR
+flowchart TD
     T[Transaction] -->|tags| C[Categorization]
     C -->|category types| X[Tax engine]
     B[Budget limits] -.->|breach?| X

@@ -284,6 +284,34 @@ html.dark .hero-rings {
 }
 .prose .mermaid-figure svg {
   @apply mx-auto h-auto;
+  /* The figure owns the (theme-aware) ground; the diagram itself stays transparent
+     so it sits native on cream or slate instead of a baked-in white card. */
+  background: transparent !important;
+}
+
+/* Active section in the "On this page" rail — driven by the scroll-spy in DocShell.
+   `a.toc-active` (0,1,1) outranks the base `.text-slate-*` utility (0,1,0). */
+a.toc-active {
+  color: var(--accent-700);
+  border-left-color: var(--accent-600);
+  font-weight: 500;
+}
+html.dark a.toc-active {
+  color: var(--accent-300);
+  border-left-color: var(--accent-400);
+}
+
+/* Shiki dual-theme: Astro renders github-light inline and github-dark as CSS custom
+   properties on each token. Activate the dark set under html.dark so code blocks
+   (incl. the architecture "shape of the codebase" trees) are theme-aware instead of
+   a fixed white card. */
+html.dark .prose .astro-code,
+html.dark .prose .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 .prose .mermaid-figure .mm-dark {
   display: none;

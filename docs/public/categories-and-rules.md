@@ -43,7 +43,7 @@ A **rule** links a [payee](beneficiaries.md) — a shop, a person, your employer
 When a rule carries more than one category, the **first** one leads — that's the label Aevum treats as the headline, and it's what decides the tax.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Payee<br/>Coffee Shop] -->|rule| B[Category<br/>Dining out]
     B -->|its type| C[Discretionary]
     C -->|its rate| D[Consumption tax]

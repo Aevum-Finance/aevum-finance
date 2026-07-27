@@ -46,7 +46,7 @@ Aevum's self-imposed tax moves money into a savings account you nominate. To be 
 When you settle a weekly bill, the money moves **out of your everyday account and into your savings account**. The discipline of the tax becomes a real, growing balance.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Everyday<br/>account] -->|settle weekly bill| B[Savings<br/>account]
     B --> C[A real, growing<br/>savings balance]
 ```

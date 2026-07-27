@@ -72,7 +72,7 @@ penalties) over a week into a **single bill**. Weeks run **Monday to Sunday** in
 timezone.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Spending<br/>this week] --> B[Accruing<br/>live total]
     B --> C[Billed<br/>week closes Sunday]
     C --> D[Paid<br/>you settle it]

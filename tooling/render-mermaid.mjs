@@ -12,7 +12,7 @@
  *   node render-mermaid.mjs --check   # exit 1 if any fence lacks a committed SVG
  */
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync , rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 // puppeteer is imported lazily (only when rendering) so `--check` — the coverage
@@ -93,18 +93,75 @@ try {
   let n = 0;
   for (const [hash, src] of diagrams) {
     for (const [suffix, theme] of VARIANTS) {
-      await page.evaluate((t) => window.mermaid.initialize({ startOnLoad: false, theme: t }), theme);
-      const svg = await page.evaluate(async (code) => {
-        const { svg } = await window.mermaid.render('m' + Math.random().toString(36).slice(2), code);
-        return svg;
-      }, src);
-      // Strip the fixed max-width mermaid injects so the diagram scales to the column.
-      const cleaned = svg.replace(/style="max-width:[^"]*"/, 'style="max-width:100%"');
+      await page.evaluate(
+        (t) =>
+          window.mermaid.initialize({
+            startOnLoad: false,
+            theme: t,
+            // Transparent background so the theme-aware figure (cream / slate) shows
+            // through in either mode instead of a baked-in white card. A consistent
+            // system font (available in headless Chrome) makes measure == render, which
+            // is what stops labels from clipping at the bottom of their box. Larger text
+            // + roomier spacing keeps a top-to-bottom flow legible in a docs column.
+            themeVariables: {
+              fontFamily: 'ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif',
+              fontSize: '15px',
+              background: 'transparent',
+            },
+            flowchart: {
+              // Keep mermaid's intrinsic max-width (don't force 100%) so a diagram
+              // renders at its NATURAL size — a small TD chart stays small instead of
+              // being magnified to fill the column. SVG <text> labels (htmlLabels off)
+              // are centred by mermaid's own math and export cleanly, which is what
+              // stops the bottom-clipping that foreignObject/HTML labels had.
+              useMaxWidth: true,
+              htmlLabels: false,
+              padding: 10,
+              nodeSpacing: 40,
+              rankSpacing: 44,
+            },
+          }),
+        theme
+      );
+      // Deterministic id (from the content hash, not random) so re-rendering an
+      // unchanged diagram produces a byte-identical SVG — no churn, and the SVG store
+      // is reproducible/diffable like every other generated artifact in this repo.
+      const svg = await page.evaluate(
+        async (code, id) => (await window.mermaid.render(id, code)).svg,
+        src,
+        `mm${hash}${suffix.replace('.', '_')}`
+      );
+      // Neutralise the baked-in `background-color` (mermaid emits it in the SVG's own
+      // #id style, whose specificity beats an external `svg{}` rule) so the theme-aware
+      // figure ground shows through in both light and dark. Mermaid's intrinsic
+      // max-width is LEFT INTACT — it's what keeps each diagram at its natural size.
+      //
+      // Then give EDGE LABELS an opaque, figure-matching ground (canvas-subtle per
+      // theme). Mermaid ships them as a 50%-opacity white rect, so an arrow line shows
+      // straight through the text and it reads as "behind" the arrow. Document order
+      // already stacks labels above edges — an opaque ground puts every label on top.
+      const ground = theme === 'dark' ? '#0f172a' : '#f1ebdd';
+      const cleaned = svg
+        .replace(/background-color:\s*[^;}"']+/gi, 'background-color:transparent')
+        .replace(/(\.edgeLabel(?:\s+rect)?\s*\{[^}]*?)background-color:transparent/g, `$1background-color:${ground}`)
+        .replace(/(\.edgeLabel\s+rect\s*\{[^}]*?)opacity:[0-9.]+/g, '$1opacity:1')
+        // The rect's PAINT is `fill` (background-color isn't valid on an SVG rect). The
+        // dark theme fills it with a grey, not white, so match any value → figure ground.
+        .replace(/(\.edgeLabel\s+rect\s*\{[^}]*?)fill:\s*[^;}]+/gi, `$1fill:${ground}`);
       writeFileSync(path.join(OUT, `${hash}${suffix}.svg`), cleaned + '\n');
       n++;
     }
   }
   console.log(`[render-mermaid] rendered ${n} SVG(s) (${diagrams.size} diagrams × 2 themes).`);
+
+  // Invalidate Astro's content-layer cache. It keys on the .md source, which does NOT
+  // change when only a diagram's SVG does — so without this a local rebuild silently
+  // re-embeds the PREVIOUS SVG. The store lives in node_modules/.astro (outside .astro),
+  // which is why `rm -rf .astro` alone doesn't cover it. CI builds are clean, so this
+  // only matters for a local re-render, but it makes the pipeline honest.
+  for (const dir of ['.astro', 'node_modules/.astro', 'node_modules/.vite']) {
+    rmSync(path.join(HERE, '..', 'site', dir), { recursive: true, force: true });
+  }
 } finally {
   await browser.close();
 }

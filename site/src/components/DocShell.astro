@@ -76,6 +76,8 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
               <li>
                 <a
                   href={`#${h.slug}`}
+                  data-toc-link
+                  data-slug={h.slug}
                   class:list={[
                     '-ml-px block border-l border-transparent py-0.5 no-underline text-slate-500 hover:border-accent-500 hover:text-accent-700 dark:text-slate-400 dark:hover:text-accent-300',
                     h.depth === 3 ? 'pl-6' : 'pl-3',
@@ -91,3 +93,44 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
     )
   }
 </div>
+
+{/* Scroll-spy: highlight the section the reader is currently in. Bundled + hashed
+    under script-src 'self' (D7). Honors reduced motion via the CSS-only highlight. */}
+<script>
+  const article = document.querySelector('article.prose');
+  const links = new Map<string, HTMLElement>();
+  document
+    .querySelectorAll<HTMLElement>('[data-toc-link]')
+    .forEach((a) => links.set(a.dataset.slug ?? '', a));
+  const headings = article
+    ? [...article.querySelectorAll<HTMLElement>('h2[id], h3[id]')]
+    : [];
+
+  if (links.size && headings.length) {
+    let current: string | null = null;
+    const LINE = 120; // px below the sticky nav — "you are here" threshold
+    const update = () => {
+      let slug = headings[0].id;
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= LINE) slug = h.id;
+        else break;
+      }
+      if (slug !== current) {
+        current = slug;
+        links.forEach((a, s) => a.classList.toggle('toc-active', s === slug));
+      }
+    };
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>

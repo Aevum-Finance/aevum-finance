@@ -43,7 +43,7 @@ circular dependencies, no runtime coupling between modules.
 Every request follows the same path, and each layer has exactly one job:
 
 ```mermaid
-flowchart LR
+flowchart TD
     R[Request] --> MW[Context + auth guard]
     MW --> RT[Router<br/>validate input]
     RT --> SV[Service<br/>business logic]
