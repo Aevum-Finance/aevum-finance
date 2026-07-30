@@ -89,6 +89,13 @@ jobs:
         working-directory: tooling
         run: npm run --silent docs:map:check
 
+      # Coverage only (no browser): every ```mermaid fence has a committed SVG. The
+      # render itself (which needs puppeteer) rides the fold; this just fails a PR that
+      # adds a diagram without committing its SVG. Fork-safe.
+      - name: mermaid coverage
+        working-directory: tooling
+        run: npm run --silent mermaid:check
+
       - name: tooling tests
         working-directory: tooling
         run: npm test
@@ -162,6 +169,7 @@ jobs:
           set -euo pipefail
           npm run --silent docs     # lane mirror  -> docs/internal/
           npm run --silent docs:map # docs path contract -> docs/internal/docs-map.json
+          npm run --silent mermaid  # pre-render diagrams -> docs/public/.mermaid/*.svg
           npm run --silent public   # T0 provenance regions in docs/public/
           npm run --silent outer    # ARCHITECTURE.md regions
           npm run --silent stats    # aevum-stats.json + METRICS.md
@@ -196,3 +204,33 @@ jobs:
           # including a PAT (which, unlike GITHUB_TOKEN, does re-trigger workflows).
           git commit -m "docs(bot): fold regenerated mirror, docs and metrics [skip ci]"
           git push
+
+  # Builds the published site exactly as Cloudflare Pages does — the deploy smoke test.
+  # Catches a D4 link failure, a missing mermaid SVG, or any build breakage BEFORE it
+  # reaches the edge. Hermetic: reads the committed mirror / contract / SVGs, no lane
+  # access, so it runs on PRs and forks too. Independent of the fold (does not push).
+  site:
+    name: site build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+        working-directory: site
+
+      # gen-data (feeds + docs-map republish) -> astro build (D4 link gate + committed
+      # mermaid SVGs) -> emit-csp (the hashed CSP into dist/_headers). Same command CF runs.
+      - name: build
+        working-directory: site
+        run: npm run build
+
+      - name: /data contract
+        working-directory: site
+        run: npm run --silent check:data
