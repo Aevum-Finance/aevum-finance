@@ -11,6 +11,10 @@
     "features/": {
       "note": "one folder per surface — auth, transactions, taxation, budgets, … (the product)"
     },
+    "content/": {
+      "note": "authored documents compiled at build time — the legal texts and their generated modules",
+      "show": false
+    },
     "test/": {
       "note": "shared MSW test infrastructure (mock server + handlers)",
       "show": false

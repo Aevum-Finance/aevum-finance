@@ -59,6 +59,11 @@ tier  = "infra"
 title = "Ledger pipeline"
 scope = "the ingestion path: staging, dedup, the resolution baton"
 
+[modules.legal]
+tier  = "infra"
+title = "Legal"
+scope = "the consent ledger — which document version an account accepted, and when"
+
 [modules.metadata]
 tier  = "infra"
 title = "Metadata"

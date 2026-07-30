@@ -2,41 +2,41 @@
   "note": "Canonical Aevum metrics — generated, do not hand-edit.",
   "as_of": "2026-07-30",
   "source_refs": {
-    "backend": "816547fb",
-    "frontend": "32d5aad4"
+    "backend": "2eb7094a",
+    "frontend": "912193e2"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
     "lane": "backend",
     "counts": {
-      "feature_modules": 22,
-      "db_models": 54,
-      "api_endpoints": 146,
+      "feature_modules": 23,
+      "db_models": 55,
+      "api_endpoints": 148,
       "endpoints_by_method": {
-        "GET": 56,
-        "POST": 57,
+        "GET": 57,
+        "POST": 58,
         "PUT": 6,
         "PATCH": 13,
         "DELETE": 14
       },
-      "routers": 29,
-      "tests": 1272,
-      "test_functions": 1111,
+      "routers": 30,
+      "tests": 1299,
+      "test_functions": 1134,
       "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
       "scheduled_workers": 8,
       "email_types": 11
     },
     "complexity": {
       "note": "Static analysis (radon) over app/ — re-derived each run.",
-      "avg_cyclomatic": "A (2.67)",
+      "avg_cyclomatic": "A (2.66)",
       "maintainability_grade_a_pct": 99.3,
-      "maintainability": "grade A on 274/276 modules (99.3%)"
+      "maintainability": "grade A on 281/283 modules (99.3%)"
     },
     "sloc": {
       "note": "Accurate code lines (pygount, excludes blanks/comments).",
-      "backend_app": 24974,
-      "backend_tests": 18267,
-      "total": 43241
+      "backend_app": 25240,
+      "backend_tests": 18580,
+      "total": 43820
     },
     "benchmark": {
       "note": "Tier-2 measured performance — captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
@@ -251,7 +251,7 @@
     "note": "Canonical Aevum frontend metrics — generated, do not hand-edit.",
     "lane": "frontend",
     "counts": {
-      "feature_modules": 17,
+      "feature_modules": 18,
       "test_files": 183,
       "tests": 924,
       "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"

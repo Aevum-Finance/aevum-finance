@@ -6,6 +6,12 @@
       "title": "Account",
       "scope": "the /account/* profile, security, privacy and settings area"
     },
+    "activity": {
+      "tier": "infra",
+      "title": "Activity",
+      "scope": "the signal feed and notification bell",
+      "code": false
+    },
     "admin": {
       "tier": "infra",
       "title": "Admin",
@@ -42,6 +48,17 @@
       "title": "Dashboard",
       "scope": "the authenticated home — a glance over every feature"
     },
+    "legal": {
+      "tier": "infra",
+      "title": "Legal",
+      "scope": "the published legal documents at /legal/* and the manifest consent is recorded against"
+    },
+    "metadata": {
+      "tier": "infra",
+      "title": "Metadata",
+      "scope": "read-only reference data, now living in shared/",
+      "code": false
+    },
     "onboarding": {
       "tier": "user_facing",
       "title": "Onboarding",
@@ -56,6 +73,11 @@
       "tier": "user_facing",
       "title": "Recurring",
       "scope": "spotting and confirming repeating bills"
+    },
+    "settings": {
+      "tier": "infra",
+      "title": "Settings",
+      "scope": "the /settings/* shell that mounts other features' pages"
     },
     "tags": {
       "tier": "user_facing",
@@ -77,27 +99,10 @@
       "title": "Treasury",
       "scope": "the Savings page"
     },
-    "settings": {
-      "tier": "infra",
-      "title": "Settings",
-      "scope": "the /settings/* shell that mounts other features' pages"
-    },
     "users": {
       "tier": "infra",
       "title": "Users",
       "scope": "the current-user data layer (no pages of its own)"
-    },
-    "activity": {
-      "tier": "infra",
-      "title": "Activity",
-      "scope": "the signal feed and notification bell",
-      "code": false
-    },
-    "metadata": {
-      "tier": "infra",
-      "title": "Metadata",
-      "scope": "read-only reference data, now living in shared/",
-      "code": false
     }
   },
   "_handbook_comment": "Handbook + structure docs — the OTHER generated index (internal/README.md + internal/handbook/README.md). Coverage-asserted 1:1 with the docs on disk, same as modules. 'domain'/'governs' feed the handbook table; 'summary' feeds the structure list; order is editorial (as written here).",

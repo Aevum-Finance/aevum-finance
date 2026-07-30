@@ -13,8 +13,8 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `backend/README.md` | aevum-api@6b1e4989 |
-| `backend/architecture.md` | aevum-api@d856f6bb |
-| `backend/modules.manifest.toml` | aevum-api@36a4386c |
+| `backend/architecture.md` | aevum-api@501f161f |
+| `backend/modules.manifest.toml` | aevum-api@d6c24d6e |
 | `backend/perf/benchmarks.json` | aevum-api@519412bd |
 | `backend/performance.md` | aevum-api@34999cd1 |
 | `backend/public/activity.md` | aevum-api@5b72b821 |
@@ -36,7 +36,7 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/transactions.md` | aevum-api@5b72b821 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@d856f6bb |
+| `backend/stats.backend.json` | aevum-api@f855f2f0 |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend
@@ -44,8 +44,8 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `frontend/README.md` | aevum-web@88bd7892 |
-| `frontend/architecture.md` | aevum-web@067c271b |
-| `frontend/modules.manifest.json` | aevum-web@3b099bf1 |
+| `frontend/architecture.md` | aevum-web@167421eb |
+| `frontend/modules.manifest.json` | aevum-web@167421eb |
 | `frontend/performance.md` | aevum-web@b006f48c |
 | `frontend/public/account.md` | aevum-web@be3d1be7 |
 | `frontend/public/auth.md` | aevum-web@be3d1be7 |
@@ -66,5 +66,5 @@ here instead, since they cannot hold an HTML comment.
 | `frontend/public/taxation.md` | aevum-web@be3d1be7 |
 | `frontend/public/transactions.md` | aevum-web@be3d1be7 |
 | `frontend/public/treasury.md` | aevum-web@be3d1be7 |
-| `frontend/stats.frontend.json` | aevum-web@067c271b |
-| `frontend/tree.annotations.json` | aevum-web@d0997166 |
+| `frontend/stats.frontend.json` | aevum-web@167421eb |
+| `frontend/tree.annotations.json` | aevum-web@167421eb |
