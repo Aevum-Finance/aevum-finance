@@ -1,9 +1,9 @@
 {
   "note": "Canonical Aevum metrics — generated, do not hand-edit.",
-  "as_of": "2026-07-30",
+  "as_of": "2026-08-01",
   "source_refs": {
     "backend": "2eb7094a",
-    "frontend": "912193e2"
+    "frontend": "5876d278"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
