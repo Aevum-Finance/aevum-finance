@@ -49,6 +49,11 @@ tier  = "infra"
 title = "Cemetery"
 scope = "the post-deletion retention island"
 
+[modules.entitlements]
+tier  = "infra"
+title = "Entitlements"
+scope = "the per-user plan/entitlement axis + the paywall gate (composed with capabilities)"
+
 [modules.exports]
 tier  = "user_facing"
 title = "Exports"
