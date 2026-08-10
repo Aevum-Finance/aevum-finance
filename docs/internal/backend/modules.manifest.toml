@@ -64,6 +64,11 @@ tier  = "infra"
 title = "Legal"
 scope = "the consent ledger — which document version an account accepted, and when"
 
+[modules.media]
+tier  = "infra"
+title = "Media"
+scope = "signed-URL reads of private storage objects (uploaded profile photos)"
+
 [modules.metadata]
 tier  = "infra"
 title = "Metadata"
