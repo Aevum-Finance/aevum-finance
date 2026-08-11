@@ -13,7 +13,7 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `backend/README.md` | aevum-api@6b1e4989 |
-| `backend/architecture.md` | aevum-api@05b5b786 |
+| `backend/architecture.md` | aevum-api@67f5a716 |
 | `backend/modules.manifest.toml` | aevum-api@05b5b786 |
 | `backend/perf/benchmarks.json` | aevum-api@519412bd |
 | `backend/performance.md` | aevum-api@34999cd1 |
@@ -26,17 +26,17 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/engineering/README.md` | aevum-api@6b1e4989 |
 | `backend/public/engineering/how-the-pieces-fit.md` | aevum-api@6b1e4989 |
 | `backend/public/engineering/testing-and-quality.md` | aevum-api@6b1e4989 |
-| `backend/public/engineering/the-consumption-tax-engine.md` | aevum-api@6b1e4989 |
+| `backend/public/engineering/the-consumption-tax-engine.md` | aevum-api@7d29cf50 |
 | `backend/public/engineering/the-resolved-ledger.md` | aevum-api@6b1e4989 |
 | `backend/public/exports.md` | aevum-api@5b72b821 |
 | `backend/public/onboarding.md` | aevum-api@5b72b821 |
 | `backend/public/recurring.md` | aevum-api@5b72b821 |
 | `backend/public/tags.md` | aevum-api@5b72b821 |
-| `backend/public/taxation.md` | aevum-api@0e659604 |
+| `backend/public/taxation.md` | aevum-api@7d29cf50 |
 | `backend/public/transactions.md` | aevum-api@5b72b821 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@05b5b786 |
+| `backend/stats.backend.json` | aevum-api@67f5a716 |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend

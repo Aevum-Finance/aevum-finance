@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@7d29cf50/docs. Edit at source, not here. -->
 
 # The consumption-tax engine
 
@@ -34,9 +34,12 @@ flowchart TD
    those category types **by precedence**: an exempt category wins outright, then
    committed beats essential beats discretionary. This one derived type is what the
    tax is based on.
-3. The engine applies a rate to the amount. Some types are taxable (committed,
-   essential, discretionary, and anything still uncategorized); others — income,
-   internal transfers, the tax itself, and exempt spend — are skipped entirely.
+3. The engine applies a rate to the amount. Types fall into three groups: **taxable**
+   (committed, essential, discretionary, and anything still uncategorized) accrue tax;
+   income, internal transfers, the tax itself, and exempt spend are **skipped**; and a
+   **rebate** — a refund, cashback, or reimbursement — *deducts*, booking a negative
+   amount of tax at the reversed spend's own category rate, so money coming back also
+   returns the self-tax that spend set aside.
 4. If the spend breached a budget, a **penalty** is stacked on top of the base tax.
 
 Rates are **per-user, tunable values**, not hard-coded constants. The defaults ship

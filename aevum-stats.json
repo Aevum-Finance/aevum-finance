@@ -1,9 +1,9 @@
 {
   "note": "Canonical Aevum metrics — generated, do not hand-edit.",
-  "as_of": "2026-08-10",
+  "as_of": "2026-08-11",
   "source_refs": {
-    "backend": "05b5b786",
-    "frontend": "79bdd26e"
+    "backend": "67f5a716",
+    "frontend": "fa7c49cf"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
@@ -20,23 +20,23 @@
         "DELETE": 14
       },
       "routers": 32,
-      "tests": 1367,
-      "test_functions": 1201,
+      "tests": 1446,
+      "test_functions": 1278,
       "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
       "scheduled_workers": 8,
       "email_types": 11
     },
     "complexity": {
       "note": "Static analysis (radon) over app/ — re-derived each run.",
-      "avg_cyclomatic": "A (2.64)",
+      "avg_cyclomatic": "A (2.66)",
       "maintainability_grade_a_pct": 99.3,
-      "maintainability": "grade A on 296/298 modules (99.3%)"
+      "maintainability": "grade A on 299/301 modules (99.3%)"
     },
     "sloc": {
       "note": "Accurate code lines (pygount, excludes blanks/comments).",
-      "backend_app": 25893,
-      "backend_tests": 19290,
-      "total": 45183
+      "backend_app": 26777,
+      "backend_tests": 20605,
+      "total": 47382
     },
     "benchmark": {
       "note": "Tier-2 measured performance — captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@0e659604/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@7d29cf50/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the web lane's T1 into the T0 product doc.
@@ -48,8 +48,11 @@ This is the part most people get backwards, so it's worth being explicit: **the 
 tax applies to all taxable spending, all the time.** Breaching a budget doesn't create
 the tax — it only adds the extra penalty.
 
-A refund works in your favour here: it reduces your spending for the month, and can
-bring you back under the limit.
+A refund works in your favour twice over. Tagged as a refund, cashback, or
+reimbursement, it books a matching **deduction** — giving back the self-tax the
+original spend set aside — and it reduces your spending for the month, which can bring
+you back under a budget limit. If a week's refunds come to more than its tax, you owe
+nothing that week and the surplus carries into the next.
 
 ## One bill a week
 
