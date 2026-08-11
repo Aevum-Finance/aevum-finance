@@ -22,7 +22,8 @@ function brandBlock(brand) {
   const body = rest ? `**${lead}** ${rest}` : `**${lead}**`;
   return [
     START,
-    '<!-- Generated from backend/app/constants/branding.json — `npm run sync-readme` in tooling. -->',
+    '<!-- Generated from tooling/branding.json via `npm run sync-readme`. That file is PUSHED by',
+    '     the private aevum-brand repo (the brand SoT) — edit brand copy there, never here. -->',
     `# ${brand.name}`,
     '',
     `> **${brand.tagline}**`,
