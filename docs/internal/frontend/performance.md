@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@b006f48c/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@cce7b3fb/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience. A plain-language overview of how the web app's speed
      and size are measured and kept in check. The detailed audit (bundle decomposition,
@@ -14,11 +14,11 @@ things you **measure and guard**, not assert.
 
 <!-- BEGIN GENERATED:perf-summary -->
 
-| Metric              | Value |
-| ------------------- | ----- |
-| Entry bundle (gzip) | 99 kB |
-| CSS (gzip)          | 17 kB |
-| Lazy chunks         | 198   |
+| Metric              | Value  |
+| ------------------- | ------ |
+| Entry bundle (gzip) | 101 kB |
+| CSS (gzip)          | 18 kB  |
+| Lazy chunks         | 225    |
 
 <!-- END GENERATED:perf-summary -->
 

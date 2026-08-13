@@ -86,110 +86,110 @@
   },
   "engine_hot_paths": {
     "note": "Service-layer hot paths via tests/benchmarks/benchmark_modules.py.",
-    "captured_at": "2026-07-06",
-    "captured_ref": "2c82bc6",
+    "captured_at": "2026-08-13",
+    "captured_ref": "36a9612",
     "metrics": [
       {
         "module": "budgets",
         "metric": "bulk_refresh_for_user",
         "iters": 5,
-        "avg_ms": 2564.844
+        "avg_ms": 738.373
       },
       {
-        "module": "taxation",
-        "metric": "recalc_for_user_week (full rebuild)",
-        "iters": 20,
-        "avg_ms": 23.501
+        "module": "categorization",
+        "metric": "categorize_transactions  rows=500",
+        "iters": 50,
+        "avg_ms": 447.676
       },
       {
         "module": "taxation",
         "metric": "recalc_for_txns (200-txn batch)",
         "iters": 20,
-        "avg_ms": 23.197
-      },
-      {
-        "module": "budgets",
-        "metric": "refresh_expense_tracker (single month)",
-        "iters": 200,
-        "avg_ms": 22.186
+        "avg_ms": 32.312
       },
       {
         "module": "taxation",
         "metric": "recalc_for_txn (single mutation)",
         "iters": 20,
-        "avg_ms": 18.161
+        "avg_ms": 27.488
       },
       {
-        "module": "categorization",
-        "metric": "categorize_statement_rows  rows=500",
-        "iters": 50,
-        "avg_ms": 10.624
+        "module": "taxation",
+        "metric": "recalc_for_user_week (full rebuild)",
+        "iters": 20,
+        "avg_ms": 21.659
+      },
+      {
+        "module": "budgets",
+        "metric": "refresh_expense_tracker (single month)",
+        "iters": 200,
+        "avg_ms": 11.847
       },
       {
         "module": "activity",
         "metric": "feed (full)",
         "iters": 200,
-        "avg_ms": 8.657
-      },
-      {
-        "module": "activity",
-        "metric": "feed (domain=taxation)",
-        "iters": 200,
-        "avg_ms": 5.613
-      },
-      {
-        "module": "beneficiaries",
-        "metric": "identify_beneficiary  miss",
-        "iters": 100,
-        "avg_ms": 5.499
-      },
-      {
-        "module": "beneficiaries",
-        "metric": "check_alias_uniqueness  miss",
-        "iters": 100,
-        "avg_ms": 5.199
-      },
-      {
-        "module": "beneficiaries",
-        "metric": "identify_beneficiary  hit  (alias)",
-        "iters": 100,
-        "avg_ms": 5.176
+        "avg_ms": 7.303
       },
       {
         "module": "transactions",
         "metric": "list_transactions  page=25",
         "iters": 200,
-        "avg_ms": 4.036
+        "avg_ms": 6.271
+      },
+      {
+        "module": "beneficiaries",
+        "metric": "check_alias_uniqueness  miss",
+        "iters": 100,
+        "avg_ms": 5.681
+      },
+      {
+        "module": "beneficiaries",
+        "metric": "identify_beneficiary  miss",
+        "iters": 100,
+        "avg_ms": 5.542
+      },
+      {
+        "module": "beneficiaries",
+        "metric": "identify_beneficiary  hit  (alias)",
+        "iters": 100,
+        "avg_ms": 5.39
+      },
+      {
+        "module": "activity",
+        "metric": "feed (domain=taxation)",
+        "iters": 200,
+        "avg_ms": 5.052
       },
       {
         "module": "categorization",
         "metric": "load_rule_map (full)",
         "iters": 200,
-        "avg_ms": 3.305
+        "avg_ms": 4.136
       },
       {
         "module": "categorization",
         "metric": "load_tag_maps",
         "iters": 200,
-        "avg_ms": 1.821
+        "avg_ms": 1.794
       },
       {
         "module": "transactions",
-        "metric": "list_grouped_by_merchant page=25",
+        "metric": "list_grouped_by_beneficiary page=25",
         "iters": 200,
-        "avg_ms": 1.139
+        "avg_ms": 1.29
       },
       {
         "module": "beneficiaries",
         "metric": "check_alias_uniqueness  hit",
         "iters": 100,
-        "avg_ms": 1.052
+        "avg_ms": 1.132
       },
       {
         "module": "transactions",
         "metric": "parse_phonepe_pdf_text (synthetic)",
         "iters": 1000,
-        "avg_ms": 0.044
+        "avg_ms": 0.042
       },
       {
         "module": "taxation",
