@@ -1,42 +1,42 @@
 {
   "note": "Canonical Aevum metrics — generated, do not hand-edit.",
-  "as_of": "2026-08-13",
+  "as_of": "2026-08-16",
   "source_refs": {
-    "backend": "ed1b2e1e",
-    "frontend": "0b88db8b"
+    "backend": "ad57393f",
+    "frontend": "43bf08e3"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
     "lane": "backend",
     "counts": {
       "feature_modules": 25,
-      "db_models": 56,
-      "api_endpoints": 154,
+      "db_models": 57,
+      "api_endpoints": 156,
       "endpoints_by_method": {
         "GET": 60,
-        "POST": 61,
+        "POST": 63,
         "PUT": 6,
         "PATCH": 13,
         "DELETE": 14
       },
-      "routers": 33,
-      "tests": 1503,
-      "test_functions": 1329,
+      "routers": 34,
+      "tests": 1540,
+      "test_functions": 1359,
       "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
       "scheduled_workers": 8,
-      "email_types": 11
+      "email_types": 12
     },
     "complexity": {
       "note": "Static analysis (radon) over app/ — re-derived each run.",
-      "avg_cyclomatic": "A (2.69)",
-      "maintainability_grade_a_pct": 99.3,
-      "maintainability": "grade A on 304/306 modules (99.3%)"
+      "avg_cyclomatic": "A (2.68)",
+      "maintainability_grade_a_pct": 99.4,
+      "maintainability": "grade A on 312/314 modules (99.4%)"
     },
     "sloc": {
       "note": "Accurate code lines (pygount, excludes blanks/comments).",
-      "backend_app": 27258,
-      "backend_tests": 21216,
-      "total": 48474
+      "backend_app": 27590,
+      "backend_tests": 21524,
+      "total": 49114
     },
     "benchmark": {
       "note": "Tier-2 measured performance — captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
@@ -252,32 +252,32 @@
     "lane": "frontend",
     "counts": {
       "feature_modules": 18,
-      "test_files": 224,
-      "tests": 1324,
+      "test_files": 235,
+      "tests": 1388,
       "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"
     },
     "complexity": {
       "note": "Static analysis (eslint metrics, bench/eslint.metrics.config.mjs) over src/ — per-function maxima.",
-      "functions": 3998,
+      "functions": 4080,
       "cyclomatic_max": 15,
       "cognitive_max": 15,
       "fn_lines_max": 200
     },
     "sloc": {
       "note": "Accurate code lines (bench/loc.mjs, excludes blanks/comments).",
-      "frontend_src": 63264,
-      "frontend_tests": 22846,
-      "total": 86110
+      "frontend_src": 63901,
+      "frontend_tests": 23853,
+      "total": 87754
     },
     "benchmark": {
       "note": "Tier-2 measured performance — bundle sizes via bench:update, Lighthouse via bench:lab, captured at release/CI and preserved between static regens. 'Indicative, not contractual'.",
-      "captured_at": "2026-08-13T14:13:21.540Z",
+      "captured_at": "2026-08-16T21:40:36.501Z",
       "bundle": {
         "note": "gzip @ level 9 (framework-internal reading; `npm run size` is the enforced gate).",
-        "entry_gzip_bytes": 103620,
-        "css_gzip_bytes": 18260,
-        "chunk_count": 225,
-        "test_suite_ms": 101475
+        "entry_gzip_bytes": 103903,
+        "css_gzip_bytes": 18278,
+        "chunk_count": 226,
+        "test_suite_ms": 111070
       },
       "lighthouse": {
         "note": "Median-of-N Lighthouse (default mobile + slow-4G); scores 0-100, web-vitals in ms.",
