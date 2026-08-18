@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@6b1e4989/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@54952570/docs. Edit at source, not here. -->
 
 # The resolved ledger
 
@@ -57,12 +57,16 @@ matter which door it came through — is subject to identical de-duplication and
 resolution in an identical sequence. There is no second, sloppier path for the "quick"
 manual case.
 
-De-duplication deliberately defers to the user, because only the user knows the truth.
-Within one statement import a repeated-looking charge is treated as two genuine purchases
-— a bank does not list the same transaction twice — so it imports and simply notifies.
-Across *separate* imports the same-looking charge might be a real duplicate and might not,
-and the system cannot know, so it holds the row and asks rather than guessing. Either way,
-nothing is discarded.
+De-duplication deliberately defers to the user, because usually only the user knows the
+truth. Within one statement import a repeated-looking charge is treated as two genuine
+purchases — a bank does not list the same transaction twice — so it imports and simply
+notifies. Across *separate* imports the same-looking charge might be a real duplicate and
+might not, and usually the system cannot know, so it holds the row and asks rather than
+guessing. The exception is *proof*: when a statement echoes a unique rail reference (a UPI
+UTR) that matches a payment already recorded, that **is** the same settlement — so the
+redundant row is folded into the existing one, and the same reference likewise confirms the
+two legs of a transfer between the user's own accounts. Nothing is double-counted, and no
+real payment is lost.
 
 The same road runs in a **dry-run mode**: it can stage, resolve, and compute every derived
 figure inside a transaction that is rolled back at the end, producing a complete preview

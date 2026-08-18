@@ -166,6 +166,10 @@ governs = "suite layout, fixtures, isolation, run commands, coverage"
 domain  = "Deployment"
 governs = "the Render deploy — image, blueprint, secrets, feature flags"
 
+[handbook.backups]
+domain  = "Backups"
+governs = "the only copy of prod — the dump job, the weekly tier, the first-user guard, bucket verification, the restore drill"
+
 [handbook.documentation]
 domain  = "Documentation"
 governs = "the docs system itself — the tiers, the generate→inject→fold pipeline, and how to add a module or doc"
