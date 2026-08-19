@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@7d29cf50/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@ac475514/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the web lane's T1 into the T0 product doc.
@@ -67,6 +67,11 @@ into your savings account.
 You can make that transfer by UPI without leaving Aevum — it prepares the payment into
 your savings account and hands it to your UPI app. If you'd rather move the money some
 other way, you can, and simply tell Aevum you did.
+
+Some weeks you owe nothing — you only moved money to savings, or paid off a tax
+bill, or spent nothing taxable at all. Those weeks still get a bill; it just says
+nothing is owed, and why. Aevum keeps them rather than skipping them, so a quiet
+week always looks like a quiet week and never like something that went missing.
 
 Once a week has closed, its bill is never rewritten. If you later correct a transaction
 from that week, the difference appears as a clearly-labelled adjustment on your

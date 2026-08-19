@@ -13,23 +13,23 @@
       "DELETE": 14
     },
     "routers": 34,
-    "tests": 1586,
-    "test_functions": 1399,
+    "tests": 1655,
+    "test_functions": 1465,
     "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
     "scheduled_workers": 8,
     "email_types": 12
   },
   "complexity": {
     "note": "Static analysis (radon) over app/ \u2014 re-derived each run.",
-    "avg_cyclomatic": "A (2.72)",
+    "avg_cyclomatic": "A (2.73)",
     "maintainability_grade_a_pct": 99.4,
-    "maintainability": "grade A on 313/315 modules (99.4%)"
+    "maintainability": "grade A on 314/316 modules (99.4%)"
   },
   "sloc": {
     "note": "Accurate code lines (pygount, excludes blanks/comments).",
-    "backend_app": 28192,
-    "backend_tests": 22578,
-    "total": 50770
+    "backend_app": 28518,
+    "backend_tests": 23938,
+    "total": 52456
   },
   "benchmark": {
     "note": "Tier-2 measured performance \u2014 captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",

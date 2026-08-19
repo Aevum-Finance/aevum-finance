@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@5b72b821/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@340e820c/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the web lane's T1 into the T0 product doc.
@@ -25,6 +25,16 @@ payee and sort the transaction into a category for you, so it lands ready to use
 rather than needing tidying afterwards.
 
 Anything you enter by hand, you can freely edit or remove later.
+
+## Moving money between your own accounts
+
+Not every transaction is a payment to someone else — sometimes you're just moving
+money between two of your own accounts. When you record one of these, you pick the
+account it left and the account it landed in, and Aevum treats it as a transfer
+rather than a spend. Money you move into your savings pot is set aside for tax the
+way it should be; money shuffled between everyday accounts isn't counted as spending
+at all. You can open one of these later and re-pick either account if you got it
+wrong.
 
 ## Importing a bank or UPI statement
 
