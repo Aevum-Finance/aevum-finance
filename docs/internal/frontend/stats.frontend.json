@@ -3,32 +3,32 @@
   "lane": "frontend",
   "counts": {
     "feature_modules": 18,
-    "test_files": 235,
-    "tests": 1388,
+    "test_files": 254,
+    "tests": 1542,
     "tests_counted_by": "vitest --reporter=json (numTotalTests; parametrized cases counted)"
   },
   "complexity": {
     "note": "Static analysis (eslint metrics, bench/eslint.metrics.config.mjs) over src/ — per-function maxima.",
-    "functions": 4080,
-    "cyclomatic_max": 15,
-    "cognitive_max": 15,
-    "fn_lines_max": 200
+    "functions": null,
+    "cyclomatic_max": null,
+    "cognitive_max": null,
+    "fn_lines_max": null
   },
   "sloc": {
     "note": "Accurate code lines (bench/loc.mjs, excludes blanks/comments).",
-    "frontend_src": 63901,
-    "frontend_tests": 23853,
-    "total": 87754
+    "frontend_src": 67785,
+    "frontend_tests": 26070,
+    "total": 93855
   },
   "benchmark": {
     "note": "Tier-2 measured performance — bundle sizes via bench:update, Lighthouse via bench:lab, captured at release/CI and preserved between static regens. 'Indicative, not contractual'.",
-    "captured_at": "2026-08-16T21:40:36.501Z",
+    "captured_at": "2026-08-22T19:11:21.524Z",
     "bundle": {
       "note": "gzip @ level 9 (framework-internal reading; `npm run size` is the enforced gate).",
-      "entry_gzip_bytes": 103903,
-      "css_gzip_bytes": 18278,
-      "chunk_count": 226,
-      "test_suite_ms": 111070
+      "entry_gzip_bytes": 104533,
+      "css_gzip_bytes": 18380,
+      "chunk_count": 231,
+      "test_suite_ms": 108542
     },
     "lighthouse": {
       "note": "Median-of-N Lighthouse (default mobile + slow-4G); scores 0-100, web-vitals in ms.",

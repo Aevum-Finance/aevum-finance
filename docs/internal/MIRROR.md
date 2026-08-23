@@ -13,8 +13,8 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `backend/README.md` | aevum-api@6b1e4989 |
-| `backend/architecture.md` | aevum-api@da0dbbf1 |
-| `backend/modules.manifest.toml` | aevum-api@3ca7b38a |
+| `backend/architecture.md` | aevum-api@29598b53 |
+| `backend/modules.manifest.toml` | aevum-api@8f4d9daa |
 | `backend/perf/benchmarks.json` | aevum-api@f290c9f0 |
 | `backend/performance.md` | aevum-api@34999cd1 |
 | `backend/public/activity.md` | aevum-api@5b72b821 |
@@ -33,10 +33,10 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/recurring.md` | aevum-api@5b72b821 |
 | `backend/public/tags.md` | aevum-api@5b72b821 |
 | `backend/public/taxation.md` | aevum-api@ac475514 |
-| `backend/public/transactions.md` | aevum-api@340e820c |
+| `backend/public/transactions.md` | aevum-api@29598b53 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@da0dbbf1 |
+| `backend/stats.backend.json` | aevum-api@29598b53 |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend
@@ -44,9 +44,9 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `frontend/README.md` | aevum-web@88bd7892 |
-| `frontend/architecture.md` | aevum-web@43bf08e3 |
+| `frontend/architecture.md` | aevum-web@79f8e3a9 |
 | `frontend/modules.manifest.json` | aevum-web@167421eb |
-| `frontend/performance.md` | aevum-web@43bf08e3 |
+| `frontend/performance.md` | aevum-web@79f8e3a9 |
 | `frontend/public/account.md` | aevum-web@be3d1be7 |
 | `frontend/public/auth.md` | aevum-web@be3d1be7 |
 | `frontend/public/bank-accounts.md` | aevum-web@be3d1be7 |
@@ -66,5 +66,5 @@ here instead, since they cannot hold an HTML comment.
 | `frontend/public/taxation.md` | aevum-web@be3d1be7 |
 | `frontend/public/transactions.md` | aevum-web@be3d1be7 |
 | `frontend/public/treasury.md` | aevum-web@be3d1be7 |
-| `frontend/stats.frontend.json` | aevum-web@43bf08e3 |
+| `frontend/stats.frontend.json` | aevum-web@79f8e3a9 |
 | `frontend/tree.annotations.json` | aevum-web@167421eb |

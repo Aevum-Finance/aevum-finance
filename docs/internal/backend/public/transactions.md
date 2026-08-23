@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@340e820c/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@29598b53/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the web lane's T1 into the T0 product doc.
@@ -41,16 +41,24 @@ wrong.
 Instead of typing, you can upload a statement — a PhonePe, Paytm or Google Pay PDF,
 or a CSV — and Aevum will read every row out of it for you.
 
-- **It happens in the background.** Big statements can take a moment, so the upload
-  returns straight away and fills in as it works — you can keep using the app and
-  watch the progress.
+- **You review before anything lands.** Aevum reads the statement, then shows you every
+  row it found so you can check them, fix a mis-read, drop a line, and settle anything it
+  wasn't sure about (a possible duplicate, a transfer between your own accounts). Only when
+  you **Confirm** do the rows join your ledger — **Discard** and it's as if you never
+  uploaded. Nothing is imported behind your back.
+- **The reading happens in the background.** Big statements can take a moment, so the
+  upload returns straight away and fills in as it works — you watch the progress, then
+  review when it's ready.
 - **Aevum picks the right reader automatically** by looking at what's actually inside
   the file, not just its name. If it guesses wrong, you can pick the format yourself.
 - **It knows which account it is.** If the statement mentions an account you've already
   registered, Aevum links the transactions to it. If it doesn't recognise the account,
   it offers to register it for you.
-- **It won't import the same statement twice**, and if something goes wrong partway,
-  nothing is left half-imported — you can simply try again.
+- **It spots a statement you've already imported.** Re-upload the same file and Aevum
+  tells you when it landed and how many rows it added, instead of quietly importing it
+  twice — and if you meant to, you can still bring it in and sort out any overlap row by
+  row at the review step. If an earlier attempt failed or you cancelled it, re-uploading
+  just works. Nothing is ever left half-imported.
 
 Because imported rows come straight from your bank, Aevum keeps their **amounts
 locked** — that's the official record. You can still re-categorize them or add a note,

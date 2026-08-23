@@ -158,6 +158,10 @@ governs = "auth, tokens + DPoP, sessions, envelope encryption, device verificati
 domain  = "Maintenance"
 governs = "the scheduler, weekly workers, the ops runbook, the 5xx catalog + logging"
 
+[handbook.observability]
+domain  = "Observability"
+governs = "how the running system is watched — structured logs, the error envelope, and error/diagnostic telemetry (the masking adapter + PostHog)"
+
 [handbook.testing]
 domain  = "Testing"
 governs = "suite layout, fixtures, isolation, run commands, coverage"

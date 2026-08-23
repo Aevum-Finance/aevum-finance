@@ -4,32 +4,32 @@
   "counts": {
     "feature_modules": 25,
     "db_models": 57,
-    "api_endpoints": 156,
+    "api_endpoints": 162,
     "endpoints_by_method": {
-      "GET": 60,
-      "POST": 63,
+      "GET": 61,
+      "POST": 65,
       "PUT": 6,
-      "PATCH": 13,
-      "DELETE": 14
+      "PATCH": 15,
+      "DELETE": 15
     },
     "routers": 34,
-    "tests": 1655,
-    "test_functions": 1465,
+    "tests": 1739,
+    "test_functions": 1548,
     "tests_counted_by": "pytest --collect-only (parametrized cases counted)",
     "scheduled_workers": 8,
     "email_types": 12
   },
   "complexity": {
     "note": "Static analysis (radon) over app/ \u2014 re-derived each run.",
-    "avg_cyclomatic": "A (2.73)",
+    "avg_cyclomatic": "A (2.74)",
     "maintainability_grade_a_pct": 99.4,
-    "maintainability": "grade A on 314/316 modules (99.4%)"
+    "maintainability": "grade A on 319/321 modules (99.4%)"
   },
   "sloc": {
     "note": "Accurate code lines (pygount, excludes blanks/comments).",
-    "backend_app": 28518,
-    "backend_tests": 23938,
-    "total": 52456
+    "backend_app": 29634,
+    "backend_tests": 25159,
+    "total": 54793
   },
   "benchmark": {
     "note": "Tier-2 measured performance \u2014 captured by the benchmark runners at release/CI and preserved between static regens of stats.backend.json. Each block records its own capture provenance. 'Indicative, not contractual' (Postgres testcontainer, ~20% run variance).",
