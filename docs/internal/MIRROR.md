@@ -13,7 +13,7 @@ here instead, since they cannot hold an HTML comment.
 | Mirrored file | Source @ |
 | --- | --- |
 | `backend/README.md` | aevum-api@6b1e4989 |
-| `backend/architecture.md` | aevum-api@29598b53 |
+| `backend/architecture.md` | aevum-api@12c2032f |
 | `backend/modules.manifest.toml` | aevum-api@8f4d9daa |
 | `backend/perf/benchmarks.json` | aevum-api@f290c9f0 |
 | `backend/performance.md` | aevum-api@34999cd1 |
@@ -36,7 +36,7 @@ here instead, since they cannot hold an HTML comment.
 | `backend/public/transactions.md` | aevum-api@29598b53 |
 | `backend/public/treasury.md` | aevum-api@5b72b821 |
 | `backend/public/users.md` | aevum-api@5b72b821 |
-| `backend/stats.backend.json` | aevum-api@29598b53 |
+| `backend/stats.backend.json` | aevum-api@12c2032f |
 | `backend/tree.annotations.toml` | aevum-api@eaba4b35 |
 
 ## aevum-frontend
