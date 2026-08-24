@@ -24,7 +24,6 @@
     "sync-branding": "node sync-branding.mjs",
     "sync-readme": "node sync-readme.mjs",
     "manual": "node build-manual.mjs && node manual-inputs.mjs --write",
-    "bump": "bash bump-submodules.sh",
     "build": "npm run sync-branding && npm run sync-readme && npm run stats && npm run docs && npm run docs:map && npm run public && npm run outer",
     "manual:check": "node manual-inputs.mjs --check"
   },
