@@ -49,6 +49,11 @@ tier  = "infra"
 title = "Cemetery"
 scope = "the post-deletion retention island"
 
+[modules.dashboard]
+tier  = "infra"
+title = "Dashboard"
+scope = "the one-request read aggregator composing the dashboard + native-landing snapshot"
+
 [modules.entitlements]
 tier  = "infra"
 title = "Entitlements"

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@be3d1be7/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@82014268/docs. Edit at source, not here. -->
 
 <!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
      file and merges it with the api lane's T1 into the T0 product doc.
@@ -16,8 +16,10 @@ three different ways.
 
 A single toggle switches how your transactions are shown:
 
-- **List** — the plain running list, newest first. Filter it by type, tag, month
-  or who you paid, and sort it however you like.
+- **List** — the plain running list, newest first. Filter it by type, tag, one or
+  several months, who you paid, how a transaction arrived (typed, UPI, imported, or a
+  tax set-aside), or a specific statement you imported — pick a past import by its file
+  name and dates, not some code — and sort it however you like.
 - **Beneficiary** — the same spending grouped by who received it, so you can see
   how much went to each shop or person over time.
 - **Calendar** — a month (or a week, on a phone) with each day shaded by how much

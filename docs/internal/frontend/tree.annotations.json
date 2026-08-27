@@ -23,6 +23,10 @@
       "note": "dev-only screenshot capture gallery (feeds the user manual)",
       "show": false
     },
+    "embed/": {
+      "note": "headless routes the native app loads in a WebView (e.g. /embed/glance courier)",
+      "show": false
+    },
     "main.tsx": {
       "note": "entrypoint — mounts the providers, router and routes",
       "show": false
