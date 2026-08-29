@@ -5,7 +5,7 @@
 
 # The documentation system — aggregator side
 
-`aevum-finance` is the last stage of a documentation gradient that starts in two private
+`aevum-hub` is the last stage of a documentation gradient that starts in two private
 code lanes. This page is how that stage works: what it pulls, what it merges, what it
 asserts, and what it will refuse to do. The lanes document their own halves in
 `docs/internal/handbook/documentation.md` — same shape, one tier up the pipe.

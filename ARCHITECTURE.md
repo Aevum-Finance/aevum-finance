@@ -197,8 +197,8 @@ whose config declares it. This table is the map; the owner's doc is the detail.
 
 | What | Owner | Fires on | Reaches | Credential |
 |---|---|---|---|---|
-| Docs mirror + fold | `aevum-finance` | push to `main`, weekly cron | this repo | `DOCS_TOKEN` — **read** on both lanes |
-| Screenshot capture | `aevum-web` | a **green CI** on its `main` | `aevum-finance@main` | `SCREENSHOT_DISPATCH_PAT` |
+| Docs mirror + fold | `aevum-hub` | push to `main`, weekly cron | this repo | `DOCS_TOKEN` — **read** on both lanes |
+| Screenshot capture | `aevum-web` | a **green CI** on its `main` | `aevum-hub@main` | `SCREENSHOT_DISPATCH_PAT` |
 | Brand publish | `aevum-brand` (private) | brand assets or the map change | 4 push consumers (org) + 1 pull (personal site) | `BRAND_DISPATCH_PAT` (org) |
 | Docs generation | each lane | pre-commit, then CI | its own tree | none — `GITHUB_TOKEN` |
 | Deploys | each lane | push to `main` | Render | held at Render |

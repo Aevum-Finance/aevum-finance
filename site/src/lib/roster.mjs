@@ -4,7 +4,7 @@
 //
 // Read directly from the in-repo TOML (no lane checkout, no buildRoster's module
 // resolution) so the site build stays self-contained — which matters because CF
-// Pages builds aevum-finance ALONE, without the sibling code lanes.
+// Pages builds aevum-hub ALONE, without the sibling code lanes.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -32,7 +32,7 @@ To actually run Aevum you need access to both. Clone them as **siblings**, which
 is the layout the doc tooling expects:
 
 ```bash
-git clone <outer-url>       aevum-finance
+git clone <outer-url>       aevum-hub
 git clone <aevum-api-url>   aevum-api      # the backend lane
 git clone <aevum-web-url>   aevum-web      # the frontend lane
 ```

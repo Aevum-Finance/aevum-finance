@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// The docs live OUTSIDE the site (aevum-finance/docs/**), already mirrored into this
+// The docs live OUTSIDE the site (aevum-hub/docs/**), already mirrored into this
 // repo — so the site build reads them in place and stays self-contained (CF Pages
 // builds this repo alone). `base` is resolved from the project root (site/).
 

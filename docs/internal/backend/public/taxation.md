@@ -1,6 +1,6 @@
 <!-- AUTO-GENERATED — byte-faithful mirror of aevum-api@ac475514/docs. Edit at source, not here. -->
 
-<!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-finance mirrors this
+<!-- Tier: T1 · general audience ("anyone"). Public-safe: aevum-hub mirrors this
      file and merges it with the web lane's T1 into the T0 product doc.
      Keep this page free of code, internal paths and tier labels — a reader here
      should never be shown which audience bucket they were sorted into.

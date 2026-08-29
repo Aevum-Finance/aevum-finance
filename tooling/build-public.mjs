@@ -28,7 +28,7 @@ const ROOT = path.resolve(HERE, '..');
 const PUBLIC = path.join(ROOT, 'docs', 'public');
 
 const TIER_HEADER =
-  '<!-- Tier: T0 · product · users. Assembled at aevum-finance by merging the backend + frontend\n' +
+  '<!-- Tier: T0 · product · users. Assembled at aevum-hub by merging the backend + frontend\n' +
   '     lane T1 docs into one product narrative. The prose here is authored; the provenance block\n' +
   '     below is generated (tooling/build-public.mjs). Keep this page free of tier labels and\n' +
   '     internal paths — a reader must never be shown which module or bucket its content came from. -->';

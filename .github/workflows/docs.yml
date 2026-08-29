@@ -1,4 +1,4 @@
-# The outer repo's docs gate + fold (T-docs-tiering, aevum-finance lane).
+# The outer repo's docs gate + fold (T-docs-tiering, aevum-hub lane).
 #
 # This repo's docs are mostly DERIVED: the lane mirror under docs/internal/, the
 # generated regions in docs/public/ and ARCHITECTURE.md, the built manual PDF, and
