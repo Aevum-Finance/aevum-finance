@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@88bd7892/docs. Edit at source, not here. -->
+<!-- AUTO-GENERATED — byte-faithful mirror of aevum-web@36e83551/docs. Edit at source, not here. -->
 
 # Interaction Patterns
 
@@ -59,7 +59,9 @@ a picker appears.
 ## Transactional settings edits
 
 Some settings ripple across the whole app — change the currency and every amount
-reformats; change the timezone and every date shifts. Those high-impact,
+reformats; change the timezone and clock times and week boundaries re-anchor
+(the calendar date a transaction happened on stays put — it is local, not a
+shifting instant). Those high-impact,
 tightly-coupled choices are grouped behind a settings surface that **stages**
 edits and commits them together on save, with a clean read-only summary the rest
 of the time. Low-impact, independent toggles stay inline and apply the instant
