@@ -3,7 +3,7 @@
   "as_of": "2026-08-31",
   "source_refs": {
     "backend": "09917f61",
-    "frontend": "fb9bd3eb"
+    "frontend": "8b2ca62a"
   },
   "backend": {
     "note": "Canonical Aevum backend metrics — generated, do not hand-edit.",
